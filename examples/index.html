@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Social Count</title>
+		<link rel="stylesheet" href="../lib/socialcount.css">
+		<style>
+			html {
+				font: 100% Helvetica, sans-serif;
+			}
+			input[type="text"] {
+				width: 300px;
+			}
+			.facebook,
+			.twitter,
+			.googleplus {
+				font-weight: bold;
+			}
+			.facebook {
+				color: #3b5998;
+			}
+			.twitter {
+				color: #00aced;
+			}
+			.googleplus {
+				color: #db583b;
+			}
+			ul {
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<form>
+			<input type="text" value="http://www.google.com/">
+			<input type="submit" value="Fetch Counts">
+		</form>
+		<h3>data-orientation="horizontal-inline" (default)</h3>
+		<ul class="socialcount" data-url="http://www.google.com/">
+			<li class="facebook">Share <span class="count"></span></li>
+			<li class="twitter">Tweet <span class="count"></span></li>
+			<li class="googleplus">+1 <span class="count"></span></li>
+		</ul>
+
+		<h3>data-orientation="horizontal"</h3>
+		<ul class="socialcount" data-orientation="horizontal" data-url="http://www.google.com/">
+			<li class="facebook">Share <span class="count"></span></li>
+			<li class="twitter">Tweet <span class="count"></span></li>
+			<li class="googleplus">+1 <span class="count"></span></li>
+		</ul>
+
+		<h3>data-orientation="vertical"</h3>
+		<ul class="socialcount" data-orientation="vertical" data-url="http://www.google.com/">
+			<li class="facebook">Share <span class="count"></span></li>
+			<li class="twitter">Tweet <span class="count"></span></li>
+			<li class="googleplus">+1 <span class="count"></span></li>
+		</ul>
+		<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+		<script src="../lib/socialcount.js"></script>
+		<script>
+		(function() {
+			$('.socialcount').each(function()
+			{
+				var $el = $(this);
+				SocialCount.init($el);
+
+				$('form').submit(function()
+				{
+					$el.attr('data-url', $(this).find(':text').val());
+					SocialCount.init($el);
+
+					return false;
+				});
+			})
+		})();
+		</script>
+	</body>
+</html>
