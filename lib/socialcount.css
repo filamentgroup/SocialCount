@@ -3,6 +3,10 @@
 	line-height: 3em;
 	padding-left: 0;
 }
+.socialcount :link,
+.socialcount :visited {
+	color: #000;
+}
 .socialcount > li {
 	display: inline-block;
 	*display: inline;
@@ -58,6 +62,8 @@
 	display: block;
 	margin-left: 0;
 	margin-top: -2px;
+	text-align: center;
+	min-width: 2.8em;
 }
 .socialcount.vertical .count:before,
 .socialcount.horizontal .count:before {
