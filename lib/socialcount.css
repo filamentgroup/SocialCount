@@ -1,0 +1,72 @@
+.socialcount {
+	list-style: none;
+	line-height: 3em;
+	padding-left: 0;
+}
+.socialcount > li {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	white-space: nowrap;
+	padding: 0 .5em;
+}
+.count {
+	font-weight: bold;
+	border: 1px solid #999;
+	color: #000;
+	background-color: #fff;
+	padding: .3em .5em;
+	position: relative;
+	border-radius: 3px;
+	margin-left: .4em;
+	display: none;
+}
+.socialcount.js .count {
+	display: inline;
+}
+.ie-lte8 .count:before {
+	display: none;
+}	
+.count:before {
+	content: '';
+	position: absolute;
+	left: -4px;
+	top: .5em;
+	border: 1px solid #999;
+	background-color: inherit;
+	border-right: none;
+	border-bottom: none;
+	width: 6px;
+	height: 6px;
+
+	-webkit-transform: rotate(315deg); 
+	-moz-transform: rotate(315deg); 
+	-ms-transform: rotate(315deg); /* IE9 */
+	-o-transform: rotate(315deg); 
+	transform: rotate(315deg);
+}
+.socialcount.vertical > li {
+	float: left;
+	clear: left;
+}
+.socialcount.js.vertical,
+.socialcount.js.horizontal {
+	line-height: 2.3em;
+}
+.socialcount.js.vertical .count,
+.socialcount.js.horizontal .count {
+	display: block;
+	margin-left: 0;
+	margin-top: -2px;
+}
+.socialcount.vertical .count:before,
+.socialcount.horizontal .count:before {
+	left: .5em;
+	top: -4px;
+
+	-webkit-transform: rotate(45deg); 
+	-moz-transform: rotate(45deg); 
+	-ms-transform: rotate(45deg); /* IE9 */
+	-o-transform: rotate(45deg); 
+	transform: rotate(45deg);
+}
