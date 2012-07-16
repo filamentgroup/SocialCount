@@ -24,6 +24,8 @@
 	border-radius: 3px;
 	margin-left: .4em;
 	display: none;
+	-webkit-box-shadow: 1px 1px 1px 0 #ddd;
+	box-shadow: 1px 1px 1px 0 #ddd;
 }
 .socialcount.js .count {
 	display: inline;
@@ -49,9 +51,13 @@
 	-o-transform: rotate(315deg); 
 	transform: rotate(315deg);
 }
+.socialcount.vertical {
+	overflow: hidden;
+}
 .socialcount.vertical > li {
 	float: left;
 	clear: left;
+	padding-bottom: .6em;
 }
 .socialcount.js.vertical,
 .socialcount.js.horizontal {
@@ -63,7 +69,6 @@
 	margin-left: 0;
 	margin-top: -2px;
 	text-align: center;
-	min-width: 2.8em;
 }
 .socialcount.vertical .count:before,
 .socialcount.horizontal .count:before {
@@ -75,4 +80,56 @@
 	-ms-transform: rotate(45deg); /* IE9 */
 	-o-transform: rotate(45deg); 
 	transform: rotate(45deg);
+}
+
+/* Text-only share links */
+.socialcount .facebook,
+.socialcount .twitter,
+.socialcount .googleplus {
+	font-weight: bold;
+}
+.socialcount .facebook,
+.socialcount .facebook :link,
+.socialcount .facebook :visited {
+	color: #3b5998;
+}
+.socialcount .twitter,
+.socialcount .twitter :link,
+.socialcount .twitter :visited {
+	color: #00aced;
+}
+.socialcount .googleplus,
+.socialcount .googleplus :link,
+.socialcount .googleplus :visited {
+	color: #db583b;
+}
+
+/* Remote social widgets */
+.socialcount.horizontal-inline .googleplus a,
+.socialcount.horizontal-inline .twitter a,
+.socialcount.horizontal-inline .facebook a {
+	text-align: right;
+}
+.socialcount.js .googleplus a,
+.socialcount.js .g-plusone,
+.socialcount.js .twitter a,
+.socialcount.js .facebook a,
+.socialcount.js .facebook iframe {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+}
+.socialcount .googleplus a,
+.socialcount .g-plusone {
+	width: 32px;
+}
+.socialcount .twitter a {
+	width: 56px;
+}
+.socialcount .facebook iframe {
+	height: 20px;
+}
+.socialcount .facebook a,
+.socialcount .facebook iframe {
+	width: 90px;
 }

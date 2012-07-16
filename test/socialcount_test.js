@@ -25,13 +25,23 @@ exports['SocialCountNormalizeCountTest'] = {
 		test.equal(SocialCount.normalizeCount(2050), '2K');
 		test.done();
 	},
-	normalizeCountAbove100K: function(test)
+	normalizeCountAround100K: function(test)
 	{
-		// >= 100K
+		test.equal(SocialCount.normalizeCount(99499), '99.5K');
+		test.equal(SocialCount.normalizeCount(99501), '99.5K');
+		// if >= 100K, uses Math.floor
 		test.equal(SocialCount.normalizeCount(100000), '100K');
 		test.equal(SocialCount.normalizeCount(100999), '100K');
 		test.equal(SocialCount.normalizeCount(101000), '101K');
 		test.equal(SocialCount.normalizeCount(101999), '101K');
+		test.done();
+	},
+	normalizeCountAround1M: function(test)
+	{
+		// uses Math.floor
+		test.equal(SocialCount.normalizeCount(999499), '999K');
+		test.equal(SocialCount.normalizeCount(999999), '999K');
+		test.equal(SocialCount.normalizeCount(1000000), '1M');
 		test.done();
 	}
 };
