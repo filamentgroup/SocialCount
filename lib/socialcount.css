@@ -1,7 +1,8 @@
 .socialcount {
 	list-style: none;
-	line-height: 3em;
+	line-height: 2.7em;
 	padding-left: 0;
+	font-size: .8125em;
 }
 .socialcount :link,
 .socialcount :visited {
@@ -15,7 +16,6 @@
 	padding: 0 .5em;
 }
 .count {
-	font-size: .75em;
 	font-weight: normal;
 	border: 1px solid #bbb;
 	color: #000;
@@ -63,10 +63,6 @@
 	float: left;
 	clear: left;
 	padding-bottom: .6em;
-}
-.socialcount.js.vertical,
-.socialcount.js.horizontal {
-	line-height: 2.3em;
 }
 .socialcount.js.vertical .count,
 .socialcount.js.horizontal .count {
@@ -142,9 +138,22 @@
 .socialcount.like .facebook iframe {
 	width: 48px; /* like */
 }
-.socialcount.horizontal-inline iframe {
-	position: relative !important;
-	top: 5px !important;
+
+.socialcount > li {
+	position: relative;
+	vertical-align: top;
+}
+.socialcount iframe,
+.socialcount .twitter .twitter-share-button {
+	cursor: pointer;
+	opacity: 0.01;
+	z-index: 2;
+	position: absolute !important;
+	left: 0 !important;
+	top: 7px !important;
+}
+.socialcount .googleplus > div {
+	display: inline !important;
 }
 .socialcount.vertical > li {
 	min-width: 90px; /* facebook recommand, matches iframe width above */
