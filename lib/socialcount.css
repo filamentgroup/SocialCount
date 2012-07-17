@@ -15,17 +15,22 @@
 	padding: 0 .5em;
 }
 .count {
-	font-weight: bold;
-	border: 1px solid #999;
+	font-size: .75em;
+	font-weight: normal;
+	border: 1px solid #bbb;
 	color: #000;
 	background-color: #fff;
-	padding: .3em .5em;
+	padding: 0 .5em;
 	position: relative;
 	border-radius: 3px;
 	margin-left: .4em;
 	display: none;
 	-webkit-box-shadow: 1px 1px 1px 0 #ddd;
 	box-shadow: 1px 1px 1px 0 #ddd;
+}
+.socialcount.horizontal-inline .count {
+	padding-top: .3em;
+	padding-bottom: .3em;
 }
 .socialcount.js .count {
 	display: inline;
@@ -131,5 +136,19 @@
 }
 .socialcount .facebook a,
 .socialcount .facebook iframe {
-	width: 90px;
+	width: 90px; /* recommend */
+}
+.socialcount.like .facebook a,
+.socialcount.like .facebook iframe {
+	width: 48px; /* like */
+}
+.socialcount.horizontal-inline iframe {
+	position: relative !important;
+	top: 5px !important;
+}
+.socialcount.vertical > li {
+	min-width: 90px; /* facebook recommand, matches iframe width above */
+}
+.socialcount.vertical.like > li {
+	min-width: 60px; /* facebook like, anything gte 58px */
 }
