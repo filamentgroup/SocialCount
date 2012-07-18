@@ -15,7 +15,7 @@
 	white-space: nowrap;
 	padding: 0 .5em;
 }
-.count {
+.socialcount .count {
 	font-weight: normal;
 	border: 1px solid #bbb;
 	color: #000;
@@ -35,10 +35,10 @@
 .socialcount.js .count {
 	display: inline;
 }
-.ie-lte8 .count:before {
+.ie-lte8 .socialcount .count:before {
 	display: none;
 }	
-.count:before {
+.socialcount .count:before {
 	content: '';
 	position: absolute;
 	left: -4px;
