@@ -4,6 +4,9 @@
 	padding-left: 0;
 	font-size: .8125em;
 }
+.socialcount.js {
+	font-size: 13px; /* To fix BB OS6 issue with default font-size */
+}
 .socialcount :link,
 .socialcount :visited {
 	color: #000;
@@ -36,7 +39,7 @@
 .socialcount.js .count {
 	display: inline;
 }
-.ie-lte8 .socialcount .count:before {
+.socialcount.no-transforms .count:before {
 	display: none;
 }	
 .socialcount .count:before {
@@ -123,21 +126,21 @@
 }
 .socialcount .googleplus a,
 .socialcount .g-plusone {
-	width: 32px;
+	width: 2.462em; /* 56px */
 }
 .socialcount .twitter a {
-	width: 56px;
+	width: 4.307em; /* 32px */
 }
 .socialcount .facebook iframe {
-	height: 20px;
+	height: 1.538em; /* 20px */
 }
 .socialcount .facebook a,
 .socialcount .facebook iframe {
-	width: 90px; /* recommend */
+	width: 6.923em; /* 90px recommend */
 }
 .socialcount.like .facebook a,
 .socialcount.like .facebook iframe {
-	width: 48px; /* like */
+	width: 3.692em; /* 48px like */
 }
 
 .socialcount > li {
@@ -147,7 +150,6 @@
 .socialcount iframe,
 .socialcount .twitter .twitter-share-button {
 	cursor: pointer;
-	z-index: 2;
 	position: absolute !important;
 	left: 6px !important;
 	top: 6px !important;
@@ -156,11 +158,16 @@
 	display: inline !important;
 }
 .socialcount.vertical > li {
-	min-width: 90px; /* facebook recommend, matches iframe width above */
+	min-width: 6.923em; /* 90px facebook recommend, matches iframe width above */
 }
 .socialcount.vertical.like > li {
-	min-width: 60px; /* facebook like, anything gte 58px */
+	min-width: 4.615em; /* 60px facebook like, anything gte 58px */
 }
+.socialcount .active a {
+	visibility: hidden;
+}
+
+/* Inline loading */
 .socialcount .loading {
 	position: absolute;
 	left: 0;
@@ -168,14 +175,14 @@
 	width: 100%;
 	z-index: 3;
 	background-color: #fff;
+	background-color: rgba(255, 255, 255, 0.7);
+	color: #000;
 	padding: 0 .6em;
-}
-/* Inline loading */
-.loading {
+	padding-left: 1em;
 	text-transform: uppercase;
 	font-size: .75em;
 }
-.loading .dot {
+.socialcount .loading .dot {
 	display: inline-block;
 	width: 6px;
 	height: 6px;
