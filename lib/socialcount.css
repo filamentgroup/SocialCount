@@ -187,42 +187,42 @@
 	-moz-border-radius: 50%;
 	border-radius: 50%;
 
-	-webkit-animation: loadingFade 1s infinite;
-	-moz-animation: loadingFade 1s infinite;
-	animation: loadingFade 1s infinite;
+	-webkit-animation: socialCountLoadingFade 1s infinite;
+	-moz-animation: socialCountLoadingFade 1s infinite;
+	animation: socialCountLoadingFade 1s infinite;
 }
 
-.loading .dot:nth-child(1) {
+.socialcount .loading .dot:nth-child(1) {
 	-webkit-animation-delay: 0s;
 	-moz-animation-delay: 0s;
 	animation-delay: 0s;
 }
 
-.loading .dot:nth-child(2) {
+.socialcount .loading .dot:nth-child(2) {
 	-webkit-animation-delay: .1s;
 	-moz-animation-delay: .1s;
 	animation-delay: .1s;
 }
 
-.loading .dot:nth-child(3) {
+.socialcount .loading .dot:nth-child(3) {
 	-webkit-animation-delay: .2s;
 	-moz-animation-delay: .2s;
 	animation-delay: .2s;
 }
 
-@-webkit-keyframes loadingFade {
+@-webkit-keyframes socialCountLoadingFade {
 	0% { opacity: 0; }
 	50% { opacity: 0.8; }
 	100% { opacity: 0; }
 }
 
-@-moz-keyframes loadingFade {
+@-moz-keyframes socialCountLoadingFade {
 	0% { opacity: 0;  }
 	50% { opacity: 0.8; }
 	100% { opacity: 0; }
 }
 
-@keyframes loadingFade {
+@keyframes socialCountLoadingFade {
 	0% { opacity: 0; }
 	50% { opacity: 0.8; }
 	100% { opacity: 0; }
