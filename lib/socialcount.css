@@ -194,9 +194,9 @@
 	-moz-border-radius: 50%;
 	border-radius: 50%;
 
-	-webkit-animation: socialCountLoadingFade 1s infinite;
-	-moz-animation: socialCountLoadingFade 1s infinite;
-	animation: socialCountLoadingFade 1s infinite;
+	-webkit-animation: socialCountLoadingFade .6s infinite;
+	-moz-animation: socialCountLoadingFade .6s infinite;
+	animation: socialCountLoadingFade .6s infinite;
 }
 
 .socialcount .loading .dot:nth-child(1) {
@@ -206,15 +206,15 @@
 }
 
 .socialcount .loading .dot:nth-child(2) {
-	-webkit-animation-delay: .1s;
-	-moz-animation-delay: .1s;
-	animation-delay: .1s;
+	-webkit-animation-delay: .05s;
+	-moz-animation-delay: .05s;
+	animation-delay: .05s;
 }
 
 .socialcount .loading .dot:nth-child(3) {
-	-webkit-animation-delay: .2s;
-	-moz-animation-delay: .2s;
-	animation-delay: .2s;
+	-webkit-animation-delay: .1s;
+	-moz-animation-delay: .1s;
+	animation-delay: .1s;
 }
 
 @-webkit-keyframes socialCountLoadingFade {
