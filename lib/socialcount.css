@@ -118,9 +118,9 @@
 }
 
 /* Remote social widgets */
-.socialcount.horizontal-inline .googleplus a,
-.socialcount.horizontal-inline .twitter a,
-.socialcount.horizontal-inline .facebook a {
+.socialcount.counts.horizontal-inline .googleplus a,
+.socialcount.counts.horizontal-inline .twitter a,
+.socialcount.counts.horizontal-inline .facebook a {
 	text-align: right;
 }
 .socialcount .googleplus a,
