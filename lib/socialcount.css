@@ -3,9 +3,16 @@
 	line-height: 2.7em;
 	padding-left: 0;
 	font-size: .8125em;
+	margin: 0;
 }
-.socialcount.js {
+/* These classes are added in JS */
+.socialcount.vertical,
+.socialcount.horizontal,
+.socialcount.horizontal-inline {
 	font-size: 13px; /* To fix BB OS6 issue with default font-size */
+}
+.socialcount.vertical {
+	overflow: hidden;
 }
 .socialcount :link,
 .socialcount :visited {
@@ -15,8 +22,14 @@
 	display: inline-block;
 	*display: inline;
 	zoom: 1;
-	white-space: nowrap;
 	padding: 0 .5em;
+	position: relative;
+	vertical-align: top;
+}
+.socialcount.vertical > li {
+	float: left;
+	clear: left;
+	padding-bottom: .6em;
 }
 .socialcount .count {
 	font-weight: normal;
@@ -26,22 +39,29 @@
 	padding: 0 .5em;
 	position: relative;
 	border-radius: 3px;
-	margin-left: .4em;
-	display: none;
+	margin-left: .8em;
 	-webkit-box-shadow: 1px 1px 1px 0 #ddd;
 	box-shadow: 1px 1px 1px 0 #ddd;
 	z-index: 4;
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+	min-width: 35px;
+	text-align: center;
 }
 .socialcount.horizontal-inline .count {
 	padding-top: .3em;
 	padding-bottom: .3em;
+	line-height: 1.2em;
+	margin-top: 4px;
 }
-.socialcount.js .count {
-	display: inline;
+.socialcount.vertical .count,
+.socialcount.horizontal .count {
+	display: block;
+	margin-left: 0;
+	margin-top: -2px;
 }
-.socialcount.no-transforms .count:before {
-	display: none;
-}	
+
 .socialcount .count:before {
 	content: '';
 	position: absolute;
@@ -60,20 +80,8 @@
 	-o-transform: rotate(315deg); 
 	transform: rotate(315deg);
 }
-.socialcount.vertical {
-	overflow: hidden;
-}
-.socialcount.vertical > li {
-	float: left;
-	clear: left;
-	padding-bottom: .6em;
-}
-.socialcount.js.vertical .count,
-.socialcount.js.horizontal .count {
-	display: block;
-	margin-left: 0;
-	margin-top: -2px;
-	text-align: center;
+.socialcount.no-transforms .count:before {
+	display: none;
 }
 .socialcount.vertical .count:before,
 .socialcount.horizontal .count:before {
@@ -115,11 +123,11 @@
 .socialcount.horizontal-inline .facebook a {
 	text-align: right;
 }
-.socialcount.js .googleplus a,
-.socialcount.js .g-plusone,
-.socialcount.js .twitter a,
-.socialcount.js .facebook a,
-.socialcount.js .facebook iframe {
+.socialcount .googleplus a,
+.socialcount .g-plusone,
+.socialcount .twitter a,
+.socialcount .facebook a,
+.socialcount .facebook iframe {
 	display: inline-block;
 	*display: inline;
 	zoom: 1;
@@ -143,10 +151,6 @@
 	width: 3.692em; /* 48px like */
 }
 
-.socialcount > li {
-	position: relative;
-	vertical-align: top;
-}
 .socialcount iframe,
 .socialcount .twitter .twitter-share-button {
 	cursor: pointer;
@@ -172,7 +176,8 @@
 	position: absolute;
 	left: 0;
 	top: 0;
-	width: 100%;
+	width: 96%;
+	height: 100%;
 	z-index: 3;
 	background-color: #fff;
 	background-color: rgba(255, 255, 255, 0.7);
@@ -184,6 +189,7 @@
 }
 .socialcount .loading .dot {
 	display: inline-block;
+	/* no ie7 compat needed here, just shows the text links */
 	width: 6px;
 	height: 6px;
 	margin: 0 3px;
