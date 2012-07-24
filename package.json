@@ -1,6 +1,7 @@
 {
   "name": "SocialCount",
-  "description": "Simple barebones project to show share counts from various social networks.",
+  "title": "socialcount",
+  "description": "Progressively enhanced, lazy loaded, touchscreen-compatible Social Networking widgets.",
   "version": "0.1.0",
   "homepage": "https://github.com/filamentgroup/SocialCount",
   "author": {
@@ -19,18 +20,14 @@
     {
       "type": "MIT",
       "url": "https://github.com/filamentgroup/SocialCount/blob/master/LICENSE-MIT"
+    },
+    {
+      "type": "GPL",
+      "url": "https://github.com/filamentgroup/SocialCount/blob/master/LICENSE-GPL"
     }
   ],
-  "main": "lib/SocialCount",
-  "engines": {
-    "node": "*"
-  },
-  "scripts": {
-    "test": "grunt test"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "grunt": "~0.3.9"
+  "dependencies": {
+    "jquery": "1.5"
   },
   "keywords": []
 }

@@ -1,7 +1,6 @@
-(function( exports ) {
+(function( win, doc, $ ) {
 
 	// TODO: get running with wrap
-	// TODO: make document global portable through exports
 
 	var $loadingIndicator,
 		$count,
@@ -9,7 +8,7 @@
 
 	function featureTest( prop, unprefixedProp )
 	{
-		var style = document.createElement('social').style;
+		var style = doc.createElement('social').style,
 			prefixes = 'webkit moz o ms'.split(' ');
 
 		if( unprefixedProp in style ) {
@@ -23,7 +22,7 @@
 		return false;
 	}
 
-	SocialCount = {
+	var SocialCount = {
 		showCounts: true,
 		serviceUrl: '../service/index.php',
 		initSelector: '.socialcount',
@@ -82,7 +81,7 @@
 				});
 			}
 
-			if('querySelectorAll' in document && !( exports.blackberry && !exports.WebKitPoint )) {
+			if('querySelectorAll' in doc && !( win.blackberry && !win.WebKitPoint )) {
 				SocialCount.bindEvents( $el, url, facebookAction );
 			}
 		},
@@ -113,18 +112,6 @@
 			}
 			return count;
 		},
-		initLoadingIndicator: function()
-		{
-			// Thanks to http://codepen.io/ericmatthys/pen/FfcEL
-			var $div = $(document.createElement('div')),
-				dot = '<div class="dot"></div>';
-
-			$div.addClass('loading');
-
-			$div.html( SocialCount.isCssAnimations() ? dot + dot + dot : 'Loading' );
-
-			return $div;
-		},
 		bindEvents: function( $el, url, facebookAction )
 		{
 			function bind( $a, html, jsUrl )
@@ -136,20 +123,23 @@
 						var $self = $( this ),
 							$parent = $self.parent(),
 							$loading = $loadingIndicator.clone(),
-							$content = $(html);
+							$content = $(html),
+							js;
 
-						$parent.addClass( SocialCount.activeClass );
-						$parent.append( $loading ).append( $content );
+						$parent
+							.addClass( SocialCount.activeClass )
+							.append( $loading )
+							.append( $content );
 
 						if( jsUrl ) {
-							js = document.createElement( 'script' );
+							js = doc.createElement( 'script' );
 							js.src = jsUrl;
 
 							// IE8 doesn't do script onload.
 							if( js.attachEvent ) {
 								js.attachEvent( 'onreadystatechange', function()
 								{
-									if( js.readyState == 'complete' ) {
+									if( js.readyState === 'complete' ) {
 										$parent.find('iframe').bind( 'load', function() {
 											$loading.remove();
 										});
@@ -163,7 +153,7 @@
 								});
 							}
 
-							document.body.appendChild( js );
+							doc.body.appendChild( js );
 						} else if( $content.is( 'iframe' ) ) {
 							$content.bind( 'load', function() {
 								$loading.remove();
@@ -186,10 +176,15 @@
 	};
 
 	$(function() {
-		$loadingIndicator = SocialCount.initLoadingIndicator();
+		// Thanks to http://codepen.io/ericmatthys/pen/FfcEL
+		$loadingIndicator = $('<div>')
+			.addClass('loading')
+			.html( SocialCount.isCssAnimations() ? new Array(4).join('<div class="dot"></div>') : 'Loading' );
 
 		if( SocialCount.showCounts ) {
-			$count = $('<span>').addClass('count').html('&#160;');
+			$count = $('<span>')
+				.addClass('count')
+				.html('&#160;');
 		}
 
 		$( SocialCount.initSelector ).each(function()
@@ -199,6 +194,6 @@
 		});
 	});
 
-	exports.SocialCount = SocialCount;
+	window.SocialCount = SocialCount;
 
-})( typeof exports === 'object' && exports || this );
+}( window, window.document, jQuery ));
