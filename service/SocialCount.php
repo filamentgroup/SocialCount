@@ -83,6 +83,27 @@ class GooglePlus implements SocialNetwork
 	}
 }
 
+class ShareThis implements SocialNetwork {
+	const PUB_KEY = 'a3cce920-3a6b-47a8-a890-d27d55cbc9e8';
+	const ACCESS_KEY = '512db7bf2cce2acb63fad31b31067e27';
+
+	public function getKey()
+	{
+		return 'sharethis';
+	}
+
+	public function getShareCount($url)
+	{
+		$contents = file_get_contents('http://rest.sharethis.com/reach/getUrlInfo.php?url=' . $url . '&pub_key=' . self::PUB_KEY . '&access_key=' . self::ACCESS_KEY);
+		if($contents) {
+			$json = json_decode($contents);
+			return $json->total->inbound;
+		} else {
+			return NULL;
+		}
+	}
+}
+
 /*
  * SocialCount
  * Returns share, like, and comment counts for various popular social networks in a single ajax request.
