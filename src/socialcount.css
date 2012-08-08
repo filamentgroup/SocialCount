@@ -1,174 +1,120 @@
 .socialcount {
 	list-style: none;
-	line-height: 2.7em;
 	padding-left: 0;
-	font-size: .8125em;
 	margin: 0;
+	color: #fff;
+	font-size: .875em;
+	line-height: 2.2em;
 }
-/* These classes are added in JS */
-.socialcount.vertical,
-.socialcount.horizontal,
-.socialcount.horizontal-inline {
-	font-size: 13px; /* To fix BB OS6 issue with default font-size */
-}
-.socialcount.vertical {
-	overflow: hidden;
+.socialcount-large {
+	line-height: normal;
 }
 .socialcount :link,
 .socialcount :visited {
-	color: #000;
+	color: #fff;
 }
 .socialcount > li {
 	display: inline-block;
 	*display: inline;
 	zoom: 1;
-	padding: 0 .5em;
+	padding: 0 .3em;
 	position: relative;
 	vertical-align: top;
-}
-.socialcount.vertical > li {
-	float: left;
-	clear: left;
-	padding-bottom: .6em;
-}
-.socialcount .count {
-	font-weight: normal;
-	border: 1px solid #bbb;
-	color: #000;
-	background-color: #fff;
-	padding: 0 .5em;
-	position: relative;
+	background-color: #cdcccc;
+	font-weight: bold;
 	border-radius: 3px;
-	margin-left: .8em;
-	-webkit-box-shadow: 1px 1px 1px 0 #ddd;
-	box-shadow: 1px 1px 1px 0 #ddd;
-	z-index: 4;
-	display: inline-block;
-	*display: inline;
-	zoom: 1;
-	min-width: 35px;
+	min-width: 60px;
 	text-align: center;
 }
-.socialcount.horizontal-inline .count {
-	padding-top: .3em;
-	padding-bottom: .3em;
-	line-height: 1.2em;
-	margin-top: 4px;
+.socialcount-small > li {
+	min-width: 0;
+	padding-left: .5em;
+	padding-right: .5em;
 }
-.socialcount.vertical .count,
-.socialcount.horizontal .count {
+.socialcount-large > li {
+	float: left;
+	clear: left;
+	margin-bottom: .6em;
+	padding: .8em .3em;
+	min-width: 90px; /* 90px facebook recommend, matches iframe width above */
+}
+.socialcount-large.like > li {
+	min-width: 60px; /* 60px facebook like, anything gte 58px */
+}
+.socialcount > li > a {
 	display: block;
-	margin-left: 0;
-	margin-top: -2px;
 }
 
-.socialcount .count:before {
-	content: '';
-	position: absolute;
-	left: -4px;
-	top: .5em;
-	border: 1px solid #999;
-	background-color: inherit;
-	border-right: none;
-	border-bottom: none;
-	width: 6px;
-	height: 6px;
-
-	-webkit-transform: rotate(315deg); 
-	-moz-transform: rotate(315deg); 
-	-ms-transform: rotate(315deg); /* IE9 */
-	-o-transform: rotate(315deg); 
-	transform: rotate(315deg);
-}
-.socialcount.no-transforms .count:before {
-	display: none;
-}
-.socialcount.vertical .count:before,
-.socialcount.horizontal .count:before {
-	left: .5em;
-	top: -4px;
-
-	-webkit-transform: rotate(45deg); 
-	-moz-transform: rotate(45deg); 
-	-ms-transform: rotate(45deg); /* IE9 */
-	-o-transform: rotate(45deg); 
-	transform: rotate(45deg);
-}
-
-/* Text-only share links */
-.socialcount .facebook,
-.socialcount .twitter,
-.socialcount .googleplus {
-	font-weight: bold;
-}
-.socialcount .facebook,
-.socialcount .facebook :link,
-.socialcount .facebook :visited {
-	color: #3b5998;
-}
-.socialcount .twitter,
-.socialcount .twitter :link,
-.socialcount .twitter :visited {
-	color: #00aced;
-}
-.socialcount .googleplus,
-.socialcount .googleplus :link,
-.socialcount .googleplus :visited {
-	color: #db583b;
-}
-
-/* Remote social widgets */
-.socialcount.counts.horizontal-inline .googleplus a,
-.socialcount.counts.horizontal-inline .twitter a,
-.socialcount.counts.horizontal-inline .facebook a {
-	text-align: right;
-}
-.socialcount .googleplus a,
-.socialcount .g-plusone,
-.socialcount .twitter a,
-.socialcount .facebook a,
-.socialcount .facebook iframe {
+.socialcount .count {
+	color: inherit;
+	position: relative;
 	display: inline-block;
 	*display: inline;
 	zoom: 1;
+	text-align: center;
+	z-index: 2;
+	margin-left: 6px;
 }
-.socialcount .googleplus a,
-.socialcount .g-plusone {
-	width: 2.462em; /* 56px */
+.socialcount-large .count {
+	display: block;
+	width: 100%;
+	margin-left: 0;
 }
-.socialcount .twitter a {
-	width: 4.307em; /* 32px */
+.socialcount .count.minimum {
+	font-weight: normal;
+	text-decoration: none;
+	font-size: 130%;
 }
+
 .socialcount .facebook iframe {
-	height: 1.615em; /* 21px */
+	height: 21px;
 }
 .socialcount .facebook a,
 .socialcount .facebook iframe {
-	width: 6.923em; /* 90px recommend */
+	width: 90px; /* recommend */
 }
 .socialcount.like .facebook a,
 .socialcount.like .facebook iframe {
-	width: 3.692em; /* 48px like */
+	width: 48px; /* like */
+}
+.socialcount.socialcount-small .facebook a,
+.socialcount.socialcount-small .facebook iframe {
+	width: auto;
 }
 
-.socialcount iframe,
-.socialcount .twitter .twitter-share-button {
+.socialcount .button {
+	display: none;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: -6px;
+	text-align: center;
+}
+.socialcount-large .button {
+	bottom: 2px;
+}
+.socialcount .sharethis .button {
+	bottom: 0;
+}
+.socialcount-large .sharethis .button {
+	bottom: 10px;
+}
+
+.socialcount > li:hover {
+	background-color: #464646;
+}
+.socialcount.js > li:hover .count {
+	text-indent: -999px;
+}
+.socialcount-small.js > li:hover .count {
+	text-indent: 0;
+}
+.socialcount > .sharethis:hover {
 	cursor: pointer;
-	position: absolute !important;
-	left: 6px !important;
-	top: 6px !important;
 }
-.socialcount .googleplus > div {
-	display: inline !important;
-}
-.socialcount.vertical > li {
-	min-width: 6.923em; /* 90px facebook recommend, matches iframe width above */
-}
-.socialcount.vertical.like > li {
-	min-width: 4.615em; /* 60px facebook like, anything gte 58px */
-}
-.socialcount .active a {
-	visibility: hidden;
+.socialcount > li:hover .button {
+	cursor: pointer;
+	display: block;
 }
 
 /* Inline loading */
@@ -176,16 +122,15 @@
 	position: absolute;
 	left: 0;
 	top: 0;
-	width: 96%;
+	width: 100%;
 	height: 100%;
 	z-index: 3;
-	background-color: #fff;
-	background-color: rgba(255, 255, 255, 0.7);
+	background-color: #aaaaaa;
+	background-color: rgba(170, 170, 170, 0.7);
 	color: #000;
-	padding: 0 .6em;
-	padding-left: 1em;
 	text-transform: uppercase;
 	font-size: .75em;
+	text-align: center;
 }
 .socialcount .loading .dot {
 	display: inline-block;
@@ -193,7 +138,8 @@
 	width: 6px;
 	height: 6px;
 	margin: 0 3px;
-	background: #000;
+	margin-top: 40%;
+	background: #fff;
 	opacity: 0;
 
 	-webkit-border-radius: 50%;

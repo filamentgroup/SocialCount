@@ -1,3 +1,7 @@
+/*! SocialCount - v0.1.0 - 2012-07-24
+* https://github.com/filamentgroup/SocialCount
+* Copyright (c) 2012 zachleat; Licensed MIT */
+
 (function( win, doc, $ ) {
 
 	// TODO: get running with wrap
@@ -24,19 +28,25 @@
 
 	var SocialCount = {
 		showCounts: true,
+		minCount: 200000,
 		serviceUrl: '../service/index.php',
 		initSelector: '.socialcount',
+		jsClass: 'js',
 		activeClass: 'active',
 		noTransformsClass: 'no-transforms',
-		countsClass: 'counts',
+		showCountsClass: 'counts',
+		countContentClass: 'count',
+		minCountClass: 'minimum',
 		thousandCharacter: 'K',
 		millionCharacter: 'M',
 		missingResultText: '-',
 		classes: {
 			facebook: '.facebook',
 			twitter: '.twitter',
-			googleplus: '.googleplus'
+			googleplus: '.googleplus',
+			sharethis: '.sharethis'
 		},
+		sharethisHtml: '<li class="sharethis"><span class="icon icon-share"></span><span class="count">Share</span></li>',
 		isCssAnimations: function()
 		{
 			return featureTest( 'AnimationName', 'animationName' );
@@ -49,22 +59,40 @@
 			var map = SocialCount.classes,
 				counts = {},
 				url = $el.attr('data-url') || location.href,
-				orientation = $el.attr('data-orientation' ) || 'horizontal-inline',
 				facebookAction = ( $el.attr('data-facebook-action' ) || 'like' ).toLowerCase(),
-				classes = [ orientation, facebookAction ];
+				classes = [ SocialCount.jsClass, facebookAction ],
+				size = {
+					small: $el.is( '.socialcount-small' )
+				},
+				$networkNode,
+				$countNode;
 
 			if( !SocialCount.isCssTransforms() ) {
 				classes.push( SocialCount.noTransformsClass );
 			}
 			if( SocialCount.showCounts ) {
-				classes.push( SocialCount.countsClass );
+				classes.push( SocialCount.showCountsClass );
 			}
 			$el.addClass( classes.join(' ') );
 
-			if( SocialCount.showCounts ) {
+			// If small size, don't use native elements or sharethis widget.
+			if( !size.small ) {
+				if( SocialCount.sharethisHtml ) {
+					$el.append( SocialCount.sharethisHtml );
+				}
+			}
+
+			if( SocialCount.showCounts && !size.small ) {
 				for( var j in map ) {
-					counts[ j ] = $count.clone();
-					$el.find( map[ j ] ).append( counts[ j ] );
+					$networkNode = $el.find( map[ j ] );
+					$countNode = $networkNode.find( '.' + SocialCount.countContentClass );
+
+					if( $countNode.length ) {
+						counts[ j ] = $countNode;
+					} else {
+						counts[ j ] = $count.clone();
+						$networkNode.append( counts[ j ] );
+					}
 				}
 
 				if( !cache[ url ] ) {
@@ -75,14 +103,19 @@
 				{
 					for( var j in data ) {
 						if( data.hasOwnProperty( j ) ) {
-							counts[ j ].html( SocialCount.normalizeCount( data[ j ] ) );
+							if( data[ j ] > SocialCount.minCount ) {
+								counts[ j ].addClass( SocialCount.minCountClass )
+									.html( SocialCount.normalizeCount( data[ j ] ) );
+							}
 						}
 					}
 				});
 			}
 
-			if('querySelectorAll' in doc && !( win.blackberry && !win.WebKitPoint )) {
-				SocialCount.bindEvents( $el, url, facebookAction );
+			if( !size.small ) {
+				if( 'querySelectorAll' in doc && !( win.blackberry && !win.WebKitPoint )) {
+					SocialCount.bindEvents( $el, url, facebookAction );
+				}
 			}
 		},
 		fetch: function( url ) {
@@ -116,20 +149,35 @@
 		{
 			function bind( $a, html, jsUrl )
 			{
+				function removeLoader( $parent, $loading )
+				{
+					var $iframe = $parent.find('iframe');
+
+					if( $iframe.length ) {
+						$iframe.bind( 'load', function() {
+							$loading.remove();
+						});
+					} else {
+						$loading.remove();
+					}
+				}
+
 				$a.one( 'click', function( event ) {
 						$( this ).trigger( 'mouseover' );
 						event.preventDefault();
 					}).one( 'mouseover', function() {
 						var $self = $( this ),
-							$parent = $self.parent(),
+							$parent = $self.closest( 'li' ),
 							$loading = $loadingIndicator.clone(),
-							$content = $(html),
-							js;
+							$content = $( html ),
+							$button = $( '<div class="button"/>' ).append( $content ),
+							js,
+							$iframe;
 
 						$parent
 							.addClass( SocialCount.activeClass )
 							.append( $loading )
-							.append( $content );
+							.append( $button );
 
 						if( jsUrl ) {
 							js = doc.createElement( 'script' );
@@ -140,24 +188,18 @@
 								js.attachEvent( 'onreadystatechange', function()
 								{
 									if( js.readyState === 'complete' ) {
-										$parent.find('iframe').bind( 'load', function() {
-											$loading.remove();
-										});
+										removeLoader( $parent, $loading );
 									}
 								});
 							} else {
 								$(js).bind( 'load', function() {
-									$parent.find('iframe').bind( 'load', function() {
-										$loading.remove();
-									});
+									removeLoader( $parent, $loading );
 								});
 							}
 
 							doc.body.appendChild( js );
 						} else if( $content.is( 'iframe' ) ) {
-							$content.bind( 'load', function() {
-								$loading.remove();
-							});
+							removeLoader( $parent, $loading );
 						}
 					});
 			}
@@ -172,6 +214,17 @@
 			bind( $el.find( SocialCount.classes.googleplus + ' a' ),
 				'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
 				'//apis.google.com/js/plusone.js' );
+
+			var $sharethis = $el.find( SocialCount.classes.sharethis );
+			bind( $sharethis,
+				// st_sharethis_custom
+				'<span class="st_sharethis" displayText="Share" st_url="' + url + '"></span>',
+				'http://w.sharethis.com/button/buttons.js' );
+
+			// Proxy click instead of mouseover for sharethis.
+			$sharethis.find( '.count' ).bind( 'click', function() {
+				$( this ).parent().find( '.st_sharethis' ).trigger( 'mouseover' );
+			});
 		}
 	};
 
@@ -183,7 +236,7 @@
 
 		if( SocialCount.showCounts ) {
 			$count = $('<span>')
-				.addClass('count')
+				.addClass( SocialCount.countContentClass )
 				.html('&#160;');
 		}
 
