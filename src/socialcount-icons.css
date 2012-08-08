@@ -1,31 +1,45 @@
-/* line 58, icon/*.png */
-.icon-sprite, .icon-facebook, .icon-googleplus, .icon-twitter {
-  background: url('/SocialCount/src/icon-sc186146ed7.png') no-repeat;
+/* line 74, icon/*.png */
+.icon-sprite, .icon-facebook, .icon-googleplus, .icon-sd-sbf232c34c6, .icon-share, .icon-twitter {
+  background: url('/SocialCount/src/icon-sb6eccace3b.png') no-repeat;
 }
 
 /* line 60, ../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icon-facebook {
-  background-position: 0 -43px;
-  height: 18px;
-  width: 9px;
+  background-position: 0 -264px;
+  height: 15px;
+  width: 17px;
 }
 
 /* line 60, ../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icon-googleplus {
+  background-position: 0 -204px;
+  height: 17px;
+  width: 20px;
+}
+
+/* line 60, ../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icon-sd-sbf232c34c6 {
   background-position: 0 0;
-  height: 20px;
-  width: 24px;
+  height: 200px;
+  width: 50px;
+}
+
+/* line 60, ../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.icon-share {
+  background-position: 0 -225px;
+  height: 16px;
+  width: 20px;
 }
 
 /* line 60, ../../../../../Applications/LiveReload.app/Contents/Resources/SASS.lrplugin/lib/compass/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
 .icon-twitter {
-  background-position: 0 -24px;
+  background-position: 0 -245px;
   height: 15px;
-  width: 19px;
+  width: 17px;
 }
 
 /* line 9, socialcount-icons.scss */
-.icon-sprite, .icon-facebook, .icon-googleplus, .icon-twitter {
+.icon {
   display: inline-block;
   *display: inline;
   zoom: 1;
@@ -35,7 +49,7 @@
 /* Rather than this MQ, might be better as .supports-svg, but JS dependent */
 @media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
   /* line 23, socialcount-icons.scss */
-  .icon-sprite, .icon-facebook, .icon-googleplus, .icon-twitter {
+  .icon {
     background-size: contain;
     background-position: 0 0;
   }
