@@ -17,32 +17,44 @@
 	display: inline-block;
 	*display: inline;
 	zoom: 1;
-	padding: 0 .3em;
+	
 	position: relative;
 	vertical-align: top;
 	background-color: #cdcccc;
 	font-weight: bold;
 	border-radius: 3px;
-	min-width: 60px;
+	min-width: 74px;
 	text-align: center;
+	white-space: nowrap;
 }
 .socialcount-small > li {
 	min-width: 0;
-	padding-left: .5em;
-	padding-right: .5em;
 }
 .socialcount-large > li {
 	float: left;
 	clear: left;
 	margin-bottom: .6em;
-	padding: .8em .3em;
-	min-width: 90px; /* 90px facebook recommend, matches iframe width above */
 }
-.socialcount-large.like > li {
-	min-width: 60px; /* 60px facebook like, anything gte 58px */
+.socialcount.recommend .facebook {
+	min-width: 120px;
+}
+.socialcount-small.recommend .facebook {
+	min-width: 0;
+}
+.socialcount-large > li,
+.socialcount-large.recommend .facebook {
+	min-width: 96px;
 }
 .socialcount > li > a {
 	display: block;
+	padding: 0 5px;
+}
+.socialcount-small > li > a {
+	padding-left: 8px;
+	padding-right: 8px;
+}
+.socialcount-large > li > a {
+	padding: 12px 5px 8px;
 }
 
 .socialcount .count {
@@ -59,27 +71,19 @@
 	display: block;
 	width: 100%;
 	margin-left: 0;
+	padding-top: 10px;
 }
 .socialcount .count.minimum {
 	font-weight: normal;
 	text-decoration: none;
-	font-size: 130%;
 }
 
 .socialcount .facebook iframe {
 	height: 21px;
-}
-.socialcount .facebook a,
-.socialcount .facebook iframe {
 	width: 90px; /* recommend */
 }
-.socialcount.like .facebook a,
 .socialcount.like .facebook iframe {
 	width: 48px; /* like */
-}
-.socialcount.socialcount-small .facebook a,
-.socialcount.socialcount-small .facebook iframe {
-	width: auto;
 }
 
 .socialcount .button {
@@ -106,9 +110,16 @@
 .socialcount.js > li:hover .count {
 	text-indent: -999px;
 }
-.socialcount-small.js > li:hover .count {
-	text-indent: 0;
+.socialcount.js > li:hover .icon {
+	display: none;
 }
+.socialcount-small.js > li:hover .icon,
+.socialcount-large.js > li:hover .icon {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+}
+
 .socialcount > .sharethis:hover {
 	cursor: pointer;
 }
@@ -132,13 +143,15 @@
 	font-size: .75em;
 	text-align: center;
 }
+.socialcount-large .loading {
+	padding-top: 30%;
+}
 .socialcount .loading .dot {
 	display: inline-block;
 	/* no ie7 compat needed here, just shows the text links */
 	width: 6px;
 	height: 6px;
 	margin: 0 3px;
-	margin-top: 40%;
 	background: #fff;
 	opacity: 0;
 

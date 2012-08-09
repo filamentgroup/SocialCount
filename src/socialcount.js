@@ -13,7 +13,7 @@
 	function featureTest( prop, unprefixedProp )
 	{
 		var style = doc.createElement('social').style,
-			prefixes = 'webkit moz o ms'.split(' ');
+			prefixes = 'webkit Moz o ms'.split(' ');
 
 		if( unprefixedProp in style ) {
 			return true;
@@ -46,7 +46,7 @@
 			googleplus: '.googleplus',
 			sharethis: '.sharethis'
 		},
-		sharethisHtml: '<li class="sharethis"><span class="icon icon-share"></span><span class="count">Share</span></li>',
+		sharethisHtml: '<li class="sharethis"><a><span class="icon icon-share"></span><span class="count">Share</span></a></li>',
 		isCssAnimations: function()
 		{
 			return featureTest( 'AnimationName', 'animationName' );
@@ -147,21 +147,21 @@
 		},
 		bindEvents: function( $el, url, facebookAction )
 		{
+			function removeLoader( $parent, $loading )
+			{
+				var $iframe = $parent.find('iframe');
+
+				if( $iframe.length ) {
+					$iframe.bind( 'load', function() {
+						$loading.remove();
+					});
+				} else {
+					$loading.remove();
+				}
+			}
+
 			function bind( $a, html, jsUrl )
 			{
-				function removeLoader( $parent, $loading )
-				{
-					var $iframe = $parent.find('iframe');
-
-					if( $iframe.length ) {
-						$iframe.bind( 'load', function() {
-							$loading.remove();
-						});
-					} else {
-						$loading.remove();
-					}
-				}
-
 				$a.one( 'click', function( event ) {
 						$( this ).trigger( 'mouseover' );
 						event.preventDefault();
