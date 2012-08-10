@@ -5,6 +5,10 @@
 	color: #fff;
 	font-size: .875em;
 	line-height: 2.2em;
+	overflow: hidden;
+}
+.socialcount .icon {
+	vertical-align: middle;
 }
 .socialcount-large {
 	line-height: normal;
@@ -22,10 +26,13 @@
 	vertical-align: top;
 	background-color: #cdcccc;
 	font-weight: bold;
-	border-radius: 3px;
-	min-width: 74px;
+	min-width: 80px;
 	text-align: center;
 	white-space: nowrap;
+}
+.socialcount > li,
+.socialcount .button {
+	border-radius: 3px;
 }
 .socialcount-small > li {
 	min-width: 0;
@@ -63,7 +70,6 @@
 	*display: inline;
 	zoom: 1;
 	text-align: center;
-	z-index: 2;
 	margin-left: 6px;
 }
 .socialcount-large .count {
@@ -103,7 +109,8 @@
 	bottom: 10px;
 }
 
-.socialcount > li:hover {
+.socialcount > li:hover,
+.socialcount-small > li:hover .button {
 	background-color: #464646;
 }
 .socialcount.js > li:hover .count {

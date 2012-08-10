@@ -28,7 +28,7 @@
 
 	var SocialCount = {
 		showCounts: true,
-		minCount: 200000,
+		minCount: 50,
 		serviceUrl: '../service/index.php',
 		initSelector: '.socialcount',
 		jsClass: 'js',
@@ -46,7 +46,9 @@
 			googleplus: '.googleplus',
 			sharethis: '.sharethis'
 		},
-		sharethisHtml: '<li class="sharethis"><a><span class="icon icon-share"></span><span class="count">Share</span></a></li>',
+		// Only shown in the JS experience.
+		sharethisHtml: '<li class="sharethis"><a><span class="icon icon-share"></span><span class="count"></span></a></li>',
+
 		isCssAnimations: function()
 		{
 			return featureTest( 'AnimationName', 'animationName' );
@@ -61,11 +63,10 @@
 				url = $el.attr('data-url') || location.href,
 				facebookAction = ( $el.attr('data-facebook-action' ) || 'like' ).toLowerCase(),
 				classes = [ SocialCount.jsClass, facebookAction ],
-				size = {
-					small: $el.is( '.socialcount-small' )
-				},
+				isSmall = $el.is( '.socialcount-small' ),
 				$networkNode,
-				$countNode;
+				$countNode,
+				$sharethisNode;
 
 			if( !SocialCount.isCssTransforms() ) {
 				classes.push( SocialCount.noTransformsClass );
@@ -75,14 +76,15 @@
 			}
 			$el.addClass( classes.join(' ') );
 
-			// If small size, don't use native elements or sharethis widget.
-			if( !size.small ) {
-				if( SocialCount.sharethisHtml ) {
-					$el.append( SocialCount.sharethisHtml );
+			if( SocialCount.sharethisHtml ) {
+				$sharethisNode = $( SocialCount.sharethisHtml );
+				if( !isSmall ) {
+					$sharethisNode.find( '.count' ).html( 'Share' ).end();
 				}
+				$el.append( $sharethisNode );
 			}
 
-			if( SocialCount.showCounts && !size.small ) {
+			if( SocialCount.showCounts && !isSmall ) {
 				for( var j in map ) {
 					$networkNode = $el.find( map[ j ] );
 					$countNode = $networkNode.find( '.' + SocialCount.countContentClass );
@@ -112,10 +114,8 @@
 				});
 			}
 
-			if( !size.small ) {
-				if( 'querySelectorAll' in doc && !( win.blackberry && !win.WebKitPoint )) {
-					SocialCount.bindEvents( $el, url, facebookAction );
-				}
+			if( 'querySelectorAll' in doc && !( win.blackberry && !win.WebKitPoint )) {
+				SocialCount.bindEvents( $el, url, facebookAction, isSmall );
 			}
 		},
 		fetch: function( url ) {
@@ -145,7 +145,7 @@
 			}
 			return count;
 		},
-		bindEvents: function( $el, url, facebookAction )
+		bindEvents: function( $el, url, facebookAction, isSmall )
 		{
 			function removeLoader( $parent, $loading )
 			{
@@ -204,27 +204,23 @@
 					});
 			}
 
-			bind( $el.find( SocialCount.classes.facebook + ' a' ),
-				'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) + '&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction + '&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
+			if( !isSmall ) {
+				bind( $el.find( SocialCount.classes.facebook + ' a' ),
+					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) + '&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction + '&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
 
-			bind( $el.find( SocialCount.classes.twitter + ' a' ),
-				'<a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>',
-				'//platform.twitter.com/widgets.js' );
+				bind( $el.find( SocialCount.classes.twitter + ' a' ),
+					'<a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>',
+					'//platform.twitter.com/widgets.js' );
 
-			bind( $el.find( SocialCount.classes.googleplus + ' a' ),
-				'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
-				'//apis.google.com/js/plusone.js' );
+				bind( $el.find( SocialCount.classes.googleplus + ' a' ),
+					'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
+					'//apis.google.com/js/plusone.js' );
+			}
 
-			var $sharethis = $el.find( SocialCount.classes.sharethis );
-			bind( $sharethis,
+			bind( $el.find( SocialCount.classes.sharethis ),
 				// st_sharethis_custom
-				'<span class="st_sharethis" displayText="Share" st_url="' + url + '"></span>',
+				'<span class="st_sharethis" displayText="' + ( isSmall ? '' : 'Share' ) + '" st_url="' + url + '"></span>',
 				'http://w.sharethis.com/button/buttons.js' );
-
-			// Proxy click instead of mouseover for sharethis.
-			$sharethis.find( '.count' ).bind( 'click', function() {
-				$( this ).parent().find( '.st_sharethis' ).trigger( 'mouseover' );
-			});
 		}
 	};
 
