@@ -32,8 +32,7 @@
 }
 .socialcount-large > li {
 	float: left;
-	clear: left;
-	margin-bottom: .6em;
+	margin: 0 .6em .6em 0;
 }
 .socialcount.recommend .facebook {
 	min-width: 120px;
