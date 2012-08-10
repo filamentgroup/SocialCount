@@ -1,10 +1,7 @@
-@import "compass/utilities/sprites/base";
+@import "compass/utilities/sprites";
 
 $icon-spacing: 4px;
 $icon-sprite-dimensions: true;
-
-@import "icon/*.png";
-@include all-icon-sprites;
 
 .icon {
 	display: inline-block;
@@ -13,8 +10,12 @@ $icon-sprite-dimensions: true;
 	vertical-align: middle;
 }
 
+@import "icon/*.png";
+@include all-icon-sprites;
+
+$icon-hd: sprite-map("icon-hd/*.png", $spacing: 7px);
+
 /* HD icons */
-/* Rather than this MQ, might be better as .supports-svg, but JS dependent */
 @media (min--moz-device-pixel-ratio: 1.5),
 			(-o-min-device-pixel-ratio: 3/2),
 			(-webkit-min-device-pixel-ratio: 1.5),
@@ -22,16 +23,10 @@ $icon-sprite-dimensions: true;
 			(min-resolution: 1.5dppx) {
 
 	.icon {
-		background-size: contain;
-		background-position: 0 0;
-	}
-	.icon-facebook {
-		background-image: inline-image('icon/facebook.svg');
-	}
-	.icon-googleplus {
-		background-image: inline-image('icon/googleplus.svg');
-	}
-	.icon-twitter {
-		background-image: inline-image('icon/twitter.svg');
+		-webkit-background-size: 20px auto;
+		-moz-background-size: 20px auto;
+		-o-background-size: 20px auto;
+		background-size: 20px auto;
+		background-image: sprite-url($icon-hd);
 	}
 }
