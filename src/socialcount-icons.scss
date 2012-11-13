@@ -1,5 +1,6 @@
 @import "compass/utilities/sprites";
 
+$icon-layout: horizontal;
 $icon-spacing: 4px;
 $icon-sprite-dimensions: true;
 
@@ -13,7 +14,7 @@ $icon-sprite-dimensions: true;
 @import "icon/*.png";
 @include all-icon-sprites;
 
-$icon-hd: sprite-map("icon-hd/*.png", $spacing: 7px);
+$icon-hd: sprite-map("icon-hd/*.png", $spacing: 7px, $layout: horizontal);
 
 /* HD icons */
 @media (min--moz-device-pixel-ratio: 1.5),
@@ -23,10 +24,10 @@ $icon-hd: sprite-map("icon-hd/*.png", $spacing: 7px);
 			(min-resolution: 1.5dppx) {
 
 	.icon {
-		-webkit-background-size: 20px auto;
-		-moz-background-size: 20px auto;
-		-o-background-size: 20px auto;
-		background-size: 20px auto;
+		-webkit-background-size: auto 17px;
+		-moz-background-size: auto 17px;
+		-o-background-size: auto 17px;
+		background-size: auto 17px;
 		background-image: sprite-url($icon-hd);
 	}
 }
