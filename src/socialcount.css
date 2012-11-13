@@ -102,12 +102,6 @@
 .socialcount-large .button {
 	bottom: 2px;
 }
-.socialcount .sharethis .button {
-	bottom: 0;
-}
-.socialcount-large .sharethis .button {
-	bottom: 10px;
-}
 
 .socialcount > li:hover,
 .socialcount-small > li:hover .button {
@@ -126,9 +120,6 @@
 	zoom: 1;
 }
 
-.socialcount > .sharethis:hover {
-	cursor: pointer;
-}
 .socialcount > li:hover .button {
 	cursor: pointer;
 	display: block;

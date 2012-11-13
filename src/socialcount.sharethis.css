@@ -1,0 +1,12 @@
+.socialcount .sharethis .button {
+	bottom: 0;
+}
+.socialcount-large .sharethis .button {
+	bottom: 10px;
+}
+.socialcount > .sharethis:hover {
+	cursor: pointer;
+}
+.socialcount-small .sharethis .count {
+	text-indent: -999px;
+}

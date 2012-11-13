@@ -4,8 +4,6 @@
 
 (function( win, doc, $ ) {
 
-	// TODO: get running with wrap
-
 	var $loadingIndicator,
 		$count,
 		cache = {};
@@ -43,11 +41,12 @@
 		classes: {
 			facebook: '.facebook',
 			twitter: '.twitter',
-			googleplus: '.googleplus',
-			sharethis: '.sharethis'
+			googleplus: '.googleplus'
 		},
-		// Only shown in the JS experience.
-		sharethisHtml: '<li class="sharethis"><a><span class="icon icon-share"></span><span class="count"></span></a></li>',
+		plugins: {
+			init: [],
+			bind: []
+		},
 
 		isCssAnimations: function()
 		{
@@ -66,7 +65,7 @@
 				isSmall = $el.is( '.socialcount-small' ),
 				$networkNode,
 				$countNode,
-				$sharethisNode;
+				initPlugins = SocialCount.plugins.init;
 
 			if( !SocialCount.isCssTransforms() ) {
 				classes.push( SocialCount.noTransformsClass );
@@ -76,12 +75,8 @@
 			}
 			$el.addClass( classes.join(' ') );
 
-			if( SocialCount.sharethisHtml ) {
-				$sharethisNode = $( SocialCount.sharethisHtml );
-				if( !isSmall ) {
-					$sharethisNode.find( '.count' ).html( 'Share' ).end();
-				}
-				$el.append( $sharethisNode );
+			for( var j = 0, k = initPlugins.length; j < k; j++ ) {
+				initPlugins[ j ].call( $el );
 			}
 
 			if( SocialCount.showCounts && !isSmall ) {
@@ -114,6 +109,7 @@
 				});
 			}
 
+			// Require querySelector or if Blackberry require OS >= 6
 			if( 'querySelectorAll' in doc && !( win.blackberry && !win.WebKitPoint )) {
 				SocialCount.bindEvents( $el, url, facebookAction, isSmall );
 			}
@@ -217,10 +213,10 @@
 					'//apis.google.com/js/plusone.js' );
 			}
 
-			bind( $el.find( SocialCount.classes.sharethis ),
-				// st_sharethis_custom
-				'<span class="st_sharethis" displayText="' + ( isSmall ? '' : 'Share' ) + '" st_url="' + url + '"></span>',
-				'http://w.sharethis.com/button/buttons.js' );
+			var bindPlugins = SocialCount.plugins.bind;
+			for( var j = 0, k = bindPlugins.length; j < k; j++ ) {
+				bindPlugins[ j ].call( $el, bind, url, isSmall );
+			}
 		}
 	};
 
