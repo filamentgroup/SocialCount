@@ -49,7 +49,7 @@
 }
 .socialcount-large > li,
 .socialcount-large.recommend .facebook {
-	min-width: 96px;
+	min-width: 105px;
 }
 .socialcount > li > a {
 	display: block;
