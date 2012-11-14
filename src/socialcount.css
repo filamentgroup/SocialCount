@@ -1,8 +1,29 @@
+/* Skin CSS */
+
+.socialcount {
+	color: #fff;
+}
+.socialcount > li {
+	background-color: #999;
+}
+.socialcount > li,
+.socialcount .loading {
+	border-radius: 5px;
+}
+.socialcount > li:hover {
+	background-color: #464646;
+}
+/* Special class added to count when it's >= the minimum */
+.socialcount .count.minimum {
+}
+
+
+/* Base CSS */
+
 .socialcount {
 	list-style: none;
 	padding-left: 0;
 	margin: 0;
-	color: #fff;
 	font-size: .875em;
 	line-height: 2.2em;
 	overflow: hidden;
@@ -15,7 +36,7 @@
 }
 .socialcount :link,
 .socialcount :visited {
-	color: #fff;
+	color: inherit;
 }
 .socialcount > li {
 	display: inline-block;
@@ -24,15 +45,9 @@
 	
 	position: relative;
 	vertical-align: top;
-	background-color: #cdcccc;
-	font-weight: bold;
 	min-width: 80px;
 	text-align: center;
 	white-space: nowrap;
-}
-.socialcount > li,
-.socialcount .button {
-	border-radius: 3px;
 }
 .socialcount-small > li {
 	min-width: 0;
@@ -54,6 +69,7 @@
 .socialcount > li > a {
 	display: block;
 	padding: 0 5px;
+	text-decoration: none;
 }
 .socialcount-small > li > a {
 	padding-left: 8px;
@@ -78,9 +94,8 @@
 	margin-left: 0;
 	padding-top: 10px;
 }
-.socialcount .count.minimum {
-	font-weight: normal;
-	text-decoration: none;
+.socialcount-small .count {
+	margin-left: 0;
 }
 
 .socialcount .facebook iframe {
@@ -103,10 +118,6 @@
 	bottom: 2px;
 }
 
-.socialcount > li:hover,
-.socialcount-small > li:hover .button {
-	background-color: #464646;
-}
 .socialcount.js > li:hover .count {
 	text-indent: -999px;
 }
@@ -151,9 +162,6 @@
 	margin: 0 3px;
 	background: #fff;
 	opacity: 0;
-
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
 	border-radius: 50%;
 
 	-webkit-animation: socialCountLoadingFade .6s infinite;
