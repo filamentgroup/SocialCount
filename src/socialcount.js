@@ -97,7 +97,7 @@
 				cache[ url ].done( function complete( data ) {
 					for( var j in data ) {
 						if( data.hasOwnProperty( j ) ) {
-							if( data[ j ] > SocialCount.minCount ) {
+							if( counts[ j ] && data[ j ] > SocialCount.minCount ) {
 								counts[ j ].addClass( SocialCount.minCountClass )
 									.html( SocialCount.normalizeCount( data[ j ] ) );
 							}
