@@ -2,6 +2,7 @@
 
 	// ShareThis Widget plugin for SocialCount
 	// ShareThis is JavaScript only and does not appear in the raw HTML.
+	// Make sure you uncomment the ShareThis entry in the service.
 
 	SocialCount.classes.sharethis = '.sharethis';
 	SocialCount.sharethisHtml = '<li class="sharethis"><a><span class="icon icon-share"></span><span class="count"></span></a></li>';
