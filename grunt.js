@@ -12,15 +12,25 @@ module.exports = function(grunt) {
 				' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
 		},
 		concat: {
-			dist: {
+			distjs: {
 				src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.js>'],
 				dest: 'dist/<%= pkg.name %>.js'
+			},
+			distcss: {
+				src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.css>'],
+				dest: 'dist/<%= pkg.name %>.css'
 			}
 		},
 		min: {
-			dist: {
-				src: ['<banner:meta.banner>', '<config:concat.dist.dest>'],
+			distjs: {
+				src: ['<banner:meta.banner>', '<config:concat.distjs.dest>'],
 				dest: 'dist/<%= pkg.name %>.min.js'
+			}
+		},
+		cssmin: {
+			distcss: {
+				src: ['<banner:meta.banner>', '<config:concat.distcss.dest>'],
+				dest: 'dist/<%= pkg.name %>.min.css'
 			}
 		},
 		qunit: {
@@ -54,6 +64,8 @@ module.exports = function(grunt) {
 		uglify: {}
 	});
 
+	grunt.loadNpmTasks('grunt-css');
+
 	// Default task.
-	grunt.registerTask('default', 'lint qunit concat min');
+	grunt.registerTask('default', 'lint qunit concat min cssmin');
 };
