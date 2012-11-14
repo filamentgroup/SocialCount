@@ -141,23 +141,8 @@
 			}
 			return count;
 		},
-		bindEvents: function( $el, url, facebookAction, isSmall )
-		{
-			function removeLoader( $parent, $loading )
-			{
-				var $iframe = $parent.find('iframe');
-
-				if( $iframe.length ) {
-					$iframe.bind( 'load', function() {
-						$loading.remove();
-					});
-				} else {
-					$loading.remove();
-				}
-			}
-
-			function bind( $a, html, jsUrl )
-			{
+		bindEvents: function( $el, url, facebookAction, isSmall ) {
+			function bind( $a, html, jsUrl ) {
 				$a.one( 'click', function( event ) {
 						$( this ).trigger( 'mouseover' );
 						event.preventDefault();
@@ -168,7 +153,21 @@
 							$content = $( html ),
 							$button = $( '<div class="button"/>' ).append( $content ),
 							js,
-							$iframe;
+							$iframe,
+							deferred = $.Deferred();
+
+						deferred.promise().always(function() {
+							// Remove Loader
+							var $iframe = $parent.find('iframe');
+
+							if( $iframe.length ) {
+								$iframe.bind( 'load', function() {
+									$loading.remove();
+								});
+							} else {
+								$loading.remove();
+							}
+						});
 
 						$parent
 							.addClass( SocialCount.activeClass )
@@ -181,21 +180,18 @@
 
 							// IE8 doesn't do script onload.
 							if( js.attachEvent ) {
-								js.attachEvent( 'onreadystatechange', function()
-								{
+								js.attachEvent( 'onreadystatechange', function() {
 									if( js.readyState === 'complete' ) {
-										removeLoader( $parent, $loading );
+										deferred.resolve();
 									}
 								});
 							} else {
-								$(js).bind( 'load', function() {
-									removeLoader( $parent, $loading );
-								});
+								$(js).bind( 'load', deferred.resolve );
 							}
 
 							doc.body.appendChild( js );
 						} else if( $content.is( 'iframe' ) ) {
-							removeLoader( $parent, $loading );
+							deferred.resolve();
 						}
 					});
 			}
