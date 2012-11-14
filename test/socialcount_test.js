@@ -64,4 +64,77 @@
 		equal(SocialCount.normalizeCount(1000000), '1M');
 	});
 
+	module('testInitialize', {
+		setup: function() {
+			var $fixture = $('#qunit-fixture'),
+				$test;
+
+			$fixture.append( '<ul id="test" class="socialcount" data-url="http://www.google.com/"></ul>' );
+
+			$test = $( '#test' );
+			SocialCount.init( $test );
+		}
+	});
+
+	test( 'Retrieve URL', function() {
+		equal( SocialCount.getUrl( $('#test') ), 'http://www.google.com/' );
+	});
+
+	test( 'Retrieve Facebook Action', function() {
+		equal( SocialCount.getFacebookAction( $('#test') ), 'like' );
+	});
+
+	test( 'Test if Small', function() {
+		equal( SocialCount.isSmallSize( $('#test') ), false );
+	});
+
+	module('testInitializeNoUrl', {
+		setup: function() {
+			var $fixture = $('#qunit-fixture'),
+				$test;
+
+			$fixture.append( '<ul id="test" class="socialcount"></ul>' );
+
+			$test = $( '#test' );
+			SocialCount.init( $test );
+		}
+	});
+
+	test( 'Fall back to document URL', function() {
+		equal( SocialCount.getUrl( $('#test') ), location.href );
+	});
+
+	module('testInitializeFacebookRecommend', {
+		setup: function() {
+			var $fixture = $('#qunit-fixture'),
+				$test;
+
+			$fixture.append( '<ul id="test" class="socialcount" data-facebook-action="recommend"></ul>' );
+
+			$test = $( '#test' );
+			SocialCount.init( $test );
+		}
+	});
+
+	test( 'Retrieve Facebook Action', function() {
+		equal( SocialCount.getFacebookAction( $('#test') ), 'recommend' );
+	});
+
+	module('testInitializeSmall', {
+		setup: function() {
+			var $fixture = $('#qunit-fixture'),
+				$test;
+
+			$fixture.append( '<ul id="test" class="socialcount socialcount-small"></ul>' );
+
+			$test = $( '#test' );
+			SocialCount.init( $test );
+		}
+	});
+
+	test( 'Test if Small', function() {
+		equal( SocialCount.isSmallSize( $('#test') ), true );
+	});
+
+		// $fixture.append( '<ul id="test" class="socialcount"><li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Like</span></a></li><li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li><li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li></ul>' );
 }( jQuery ));

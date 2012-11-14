@@ -53,17 +53,27 @@
 		isCssTransforms: function() {
 			return featureTest( 'Transform', 'transform' );
 		},
+		getUrl: function( $el ) {
+			return $el.attr('data-url') || location.href;
+		},
+		getFacebookAction: function( $el ) {
+			return ( $el.attr('data-facebook-action' ) || 'like' ).toLowerCase();
+		},
+		isSmallSize: function( $el ) {
+			return $el.is( '.socialcount-small' );
+		},
 		init: function( $el ) {
 			var map = SocialCount.classes,
 				counts = {},
-				url = $el.attr('data-url') || location.href,
-				facebookAction = ( $el.attr('data-facebook-action' ) || 'like' ).toLowerCase(),
+				url = SocialCount.getUrl( $el ),
+				facebookAction = SocialCount.getFacebookAction( $el ),
 				classes = [ SocialCount.jsClass, facebookAction ],
-				isSmall = $el.is( '.socialcount-small' ),
+				isSmall = SocialCount.isSmallSize( $el ),
 				$networkNode,
 				$countNode,
 				initPlugins = SocialCount.plugins.init,
-				j;
+				j,
+				k;
 
 			if( !SocialCount.isCssTransforms() ) {
 				classes.push( SocialCount.noTransformsClass );
