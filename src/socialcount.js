@@ -8,8 +8,7 @@
 		$count,
 		cache = {};
 
-	function featureTest( prop, unprefixedProp )
-	{
+	function featureTest( prop, unprefixedProp ) {
 		var style = doc.createElement('social').style,
 			prefixes = 'webkit Moz o ms'.split(' ');
 
@@ -48,12 +47,10 @@
 			bind: []
 		},
 
-		isCssAnimations: function()
-		{
+		isCssAnimations: function() {
 			return featureTest( 'AnimationName', 'animationName' );
 		},
-		isCssTransforms: function()
-		{
+		isCssTransforms: function() {
 			return featureTest( 'Transform', 'transform' );
 		},
 		init: function( $el ) {
@@ -65,7 +62,8 @@
 				isSmall = $el.is( '.socialcount-small' ),
 				$networkNode,
 				$countNode,
-				initPlugins = SocialCount.plugins.init;
+				initPlugins = SocialCount.plugins.init,
+				j;
 
 			if( !SocialCount.isCssTransforms() ) {
 				classes.push( SocialCount.noTransformsClass );
@@ -75,12 +73,12 @@
 			}
 			$el.addClass( classes.join(' ') );
 
-			for( var j = 0, k = initPlugins.length; j < k; j++ ) {
+			for( j = 0, k = initPlugins.length; j < k; j++ ) {
 				initPlugins[ j ].call( $el );
 			}
 
 			if( SocialCount.showCounts && !isSmall ) {
-				for( var j in map ) {
+				for( j in map ) {
 					$networkNode = $el.find( map[ j ] );
 					$countNode = $networkNode.find( '.' + SocialCount.countContentClass );
 
@@ -96,8 +94,7 @@
 					cache[ url ] = SocialCount.fetch( url );
 				}
 
-				cache[ url ].done( function complete( data )
-				{
+				cache[ url ].done( function complete( data ) {
 					for( var j in data ) {
 						if( data.hasOwnProperty( j ) ) {
 							if( data[ j ] > SocialCount.minCount ) {
@@ -123,8 +120,7 @@
 				dataType: 'json'
 			});
 		},
-		normalizeCount: function( count )
-		{
+		normalizeCount: function( count ) {
 			if( !count && count !== 0 ) {
 				return SocialCount.missingResultText;
 			}
@@ -228,8 +224,7 @@
 				.html('&#160;');
 		}
 
-		$( SocialCount.initSelector ).each(function()
-		{
+		$( SocialCount.initSelector ).each(function() {
 			var $el = $(this);
 			SocialCount.init($el);
 		});
