@@ -4,7 +4,7 @@
 		 <meta name="viewport" content="width=device-width">
 		<title>Social Count</title>
 		<link rel="stylesheet" href="../src/socialcount.css">
-		<link rel="stylesheet" href="../src/socialcount.sharethis.css">
+		<!-- <link rel="stylesheet" href="../src/socialcount.sharethis.css"> -->
 		<link rel="stylesheet" href="../src/socialcount-icons.css">
 		<style>
 			html {
@@ -15,50 +15,126 @@
 				-moz-box-sizing: border-box;
 				box-sizing: border-box;
 			}
+			table {
+				margin: 1em 0;
+			}
+			th {
+				text-align: left;
+			}
+			th:after {
+				content: ':';
+			}
+			th, td {
+				font-size: .8125em;
+			}
 			h3 {
 				clear: both;
+			}
+			code {
+				font-family: Consolas, Monaco, monospace;
 			}
 		</style>
 	</head>
 	<body>
-		<h3>.socialcount-large (wide container)</h3>
-		<ul class="socialcount socialcount-large" data-url="http://www.google.com/" data-facebook-action="recommend">
-			<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Recommend</span></a></li>
-			<li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li>
-			<li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">Plus 1</span></a></li>
-		</ul>
-
-		<h3>.socialcount-large (narrow container)</h3>
-		<div style="width: 105px">
-			<ul class="socialcount socialcount-large" data-url="http://www.google.com/" data-facebook-action="recommend">
-				<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Recommend</span></a></li>
-				<li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li>
-				<li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">Plus 1</span></a></li>
-			</ul>
-		</div>
-
-		<h3>.socialcount (default, facebook recommend)</h3>
-		<ul class="socialcount" data-url="http://www.google.com/" data-facebook-action="recommend">
-			<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Recommend</span></a></li>
-			<li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li>
-			<li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li>
-		</ul>
-		<h3>.socialcount (default, facebook like)</h3>
+		<h3>Default</h3>
+		<table>
+			<tbody>
+				<tr>
+					<th>Parent <code>className</code></th>
+					<td><code>socialcount</code></td>
+				</tr>
+				<tr>
+					<th>Facebook Button Type</th>
+					<td>Like</td>
+				</tr>
+			</tbody>
+		</table>
 		<ul class="socialcount" data-url="http://www.google.com/">
 			<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Like</span></a></li>
 			<li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li>
 			<li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li>
 		</ul>
 
-		<h3>.socialcount-small</h3>
+		<h3>Default with Recommend</h3>
+		<table>
+			<tbody>
+				<tr>
+					<th>Parent <code>className</code></th>
+					<td><code>socialcount</code></td>
+				</tr>
+				<tr>
+					<th>Facebook Button Type</th>
+					<td>Recommend</td>
+				</tr>
+			</tbody>
+		</table>
+		<ul class="socialcount" data-url="http://www.google.com/" data-facebook-action="recommend">
+			<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Recommend</span></a></li>
+			<li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li>
+			<li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li>
+		</ul>
+
+		<h3>Small</h3>
+		<table>
+			<tbody>
+				<tr>
+					<th>Parent <code>className</code></th>
+					<td><code>socialcount-small</code></td>
+				</tr>
+				<tr>
+					<th>Facebook Button Type</th>
+					<td>Recommend</td>
+				</tr>
+			</tbody>
+		</table>
 		<ul class="socialcount socialcount-small" data-url="http://www.google.com/" data-facebook-action="recommend">
 			<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count"></span></a></li>
 			<li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count"></span></a></li>
 			<li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count"></span></a></li>
 		</ul>
 
+		<h3>Large</h3>
+		<table>
+			<tbody>
+				<tr>
+					<th>Parent <code>className</code></th>
+					<td><code>socialcount-large</code></td>
+				</tr>
+				<tr>
+					<th>Facebook Button Type</th>
+					<td>Like</td>
+				</tr>
+			</tbody>
+		</table>
+		<ul class="socialcount socialcount-large" data-url="http://www.google.com/">
+			<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Like</span></a></li>
+			<li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li>
+			<li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li>
+		</ul>
+
+		<h3>Large with Narrow Container Width</h3>
+		<table>
+			<tbody>
+				<tr>
+					<th>Parent <code>className</code></th>
+					<td><code>socialcount-large</code></td>
+				</tr>
+				<tr>
+					<th>Facebook Button Type</th>
+					<td>Recommend</td>
+				</tr>
+			</tbody>
+		</table>
+		<div style="width: 105px">
+			<ul class="socialcount socialcount-large" data-url="http://www.google.com/" data-facebook-action="recommend">
+				<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Recommend</span></a></li>
+				<li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li>
+				<li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li>
+			</ul>
+		</div>
+
 		<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 		<script src="../src/socialcount.js"></script>
-		<script src="../src/socialcount.sharethis.js"></script>
+		<!-- <script src="../src/socialcount.sharethis.js"></script> -->
 	</body>
 </html>
