@@ -10,7 +10,8 @@
 .socialcount .loading {
 	border-radius: 5px;
 }
-.socialcount > li:hover {
+.socialcount > li:hover,
+.socialcount > li.hover /* fix for IE and iframes */ {
 	background-color: #464646;
 }
 /* Special class added to count when it's >= the minimum */
@@ -30,6 +31,7 @@
 }
 .socialcount .icon {
 	vertical-align: middle;
+	*margin-right: 5px;
 }
 .socialcount-large {
 	line-height: normal;
@@ -48,6 +50,7 @@
 	min-width: 80px;
 	text-align: center;
 	white-space: nowrap;
+	*margin-right: 4px;
 }
 .socialcount-small > li {
 	min-width: 0;
@@ -70,6 +73,7 @@
 	display: block;
 	padding: 0 5px;
 	text-decoration: none;
+	color: inherit;
 }
 .socialcount-small > li > a {
 	padding-left: 8px;
@@ -113,27 +117,42 @@
 	left: 0;
 	bottom: -6px;
 	text-align: center;
+	pointer-events: none;
+}
+.socialcount .button iframe {
+	pointer-events: auto;
 }
 .socialcount-large .button {
 	bottom: 2px;
 }
 
-.socialcount.js > li:hover .count {
+.socialcount.grade-a > li:hover .count,
+.socialcount.grade-a > li.hover .count {
 	text-indent: -999px;
 }
-.socialcount.js > li:hover .icon {
+.socialcount.grade-a > li:hover .icon {
 	display: none;
 }
-.socialcount-small.js > li:hover .icon,
-.socialcount-large.js > li:hover .icon {
+.socialcount-small.grade-a > li:hover .icon,
+.socialcount-large.grade-a > li:hover .icon {
 	display: inline-block;
 	*display: inline;
 	zoom: 1;
 }
 
-.socialcount > li:hover .button {
-	cursor: pointer;
+.socialcount.grade-a > li:hover .button,
+.socialcount.grade-a > li.hover .button {
 	display: block;
+}
+.socialcount.grade-a > li:hover > a,
+.socialcount.grade-a > li.hover > a {
+	cursor: default;
+}
+.socialcount-small.grade-a > li:hover > a,
+.socialcount-small.grade-a > li.hover > a,
+.socialcount.grade-a > li:hover .button iframe,
+.socialcount.grade-a > li.hover .button iframe {
+	cursor: pointer;
 }
 
 /* Inline loading */

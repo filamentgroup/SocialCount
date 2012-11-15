@@ -24,12 +24,12 @@
 
 	var SocialCount = {
 		showCounts: true,
-		// For A-grade experience, require querySelector or if Blackberry require OS >= 6
-		isBindEvents: 'querySelectorAll' in doc && !( win.blackberry && !win.WebKitPoint ),
+		// For A-grade experience, require querySelector (IE8+) or if Blackberry require OS >= 6
+		isGradeA: 'querySelectorAll' in doc && !( win.blackberry && !win.WebKitPoint ),
 		minCount: 50,
 		serviceUrl: '../service/index.php',
 		initSelector: '.socialcount',
-		jsClass: 'js',
+		gradeAClass: 'grade-a',
 		activeClass: 'active',
 		noTransformsClass: 'no-transforms',
 		showCountsClass: 'counts',
@@ -111,11 +111,14 @@
 		},
 		init: function( $el ) {
 			var facebookAction = SocialCount.getFacebookAction( $el ),
-				classes = [ SocialCount.jsClass, facebookAction ],
+				classes = [ facebookAction ],
 				isSmall = SocialCount.isSmallSize( $el ),
 				url = SocialCount.getUrl( $el ),
 				initPlugins = SocialCount.plugins.init;
 
+			if( SocialCount.isGradeA ) {
+				classes.push( SocialCount.gradeAClass );
+			}
 			if( !SocialCount.isCssTransforms() ) {
 				classes.push( SocialCount.noTransformsClass );
 			}
@@ -128,7 +131,7 @@
 				initPlugins[ j ].call( $el );
 			}
 
-			if( SocialCount.isBindEvents ) {
+			if( SocialCount.isGradeA ) {
 				SocialCount.bindEvents( $el, url, facebookAction, isSmall );
 			}
 
@@ -155,6 +158,13 @@
 		},
 		bindEvents: function( $el, url, facebookAction, isSmall ) {
 			function bind( $a, html, jsUrl ) {
+				// IE bug (tested up to version 9) with :hover rules and iframes.
+				$a.closest('li').bind('mouseenter', function() {
+					$( this ).closest( 'li' ).addClass( 'hover' );
+				}).bind('mouseleave', function() {
+					$( this ).closest( 'li' ).removeClass( 'hover' );
+				});
+
 				$a.one( 'click', function( event ) {
 						$( this ).trigger( 'mouseover' );
 						event.preventDefault();
