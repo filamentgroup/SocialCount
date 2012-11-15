@@ -5,8 +5,7 @@
 (function( win, doc, $ ) {
 
 	var $loadingIndicator,
-		$count,
-		cache = {};
+		$count;
 
 	function featureTest( prop, unprefixedProp ) {
 		var style = doc.createElement('social').style,
@@ -25,6 +24,8 @@
 
 	var SocialCount = {
 		showCounts: true,
+		// For A-grade experience, require querySelector or if Blackberry require OS >= 6
+		isBindEvents: 'querySelectorAll' in doc && !( win.blackberry && !win.WebKitPoint ),
 		minCount: 50,
 		serviceUrl: '../service/index.php',
 		initSelector: '.socialcount',
@@ -47,6 +48,9 @@
 			bind: []
 		},
 
+		// private, but for testing
+		cache: {},
+
 		isCssAnimations: function() {
 			return featureTest( 'AnimationName', 'animationName' );
 		},
@@ -62,18 +66,55 @@
 		isSmallSize: function( $el ) {
 			return $el.is( '.socialcount-small' );
 		},
-		init: function( $el ) {
+		getCounts: function( $el, url ) {
 			var map = SocialCount.classes,
+				cache = SocialCount.cache,
 				counts = {},
-				url = SocialCount.getUrl( $el ),
-				facebookAction = SocialCount.getFacebookAction( $el ),
-				classes = [ SocialCount.jsClass, facebookAction ],
-				isSmall = SocialCount.isSmallSize( $el ),
 				$networkNode,
 				$countNode,
-				initPlugins = SocialCount.plugins.init,
-				j,
-				k;
+				j;
+
+			for( j in map ) {
+				$networkNode = $el.find( map[ j ] );
+				$countNode = $networkNode.find( '.' + SocialCount.countContentClass );
+
+				if( $countNode.length ) {
+					counts[ j ] = $countNode;
+				} else {
+					counts[ j ] = $count.clone();
+					$networkNode.append( counts[ j ] );
+				}
+			}
+
+			if( !cache[ url ] ) {
+				cache[ url ] = $.ajax({
+					url: SocialCount.serviceUrl,
+					data: {
+						url: url
+					},
+					dataType: 'json'
+				});
+			}
+
+			cache[ url ].done( function complete( data ) {
+				for( var j in data ) {
+					if( data.hasOwnProperty( j ) ) {
+						if( counts[ j ] && data[ j ] > SocialCount.minCount ) {
+							counts[ j ].addClass( SocialCount.minCountClass )
+								.html( SocialCount.normalizeCount( data[ j ] ) );
+						}
+					}
+				}
+			});
+
+			return cache[ url ];
+		},
+		init: function( $el ) {
+			var facebookAction = SocialCount.getFacebookAction( $el ),
+				classes = [ SocialCount.jsClass, facebookAction ],
+				isSmall = SocialCount.isSmallSize( $el ),
+				url = SocialCount.getUrl( $el ),
+				initPlugins = SocialCount.plugins.init;
 
 			if( !SocialCount.isCssTransforms() ) {
 				classes.push( SocialCount.noTransformsClass );
@@ -83,52 +124,17 @@
 			}
 			$el.addClass( classes.join(' ') );
 
-			for( j = 0, k = initPlugins.length; j < k; j++ ) {
+			for( var j = 0, k = initPlugins.length; j < k; j++ ) {
 				initPlugins[ j ].call( $el );
 			}
 
-			if( SocialCount.showCounts && !isSmall ) {
-				for( j in map ) {
-					$networkNode = $el.find( map[ j ] );
-					$countNode = $networkNode.find( '.' + SocialCount.countContentClass );
-
-					if( $countNode.length ) {
-						counts[ j ] = $countNode;
-					} else {
-						counts[ j ] = $count.clone();
-						$networkNode.append( counts[ j ] );
-					}
-				}
-
-				if( !cache[ url ] ) {
-					cache[ url ] = SocialCount.fetch( url );
-				}
-
-				cache[ url ].done( function complete( data ) {
-					for( var j in data ) {
-						if( data.hasOwnProperty( j ) ) {
-							if( counts[ j ] && data[ j ] > SocialCount.minCount ) {
-								counts[ j ].addClass( SocialCount.minCountClass )
-									.html( SocialCount.normalizeCount( data[ j ] ) );
-							}
-						}
-					}
-				});
-			}
-
-			// Require querySelector or if Blackberry require OS >= 6
-			if( 'querySelectorAll' in doc && !( win.blackberry && !win.WebKitPoint )) {
+			if( SocialCount.isBindEvents ) {
 				SocialCount.bindEvents( $el, url, facebookAction, isSmall );
 			}
-		},
-		fetch: function( url ) {
-			return $.ajax({
-				url: SocialCount.serviceUrl,
-				data: {
-					url: url
-				},
-				dataType: 'json'
-			});
+
+			if( SocialCount.showCounts && !isSmall ) {
+				SocialCount.getCounts( $el, url );
+			}
 		},
 		normalizeCount: function( count ) {
 			if( !count && count !== 0 ) {

@@ -88,6 +88,72 @@
 		equal( SocialCount.isSmallSize( $('#test') ), false );
 	});
 
+	test( 'Test top level classes', function() {
+		ok( SocialCount.isCssTransforms() ?
+			!$('#test').hasClass( SocialCount.noTransformsClass ) :
+			$('#test').hasClass( SocialCount.noTransformsClass ) );
+
+		ok( SocialCount.showCounts ?
+			$('#test').hasClass( SocialCount.showCountsClass ) :
+			!$('#test').hasClass( SocialCount.showCountsClass ) );
+	});
+
+	module('testAjax', {
+		setup: function() {
+			var $fixture = $('#qunit-fixture');
+
+			$fixture.append( '<ul id="test" class="socialcount" data-url="http://www.google.com/"><li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Like</span></a></li><li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li><li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li></ul>' );
+		}
+	});
+
+	asyncTest( 'Test Mock Request to Service', 3, function() {
+		var dfd = $.Deferred(),
+			$test = $( '#test' ),
+			gplusLabel = $test.find( '.googleplus .count' ).html();
+
+		SocialCount.cache['http://www.google.com/'] = dfd.promise();
+
+		SocialCount.getCounts( $test, 'http://www.google.com/' ).done(function() {
+			strictEqual( $test.find( '.twitter .count' ).html(), '11M' );
+			strictEqual( $test.find( '.facebook .count' ).html(), '5M' );
+			strictEqual( $test.find( '.googleplus .count' ).html(), '1M' );
+
+			start();
+		});
+
+		window.setTimeout(function() {
+			dfd.resolve({
+				'twitter': 11464062,
+				'facebook': 5189703,
+				'googleplus': 1570539
+			});
+		}, 50 );
+	});
+
+	asyncTest( 'Test Mock Request to Service, Less than Min Count', 3, function() {
+		var dfd = $.Deferred(),
+			$test = $( '#test' ),
+			gplusLabel = $test.find( '.googleplus .count' ).html();
+
+		SocialCount.cache['http://www.google.com/'] = dfd.promise();
+
+		SocialCount.getCounts( $test, 'http://www.google.com/' ).done(function() {
+			strictEqual( $test.find( '.twitter .count' ).html(), '11M' );
+			strictEqual( $test.find( '.facebook .count' ).html(), '5M' );
+			strictEqual( $test.find( '.googleplus .count' ).html(), gplusLabel );
+
+			start();
+		});
+
+		window.setTimeout(function() {
+			dfd.resolve({
+				'twitter': 11464062,
+				'facebook': 5189703,
+				'googleplus': SocialCount.minCount - 1
+			});
+		}, 50 );
+	});
+
 	module('testInitializeNoUrl', {
 		setup: function() {
 			var $fixture = $('#qunit-fixture'),
