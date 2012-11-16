@@ -214,3 +214,60 @@
 	50% { opacity: 0.8; }
 	100% { opacity: 0; }
 }
+.social-icon {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  vertical-align: middle;
+  *margin-right: 5px;
+}
+
+.socialcount.grade-a > li:hover .social-icon {
+  display: none;
+}
+
+.socialcount-small.grade-a > li:hover .social-icon,
+.socialcount-large.grade-a > li:hover .social-icon {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+}
+
+.icon-sprite, .icon-facebook, .icon-googleplus, .icon-share, .icon-twitter {
+  background: url('/SocialCount/src/icon-s8df06ae4f6.png') no-repeat;
+}
+
+.icon-facebook {
+  background-position: 0 0;
+  height: 15px;
+  width: 17px;
+}
+
+.icon-googleplus {
+  background-position: -21px 0;
+  height: 17px;
+  width: 20px;
+}
+
+.icon-share {
+  background-position: -45px 0;
+  height: 16px;
+  width: 20px;
+}
+
+.icon-twitter {
+  background-position: -69px 0;
+  height: 15px;
+  width: 17px;
+}
+
+/* HD icons */
+@media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+  .social-icon {
+    -webkit-background-size: auto 17px;
+    -moz-background-size: auto 17px;
+    -o-background-size: auto 17px;
+    background-size: auto 17px;
+    background-image: url('/SocialCount/src/icon-hd-s9293bc9986.png');
+  }
+}
