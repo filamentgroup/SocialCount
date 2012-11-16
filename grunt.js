@@ -19,6 +19,10 @@ module.exports = function(grunt) {
 			distcss: {
 				src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.css>'],
 				dest: 'dist/<%= pkg.name %>.css'
+			},
+			disticoncss: {
+				src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>-icons.css>'],
+				dest: 'dist/<%= pkg.name %>-icons.css'
 			}
 		},
 		min: {
@@ -31,6 +35,17 @@ module.exports = function(grunt) {
 			distcss: {
 				src: ['<banner:meta.banner>', '<config:concat.distcss.dest>'],
 				dest: 'dist/<%= pkg.name %>.min.css'
+			},
+			disticoncss: {
+				src: ['<banner:meta.banner>', '<config:concat.disticoncss.dest>'],
+				dest: 'dist/<%= pkg.name %>-icons.min.css'
+			}
+		},
+		copy: {
+			dist: {
+				files: {
+					"dist/": "src/*.png"
+				}
 			}
 		},
 		qunit: {
@@ -61,11 +76,14 @@ module.exports = function(grunt) {
 				jQuery: true
 			}
 		},
-		uglify: {}
+		uglify: {},
+		clean: ["dist"]
 	});
 
 	grunt.loadNpmTasks('grunt-css');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-clean');
 
 	// Default task.
-	grunt.registerTask('default', 'lint qunit concat min cssmin');
+	grunt.registerTask('default', 'clean lint qunit concat min cssmin copy');
 };

@@ -7,9 +7,11 @@
 	background-color: #999;
 }
 .socialcount > li,
+.socialcount > li > a:focus,
 .socialcount .loading {
 	border-radius: 5px;
 }
+.socialcount > li > a:focus,
 .socialcount > li:hover,
 .socialcount > li.hover /* fix for IE and iframes */ {
 	background-color: #464646;
@@ -28,10 +30,6 @@
 	font-size: .875em;
 	line-height: 2.2em;
 	overflow: hidden;
-}
-.socialcount .icon {
-	vertical-align: middle;
-	*margin-right: 5px;
 }
 .socialcount-large {
 	line-height: normal;
@@ -129,15 +127,6 @@
 .socialcount.grade-a > li:hover .count,
 .socialcount.grade-a > li.hover .count {
 	text-indent: -999px;
-}
-.socialcount.grade-a > li:hover .icon {
-	display: none;
-}
-.socialcount-small.grade-a > li:hover .icon,
-.socialcount-large.grade-a > li:hover .icon {
-	display: inline-block;
-	*display: inline;
-	zoom: 1;
 }
 
 .socialcount.grade-a > li:hover .button,
