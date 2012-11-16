@@ -24,21 +24,24 @@
 
 	var SocialCount = {
 		showCounts: true,
-		// For A-grade experience, require querySelector (IE8+) or if Blackberry require OS >= 6
-		isGradeA: 'querySelectorAll' in doc && !( win.blackberry && !win.WebKitPoint ),
-		minCount: 50,
+		// For A-grade experience, require querySelector (IE8+) and not BlackBerry or touchscreen
+		isGradeA: 'querySelectorAll' in doc && !win.blackberry && !('ontouchstart' in window) && !('onmsgesturechange' in window),
+		minCount: 1,
 		serviceUrl: '../service/index.php',
 		initSelector: '.socialcount',
-		gradeAClass: 'grade-a',
-		activeClass: 'active',
-		noTransformsClass: 'no-transforms',
-		showCountsClass: 'counts',
-		countContentClass: 'count',
-		minCountClass: 'minimum',
+		classes: {
+			gradeA: 'grade-a',
+			active: 'active',
+			touch: 'touch',
+			noTransforms: 'no-transforms',
+			showCounts: 'counts',
+			countContent: 'count',
+			minCount: 'minimum'
+		},
 		thousandCharacter: 'K',
 		millionCharacter: 'M',
 		missingResultText: '-',
-		classes: {
+		selectors: {
 			facebook: '.facebook',
 			twitter: '.twitter',
 			googleplus: '.googleplus'
@@ -67,7 +70,7 @@
 			return $el.is( '.socialcount-small' );
 		},
 		getCounts: function( $el, url ) {
-			var map = SocialCount.classes,
+			var map = SocialCount.selectors,
 				cache = SocialCount.cache,
 				counts = {},
 				$networkNode,
@@ -76,7 +79,7 @@
 
 			for( j in map ) {
 				$networkNode = $el.find( map[ j ] );
-				$countNode = $networkNode.find( '.' + SocialCount.countContentClass );
+				$countNode = $networkNode.find( '.' + SocialCount.classes.countContent );
 
 				if( $countNode.length ) {
 					counts[ j ] = $countNode;
@@ -100,7 +103,7 @@
 				for( var j in data ) {
 					if( data.hasOwnProperty( j ) ) {
 						if( counts[ j ] && data[ j ] > SocialCount.minCount ) {
-							counts[ j ].addClass( SocialCount.minCountClass )
+							counts[ j ].addClass( SocialCount.classes.minCount )
 								.html( SocialCount.normalizeCount( data[ j ] ) );
 						}
 					}
@@ -117,13 +120,13 @@
 				initPlugins = SocialCount.plugins.init;
 
 			if( SocialCount.isGradeA ) {
-				classes.push( SocialCount.gradeAClass );
+				classes.push( SocialCount.classes.gradeA );
 			}
 			if( !SocialCount.isCssTransforms() ) {
-				classes.push( SocialCount.noTransformsClass );
+				classes.push( SocialCount.classes.noTransforms );
 			}
 			if( SocialCount.showCounts ) {
-				classes.push( SocialCount.showCountsClass );
+				classes.push( SocialCount.classes.showCounts );
 			}
 			$el.addClass( classes.join(' ') );
 
@@ -152,7 +155,7 @@
 				return Math.floor( count / 1000 ) + SocialCount.thousandCharacter;
 			}
 			if( count > 1000 ) {
-				return ( count / 1000 ).toFixed(1).replace( /\.0/, '' ) + SocialCount.thousandCharacter;
+				return ( count / 1000 ).toFixed( 1 ).replace( /\.0/, '' ) + SocialCount.thousandCharacter;
 			}
 			return count;
 		},
@@ -165,10 +168,10 @@
 					$( this ).closest( 'li' ).removeClass( 'hover' );
 				});
 
-				$a.one( 'click', function( event ) {
+				$a/*.one( 'click', function( event ) {
 						$( this ).trigger( 'mouseover' );
 						event.preventDefault();
-					}).one( 'mouseover', function() {
+					})*/.one( 'mouseover', function() {
 						var $self = $( this ),
 							$parent = $self.closest( 'li' ),
 							$loading = $loadingIndicator.clone(),
@@ -192,7 +195,7 @@
 						});
 
 						$parent
-							.addClass( SocialCount.activeClass )
+							.addClass( SocialCount.classes.active )
 							.append( $loading )
 							.append( $button );
 
@@ -219,14 +222,14 @@
 			}
 
 			if( !isSmall ) {
-				bind( $el.find( SocialCount.classes.facebook + ' a' ),
+				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
 					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) + '&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction + '&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
 
-				bind( $el.find( SocialCount.classes.twitter + ' a' ),
+				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
 					'<a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>',
 					'//platform.twitter.com/widgets.js' );
 
-				bind( $el.find( SocialCount.classes.googleplus + ' a' ),
+				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
 					'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
 					'//apis.google.com/js/plusone.js' );
 			}
@@ -246,7 +249,7 @@
 
 		if( SocialCount.showCounts ) {
 			$count = $('<span>')
-				.addClass( SocialCount.countContentClass )
+				.addClass( SocialCount.classes.countContent )
 				.html('&#160;');
 		}
 
