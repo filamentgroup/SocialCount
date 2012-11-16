@@ -24,7 +24,7 @@ $icon-sprite-dimensions: true;
 @import "icon/*.png";
 @include all-icon-sprites;
 
-$icon-hd: sprite-map("icon-hd/*.png", $spacing: 7px, $layout: horizontal);
+$icon-hd: sprite-map("icon-hd/*.png", $spacing: 8px, $layout: horizontal);
 
 /* HD icons */
 @media (min--moz-device-pixel-ratio: 1.5),
