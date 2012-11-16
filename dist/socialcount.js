@@ -2,11 +2,7 @@
 * https://github.com/filamentgroup/SocialCount
 * Copyright (c) 2012 zachleat; Licensed MIT */
 
-/*! SocialCount - v0.1.0 - 2012-07-24
-* https://github.com/filamentgroup/SocialCount
-* Copyright (c) 2012 zachleat; Licensed MIT */
-
-(function( win, doc, $ ) {
+;(function( win, doc, $ ) {
 
 	var $loadingIndicator,
 		$count;

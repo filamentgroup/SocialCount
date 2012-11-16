@@ -33,11 +33,11 @@ module.exports = function(grunt) {
 		},
 		cssmin: {
 			distcss: {
-				src: ['<banner:meta.banner>', '<config:concat.distcss.dest>'],
+				src: ['<config:concat.distcss.dest>'],
 				dest: 'dist/<%= pkg.name %>.min.css'
 			},
 			distcsswithicons: {
-				src: ['<banner:meta.banner>', '<config:concat.distcsswithicons.dest>'],
+				src: ['<config:concat.distcsswithicons.dest>'],
 				dest: 'dist/<%= pkg.name %>-with-icons.min.css'
 			}
 		},
