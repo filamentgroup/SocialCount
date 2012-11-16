@@ -7,10 +7,10 @@ The problems with social networking widgets are [well documented][zurb]. They're
 SocialCount is a small mobile-friendly jQuery plugin to show share counts from various social networks.
 
  * Currently supports Facebook, Twitter, and Google Plus.
- * **2.84KB** (after Min+GZip) or 4.09KB/4.63KB with SD/HD icons (*compared to 309KB up front empty-cache pageload cost for Facebook, Twitter, and Google Plus widgets*)
- * 1 JS request, 1 CSS request, 1 optional request for icons, 1 optional AJAX request for counts (*compared to 25 total requests for Facebook, Twitter, and Google Plus widgets*)
+ * **2.84KB** (after Min+GZip) or 4.09KB/4.63KB with SD/HD icons (_compared to 309KB up front empty-cache pageload cost for Facebook, Twitter, and Google Plus widgets_)
+ * 1 JS request, 1 CSS request, 1 optional request for icons, 1 optional AJAX request for counts (_compared to 25 total requests for Facebook, Twitter, and Google Plus widgets_)
  * Easier to fit in with page designs
- * Works without JavaScript enabled.
+ * Ability to share works without dependency on JavaScript.
  * Works with mouse, touchscreen, or keyboard.
    * Mouse: On hover, loads a social network's native widget so that the user can Like/Recommend/+1 without leaving the current page.
    * Touch screen: simple redirects to dedicated network share pages.
@@ -37,7 +37,7 @@ If you want the social icons included, download the unminified ( [CSS][maxcssico
 [sdsprite]: https://raw.github.com/filamentgroup/SocialCount/master/dist/icon-s8df06ae4f6.png
 [hdsprite]: https://raw.github.com/filamentgroup/SocialCount/master/dist/icon-hd-s9293bc9986.png
 
-In your web page, add:
+### Markup with icons:
 
     <!-- Replace YOUR_CUSTOM_URL with the URL you're sharing -->
 
