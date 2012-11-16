@@ -20,9 +20,9 @@ module.exports = function(grunt) {
 				src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.css>'],
 				dest: 'dist/<%= pkg.name %>.css'
 			},
-			disticoncss: {
-				src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>-icons.css>'],
-				dest: 'dist/<%= pkg.name %>-icons.css'
+			distcsswithicons: {
+				src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.css>', '<file_strip_banner:src/<%= pkg.name %>-icons.css>'],
+				dest: 'dist/<%= pkg.name %>-with-icons.css'
 			}
 		},
 		min: {
@@ -36,9 +36,9 @@ module.exports = function(grunt) {
 				src: ['<banner:meta.banner>', '<config:concat.distcss.dest>'],
 				dest: 'dist/<%= pkg.name %>.min.css'
 			},
-			disticoncss: {
-				src: ['<banner:meta.banner>', '<config:concat.disticoncss.dest>'],
-				dest: 'dist/<%= pkg.name %>-icons.min.css'
+			distcsswithicons: {
+				src: ['<banner:meta.banner>', '<config:concat.distcsswithicons.dest>'],
+				dest: 'dist/<%= pkg.name %>-with-icons.min.css'
 			}
 		},
 		copy: {
