@@ -92,7 +92,7 @@
 			!$('#test').hasClass( SocialCount.classes.noTransforms ) :
 			$('#test').hasClass( SocialCount.classes.noTransforms ) );
 
-		ok( SocialCount.showCounts ?
+		ok( SocialCount.isCountsEnabled( $( '#test' ) ) ?
 			$('#test').hasClass( SocialCount.classes.showCounts ) :
 			!$('#test').hasClass( SocialCount.classes.showCounts ) );
 	});

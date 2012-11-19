@@ -19,7 +19,6 @@
 	}
 
 	var SocialCount = {
-		showCounts: true,
 		// For A-grade experience, require querySelector (IE8+) and not BlackBerry or touchscreen
 		isGradeA: 'querySelectorAll' in doc && !win.blackberry && !('ontouchstart' in window) && !('onmsgesturechange' in window),
 		minCount: 1,
@@ -61,6 +60,9 @@
 		},
 		getFacebookAction: function( $el ) {
 			return ( $el.attr('data-facebook-action' ) || 'like' ).toLowerCase();
+		},
+		isCountsEnabled: function( $el ) {
+			return $el.attr('data-counts') === 'true';
 		},
 		isSmallSize: function( $el ) {
 			return $el.is( '.socialcount-small' );
@@ -113,7 +115,8 @@
 				classes = [ facebookAction ],
 				isSmall = SocialCount.isSmallSize( $el ),
 				url = SocialCount.getUrl( $el ),
-				initPlugins = SocialCount.plugins.init;
+				initPlugins = SocialCount.plugins.init,
+				countsEnabled = SocialCount.isCountsEnabled( $el );
 
 			if( SocialCount.isGradeA ) {
 				classes.push( SocialCount.classes.gradeA );
@@ -121,7 +124,7 @@
 			if( !SocialCount.isCssTransforms() ) {
 				classes.push( SocialCount.classes.noTransforms );
 			}
-			if( SocialCount.showCounts ) {
+			if( countsEnabled ) {
 				classes.push( SocialCount.classes.showCounts );
 			}
 			$el.addClass( classes.join(' ') );
@@ -134,7 +137,7 @@
 				SocialCount.bindEvents( $el, url, facebookAction, isSmall );
 			}
 
-			if( SocialCount.showCounts && !isSmall ) {
+			if( countsEnabled && !isSmall ) {
 				SocialCount.getCounts( $el, url );
 			}
 		},
@@ -164,10 +167,7 @@
 					$( this ).closest( 'li' ).removeClass( 'hover' );
 				});
 
-				$a/*.one( 'click', function( event ) {
-						$( this ).trigger( 'mouseover' );
-						event.preventDefault();
-					})*/.one( 'mouseover', function() {
+				$a.one( 'mouseover', function() {
 						var $self = $( this ),
 							$parent = $self.closest( 'li' ),
 							$loading = $loadingIndicator.clone(),
@@ -207,7 +207,7 @@
 									}
 								});
 							} else {
-								$(js).bind( 'load', deferred.resolve );
+								$( js ).bind( 'load', deferred.resolve );
 							}
 
 							doc.body.appendChild( js );
@@ -243,11 +243,9 @@
 			.addClass('loading')
 			.html( SocialCount.isCssAnimations() ? new Array(4).join('<div class="dot"></div>') : 'Loading' );
 
-		if( SocialCount.showCounts ) {
-			$count = $('<span>')
-				.addClass( SocialCount.classes.countContent )
-				.html('&#160;');
-		}
+		$count = $('<span>')
+			.addClass( SocialCount.classes.countContent )
+			.html('&#160;');
 
 		$( SocialCount.initSelector ).each(function() {
 			var $el = $(this);
