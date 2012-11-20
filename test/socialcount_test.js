@@ -23,11 +23,7 @@
 			raises(block, [expected], [message])
 	*/
 
-	module('testNormalizeCount', {
-		setup: function() {
-
-		}
-	});
+	module('testNormalizeCount');
 
 	test( 'less than 1000', function() {
 		equal(SocialCount.normalizeCount(null), '-');
@@ -61,6 +57,15 @@
 		equal(SocialCount.normalizeCount(999499), '999K');
 		equal(SocialCount.normalizeCount(999999), '999K');
 		equal(SocialCount.normalizeCount(1000000), '1M');
+	});
+
+	module( 'testServiceNormalization' );
+	test( 'filenameRemoval', function() {
+		// uses Math.floor
+		equal( SocialCount.removeFileName( 'http://localhost/SocialCount/src/socialcount.js' ), 'http://localhost/SocialCount/src/' );
+		equal( SocialCount.removeFileName( 'http://localhost/SocialCount/dist/socialcount.min.js' ), 'http://localhost/SocialCount/dist/' );
+		equal( SocialCount.removeFileName( 'http://fgte.st/SocialCount/src/socialcount.js' ), 'http://fgte.st/SocialCount/src/' );
+		equal( SocialCount.removeFileName( 'http://fgte.st/SocialCount/dist/socialcount.min.js' ), 'http://fgte.st/SocialCount/dist/' );
 	});
 
 	module('testInitialize', {

@@ -28,7 +28,7 @@ The following archive contains both minified (`socialcount.min.js`+`socialcount.
 
 SocialCount also has a version that packages the social networking icons as well. Use the regular `socialcount.js` with `socialcount-with-icons.css` or `socialcount-with-icons.min.css` and the included SD and HD image sprites.
 
-The archive also contains the **optional** PHP service files for the AJAX request to retrieve the share counts (requires PHP 5 with curl). To enable this feature for your widget, use `<ul class="socialcount" data-counts=true>` and make sure `SocialCount.serviceUrl` is pointed to the correct location in the JavaScript.
+The archive also contains the **optional** PHP service files for the AJAX request to retrieve the share counts (requires PHP 5 with curl). To enable this feature for your widget, use `<ul class="socialcount" data-counts="true">`.
 
 ### Download [socialcount.zip][zipfile]
 
@@ -81,6 +81,7 @@ To test the PHP code, navigate to the `service` directory and run `phpunit socia
 * `v0.1.0` Initial release
 * `v0.1.1` Fix for IE (tested up to 9) issue with iframes and :hover rules
 * `v0.1.2` Default AJAX request for counts to false, added zip download, better documentation for counts service.
+* `v0.1.3` Added code to normalize service url directory (easier configuration).
 
 ## License
 Copyright (c) 2012 Filament Group

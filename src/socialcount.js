@@ -18,6 +18,27 @@
 		return false;
 	}
 
+	function removeFileName( src ) {
+		var split = src.split( '/' );
+		split.pop();
+		return split.join( '/' ) + '/';
+	}
+
+	function resolveServiceDir() {
+		var baseUrl;
+
+		$( 'script' ).each(function() {
+			var src = this.src || '',
+				dir;
+			if( src.match( SocialCount.scriptSrcRegex ) ) {
+				baseUrl = removeFileName( src );
+				return false;
+			}
+		});
+
+		return baseUrl;
+	}
+
 	var SocialCount = {
 		// For A-grade experience, require querySelector (IE8+) and not BlackBerry or touchscreen
 		isGradeA: 'querySelectorAll' in doc && !win.blackberry && !('ontouchstart' in window) && !('onmsgesturechange' in window),
@@ -41,6 +62,7 @@
 			twitter: '.twitter',
 			googleplus: '.googleplus'
 		},
+		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
 			init: [],
 			bind: []
@@ -48,6 +70,9 @@
 
 		// private, but for testing
 		cache: {},
+
+		removeFileName: removeFileName,
+		resolveServiceDir: resolveServiceDir,
 
 		isCssAnimations: function() {
 			return featureTest( 'AnimationName', 'animationName' );
@@ -89,7 +114,7 @@
 
 			if( !cache[ url ] ) {
 				cache[ url ] = $.ajax({
-					url: SocialCount.serviceUrl,
+					url: resolveServiceDir() + SocialCount.serviceUrl,
 					data: {
 						url: url
 					},
