@@ -1,8 +1,8 @@
 {
   "name": "socialcount",
   "title": "SocialCount",
-  "description": "Progressively enhanced, lazy loaded, touchscreen-compatible Social Networking widgets.",
-  "version": "0.1.1",
+  "description": "Progressively enhanced, lazy loaded, mobile friendly Social Networking widgets.",
+  "version": "0.1.2",
   "homepage": "https://github.com/filamentgroup/SocialCount",
   "author": {
     "name": "zachleat",
