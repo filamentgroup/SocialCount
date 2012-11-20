@@ -77,13 +77,22 @@ module.exports = function(grunt) {
 			}
 		},
 		uglify: {},
-		clean: ["dist"]
+		clean: ['dist'],
+		compress: {
+			zip: {
+				files: {
+					'dist/socialcount.zip': ['dist/*.js', 'dist/*.css', 'dist/*.png'] // include JS files in two diff dirs
+				}
+			}
+		}
 	});
 
 	grunt.loadNpmTasks('grunt-css');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-contrib-compress');
 
 	// Default task.
-	grunt.registerTask('default', 'clean lint qunit concat min cssmin copy');
+	grunt.registerTask('default', 'lint qunit');
+	grunt.registerTask('release', 'clean lint qunit concat min cssmin copy compress');
 };
