@@ -7,7 +7,7 @@ The problems with social networking widgets are [well documented][zurb]. They're
 SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mobile friendly social networking widgets.
 
  * Currently supports Facebook, Twitter, and Google Plus.
- * **2.84KB** (after Min+GZip) or 4.09KB/4.63KB with SD/HD icons (compared to 309KB up front empty-cache pageload cost for Facebook, Twitter, and Google Plus widgets)
+ * **2.93KB** (after Min+GZip) or 4.18KB/4.72KB with SD/HD icons (compared to 309KB up front empty-cache pageload cost for Facebook, Twitter, and Google Plus widgets)
  * 1 JS request, 1 CSS request, 1 optional request for icons, 1 optional AJAX request for counts (compared to 25 total requests for Facebook, Twitter, and Google Plus widgets)
  * Easy to fit in with existing page design
  * Ability to share without JavaScript or before JavaScript has loaded.
