@@ -4,52 +4,53 @@ The problems with social networking widgets are [well documented][zurb]. They're
 
 [zurb]: http://www.zurb.com/article/883/small-painful-buttons-why-social-media-bu
 
-SocialCount is a small mobile-friendly jQuery plugin to show share counts from various social networks.
+SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mobile friendly social networking widgets.
 
  * Currently supports Facebook, Twitter, and Google Plus.
  * **2.84KB** (after Min+GZip) or 4.09KB/4.63KB with SD/HD icons (compared to 309KB up front empty-cache pageload cost for Facebook, Twitter, and Google Plus widgets)
  * 1 JS request, 1 CSS request, 1 optional request for icons, 1 optional AJAX request for counts (compared to 25 total requests for Facebook, Twitter, and Google Plus widgets)
- * Easier to fit in with page designs
- * Ability to share works without dependency on JavaScript.
+ * Easy to fit in with existing page design
+ * Ability to share without JavaScript or before JavaScript has loaded.
  * Works with mouse, touchscreen, or keyboard.
-   * Mouse: On hover, loads a social network's native widget so that the user can Like/Recommend/+1 without leaving the current page.
-   * Touch screen: simple redirects to dedicated network share pages.
-   * Keyboard: Concise tab order.
+	 * Mouse: On hover, loads a social network's native widget so that the user can Like/Recommend/+1 without leaving the current page.
+	 * Touch screen: simple redirects to dedicated network share pages.
+	 * Keyboard: Concise tab order.
  * Option to conditionally display count if it's above a minimum threshold. Avoid goose egg ghost-town.
  * Intelligent client-side caching so that two or more widgets with the same share URL only make one AJAX request.
 
 ## [SocialCount Demo][demourl]
 
-[demourl]: http://fgte.st/SocialCount/examples/
+[demourl]: http://fgte.st/SocialCount/examples/index.html
 
 ## Getting Started
 
-Download the unminified ( [JS][maxjs] + [CSS][maxcss] ) or minified ( [JS][minjs] + [CSS][mincss] ) version and add the appropriate link and script tags into your HTML.
+The following archive contains both minified (`socialcount.min.js`+`socialcount.min.css`) and unminified (`socialcount.js`+`socialcount.css`) versions of the JS and CSS required to use SocialCount.
 
-If you want the social icons included, download the unminified ( [CSS][maxcssicons] ) or minified ( [CSS][mincssicons] ) and [SD][sdsprite] / [HD][hdsprite] icon sprites.
+SocialCount also has a version that packages the social networking icons as well. Use the regular `socialcount.js` with `socialcount-with-icons.css` or `socialcount-with-icons.min.css` and the included SD and HD image sprites.
 
-[maxjs]: https://raw.github.com/filamentgroup/SocialCount/master/dist/socialcount.js
-[maxcss]: https://raw.github.com/filamentgroup/SocialCount/master/dist/socialcount.css
-[maxcssicons]: https://raw.github.com/filamentgroup/SocialCount/master/dist/socialcount-with-icons.css
-[minjs]: https://raw.github.com/filamentgroup/SocialCount/master/dist/socialcount.min.js
-[mincss]: https://raw.github.com/filamentgroup/SocialCount/master/dist/socialcount.min.css
-[mincssicons]: https://raw.github.com/filamentgroup/SocialCount/master/dist/socialcount-with-icons.min.css
-[sdsprite]: https://raw.github.com/filamentgroup/SocialCount/master/dist/icon-s8df06ae4f6.png
-[hdsprite]: https://raw.github.com/filamentgroup/SocialCount/master/dist/icon-hd-s9293bc9986.png
+The archive also contains the **optional** PHP service files for the AJAX request to retrieve the share counts (requires PHP 5 with curl). To enable this feature for your widget, use `<ul class="socialcount" data-counts=true>` and make sure `SocialCount.serviceUrl` is pointed to the correct location in the JavaScript.
+
+### Download [socialcount.zip][zipfile]
+
+[zipfile]: https://raw.github.com/filamentgroup/SocialCount/master/dist/socialcount.zip
 
 ### Markup with icons:
 
+Customize the sample markup below or use the provided  [markup generator][generator].
+
+[generator]: http://fgte.st/SocialCount/examples/index.html#generator
+
     <!-- Replace YOUR_CUSTOM_URL with the URL you're sharing -->
 
-    <ul class="socialcount" data-url="YOUR_CUSTOM_URL">
+	<ul class="socialcount" data-url="YOUR_CUSTOM_URL">
 
-	  <li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=YOUR_CUSTOM_URL" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Like</span></a></li>
+	<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=YOUR_CUSTOM_URL" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Like</span></a></li>
 
-	  <li class="twitter"><a href="https://twitter.com/intent/tweet?text=YOUR_CUSTOM_URL" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li>
+	<li class="twitter"><a href="https://twitter.com/intent/tweet?text=YOUR_CUSTOM_URL" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li>
 
-      <li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=YOUR_CUSTOM_URL" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li>
+	<li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=YOUR_CUSTOM_URL" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li>
 
-    </ul>
+	</ul>
 
 ## Tested with
 * Chrome Desktop 23
@@ -70,10 +71,6 @@ Touchscreens (Links Only)
 * Android 2.3
 * Windows Phone 7.5
 
-## Service Requirements
-
-* PHP 5 supporting curl
-
 ## Contributing
 Add unit tests for any new or changed functionality. Lint and test your JavaScript code using [grunt](https://github.com/cowboy/grunt) and the `grunt qunit` command.
 
@@ -83,6 +80,7 @@ To test the PHP code, navigate to the `service` directory and run `phpunit socia
 ## Release History
 * `v0.1.0` Initial release
 * `v0.1.1` Fix for IE (tested up to 9) issue with iframes and :hover rules
+* `v0.1.2` Default AJAX request for counts to false, added zip download, better documentation for counts service.
 
 ## License
 Copyright (c) 2012 Filament Group
