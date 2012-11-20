@@ -44,7 +44,8 @@ module.exports = function(grunt) {
 		copy: {
 			dist: {
 				files: {
-					"dist/": "src/*.png"
+					"dist/": "src/*.png",
+					"dist/service/": "src/service/**"
 				}
 			}
 		},
@@ -81,7 +82,7 @@ module.exports = function(grunt) {
 		compress: {
 			zip: {
 				files: {
-					'dist/socialcount.zip': ['dist/*.js', 'dist/*.css', 'dist/*.png'] // include JS files in two diff dirs
+					'dist/socialcount.zip': ['dist/*.js', 'dist/*.css', 'dist/*.png', 'dist/service/**']
 				}
 			}
 		}
