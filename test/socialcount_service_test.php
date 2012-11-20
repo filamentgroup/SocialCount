@@ -1,5 +1,5 @@
 <?php
-require('../service/SocialCount.php');
+require('../src/service/SocialCount.php');
 
 // TODO mock service calls
 class SocialCount_Service_Test extends PHPUnit_Framework_TestCase
