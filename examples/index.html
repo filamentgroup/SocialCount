@@ -4,10 +4,11 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
 		<title>Social Count</title>
-		<link rel="stylesheet" href="../dist/socialcount-with-icons.min.css">
+		<link rel="stylesheet" href="../src/socialcount.css">
+		<link rel="stylesheet" href="../src/socialcount-icons.css">
 		<!-- scripts would be better placed below near the </body> -->
 		<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-		<script src="../dist/socialcount.min.js"></script>
+		<script src="../src/socialcount.js"></script>
 
 		<style>
 			html {
@@ -52,13 +53,17 @@
 			input[type="text"],
 			textarea {
 				width: 80%;
-				max-width: 300px;
+				min-width: 280px;
 			}
 			textarea {
 				height: 200px;
+				tab-size: 2;
 			}
 		</style>
 		<script>
+		// Override this as needed to point to the service files.
+		SocialCount.serviceUrl = '../src/service/index.php';
+
 		$(function() {
 			document.documentElement.className = 'js';
 
@@ -84,9 +89,23 @@
 				}
 				markup.push( '>\n' );
 
-				markup.push( '\t<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=' + url + '" title="Share on Facebook"><span class="count">' + ( isRecommend ? 'Recommend' : 'Like' ) + '</span></a></li>\n' );
-				markup.push( '\t<li class="twitter"><a href="https://twitter.com/intent/tweet?text=' + url + '" title="Share on Twitter"><span class="count">Tweet</span></a></li>\n' );
-				markup.push( '\t<li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=' + url + '" title="Share on Google Plus"><span class="count">+1</span></a></li>\n' );
+				markup.push( '\t<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=' + url + '" title="Share on Facebook">' );
+				if( $( '#icons:checked' ).length ) {
+					markup.push( '<span class="social-icon icon-facebook"></span>' );
+				}
+				markup.push( '<span class="count">' + ( isRecommend ? 'Recommend' : 'Like' ) + '</span></a></li>\n' );
+
+				markup.push( '\t<li class="twitter"><a href="https://twitter.com/intent/tweet?text=' + url + '" title="Share on Twitter">' );
+				if( $( '#icons:checked' ).length ) {
+					markup.push( '<span class="social-icon icon-twitter"></span>' );
+				}
+				markup.push( '<span class="count">Tweet</span></a></li>\n' );
+
+				markup.push( '\t<li class="googleplus"><a href="https://plusone.google.com/_/+1/confirm?url=' + url + '" title="Share on Google Plus">' );
+				if( $( '#icons:checked' ).length ) {
+					markup.push( '<span class="social-icon icon-googleplus"></span>' );
+				}
+				markup.push( '<span class="count">+1</span></a></li>\n' );
 
 				markup.push( '</ul>' );
 				$markup.val( markup.join( '' ) );
@@ -97,12 +116,12 @@
 	</head>
 	<body>
 		<h1>SocialCount Examples</h1>
-		<h2>Contents</h2>
-		<ol>
+		<ul>
 			<li><a href="#default">Medium (Default)</a></li>
 			<li><a href="#small">Small</a></li>
 			<li><a href="#large">Large</a></li>
-		</ol>
+			<li><a href="#generator">Markup Generator</a></li>
+		</ul>
 		<h2 id="default">Medium (Default)</h2>
 		<ul class="socialcount" data-url="http://www.google.com/">
 			<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="social-icon icon-facebook"></span><span class="count">Like</span></a></li>
@@ -149,7 +168,7 @@
 		</div>
 
 		<form>
-			<h2>Generate Markup</h2>
+			<h2 id="generator">Markup Generator</h2>
 			<fieldset>
 				<label>URL <input type="text" id="url" value="http://www.google.com/"></label>
 			</fieldset>
@@ -165,9 +184,10 @@
 				<label><input type="radio" name="facebook" id="fb-recommend"> Recommend</label>
 			</fieldset>
 			<fieldset>
-				<legend>Fetch Share Counts</legend>
-				<label><input type="radio" name="size" id="counts-show"> Show</label>
-				<label><input type="radio" name="size" checked> Don't Show</label>
+				<label><input type="checkbox" name="size" id="counts-show"> Fetch Share Counts</label>
+			</fieldset>
+			<fieldset>
+				<label><input type="checkbox" name="size" id="icons"> Include Icons</label>
 			</fieldset>
 			<fieldset>
 				<input type="submit" value="Generate Markup">
