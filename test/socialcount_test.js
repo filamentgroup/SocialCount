@@ -115,6 +115,7 @@
 			$test = $( '#test' ),
 			gplusLabel = $test.find( '.googleplus .count' ).html();
 
+		SocialCount.useSharedCountService = false;
 		SocialCount.cache['http://www.google.com/'] = dfd.promise();
 
 		SocialCount.getCounts( $test, 'http://www.google.com/' ).done(function() {
@@ -139,6 +140,7 @@
 			$test = $( '#test' ),
 			gplusLabel = $test.find( '.googleplus .count' ).html();
 
+		SocialCount.useSharedCountService = false;
 		SocialCount.cache['http://www.google.com/'] = dfd.promise();
 
 		SocialCount.getCounts( $test, 'http://www.google.com/' ).done(function() {
@@ -156,6 +158,21 @@
 				'googleplus': SocialCount.minCount - 1
 			});
 		}, 50 );
+	});
+
+	asyncTest( 'Test can use SharedCount API for counts', 3, function() {
+		var $test = $( '#test' );
+
+		SocialCount.useSharedCountService = true;
+		SocialCount.cache['http://www.google.com/'] = null;
+
+		SocialCount.getCounts( $test, 'http://www.google.com/' ).done(function() {
+			strictEqual( $test.find( '.twitter .count' ).html(), '11M' );
+			strictEqual( $test.find( '.facebook .count' ).html(), '5M' );
+			strictEqual( $test.find( '.googleplus .count' ).html(), '1M' );
+
+			start();
+		});
 	});
 
 	module('testInitializeNoUrl', {

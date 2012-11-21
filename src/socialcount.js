@@ -39,10 +39,30 @@
 		return baseUrl;
 	}
 
+	function writeCounts( data, elements ) {
+		if ( SocialCount.useSharedCountService ) {
+			data = {
+				facebook: data.Facebook.total_count,
+				twitter: data.Twitter,
+				googleplus: data.GooglePlusOne
+			};
+		}
+
+		for( var j in data ) {
+			if( data.hasOwnProperty( j ) ) {
+				if( elements[ j ] && data[ j ] > SocialCount.minCount ) {
+					elements[ j ].addClass( SocialCount.classes.minCount )
+						.html( SocialCount.normalizeCount( data[ j ] ) );
+				}
+			}
+		}
+	}
+
 	var SocialCount = {
 		// For A-grade experience, require querySelector (IE8+) and not BlackBerry or touchscreen
 		isGradeA: 'querySelectorAll' in doc && !win.blackberry && !('ontouchstart' in window) && !('onmsgesturechange' in window),
 		minCount: 1,
+		useSharedCountService: true,
 		serviceUrl: 'service/index.php',
 		initSelector: '.socialcount',
 		classes: {
@@ -113,24 +133,27 @@
 			}
 
 			if( !cache[ url ] ) {
-				cache[ url ] = $.ajax({
-					url: resolveServiceDir() + SocialCount.serviceUrl,
-					data: {
-						url: url
-					},
-					dataType: 'json'
-				});
+				if ( SocialCount.useSharedCountService ) {
+					cache[ url ] = $.ajax({
+						url: (location.protocol == "https:" ? "https://sharedcount.appspot.com/" : "http://api.sharedcount.com/"),
+						data: {
+							url: url
+						},
+						dataType: 'json'
+					});
+				} else {
+					cache[ url ] = $.ajax({
+						url: resolveServiceDir() + SocialCount.serviceUrl,
+						data: {
+							url: url
+						},
+						dataType: 'json'
+					});
+				}
 			}
 
 			cache[ url ].done( function complete( data ) {
-				for( var j in data ) {
-					if( data.hasOwnProperty( j ) ) {
-						if( counts[ j ] && data[ j ] > SocialCount.minCount ) {
-							counts[ j ].addClass( SocialCount.classes.minCount )
-								.html( SocialCount.normalizeCount( data[ j ] ) );
-						}
-					}
-				}
+				writeCounts( data, counts );
 			});
 
 			return cache[ url ];
