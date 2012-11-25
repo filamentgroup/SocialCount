@@ -17,6 +17,7 @@ SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mo
 	 * Keyboard: Concise tab order.
  * Option to conditionally display count if it's above a minimum threshold. Avoid goose egg ghost-town.
  * Intelligent client-side caching so that two or more widgets with the same share URL only make one AJAX request.
+ * Requires jQuery 1.6+
 
 ## [SocialCount Demo][demourl]
 
