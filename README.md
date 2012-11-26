@@ -1,5 +1,9 @@
 # SocialCount
 
+Related: [Filament Group Lab Post][blogpost]
+
+[blogpost]: http://filamentgroup.com/lab/socialcount/
+
 The problems with social networking widgets are [well documented][zurb]. They're heavy and slow to load especially on high-latency mobile connections.
 
 [zurb]: http://www.zurb.com/article/883/small-painful-buttons-why-social-media-bu
