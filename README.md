@@ -89,6 +89,4 @@ To test the PHP code, navigate to the `service` directory and run `phpunit socia
 * `v0.1.3` Added code to normalize service url directory (easier configuration).
 
 ## License
-Copyright (c) 2012 Filament Group, developed by [@zachleat](twitter). MIT licensed.
-
-[twitter]: http://twitter.com/zachleat
+Copyright (c) 2012 Filament Group, developed by @zachleat. MIT licensed.
