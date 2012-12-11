@@ -1,4 +1,4 @@
-/*! SocialCount - v0.1.3 - 2012-11-21
+/*! SocialCount - v0.1.4 - 2012-12-11
 * https://github.com/filamentgroup/SocialCount
 * Copyright (c) 2012 zachleat; Licensed MIT */
 
@@ -86,6 +86,10 @@
 		},
 		getUrl: function( $el ) {
 			return $el.attr('data-url') || location.href;
+		},
+		// Currently only available on Twitter
+		getShareText: function( $el ) {
+			return $el.attr('data-share-text' ) || '';
 		},
 		getFacebookAction: function( $el ) {
 			return ( $el.attr('data-facebook-action' ) || 'like' ).toLowerCase();
@@ -197,61 +201,68 @@
 				});
 
 				$a.one( 'mouseover', function() {
-						var $self = $( this ),
-							$parent = $self.closest( 'li' ),
-							$loading = $loadingIndicator.clone(),
-							$content = $( html ),
-							$button = $( '<div class="button"/>' ).append( $content ),
-							js,
-							$iframe,
-							deferred = $.Deferred();
+					var $self = $( this ),
+						$parent = $self.closest( 'li' ),
+						$loading = $loadingIndicator.clone(),
+						$content = $( html ),
+						$button = $( '<div class="button"/>' ).append( $content ),
+						js,
+						$iframe,
+						deferred = $.Deferred();
 
-						deferred.promise().always(function() {
-							// Remove Loader
-							var $iframe = $parent.find('iframe');
+					deferred.promise().always(function() {
+						// Remove Loader
+						var $iframe = $parent.find('iframe');
 
-							if( $iframe.length ) {
-								$iframe.bind( 'load', function() {
-									$loading.remove();
-								});
-							} else {
+						if( $iframe.length ) {
+							$iframe.bind( 'load', function() {
 								$loading.remove();
-							}
-						});
-
-						$parent
-							.addClass( SocialCount.classes.active )
-							.append( $loading )
-							.append( $button );
-
-						if( jsUrl ) {
-							js = doc.createElement( 'script' );
-							js.src = jsUrl;
-
-							// IE8 doesn't do script onload.
-							if( js.attachEvent ) {
-								js.attachEvent( 'onreadystatechange', function() {
-									if( js.readyState === 'complete' ) {
-										deferred.resolve();
-									}
-								});
-							} else {
-								$( js ).bind( 'load', deferred.resolve );
-							}
-
-							doc.body.appendChild( js );
-						} else if( $content.is( 'iframe' ) ) {
-							deferred.resolve();
+							});
+						} else {
+							$loading.remove();
 						}
 					});
+
+					$parent
+						.addClass( SocialCount.classes.active )
+						.append( $loading )
+						.append( $button );
+
+					if( jsUrl ) {
+						js = doc.createElement( 'script' );
+						js.src = jsUrl;
+
+						// IE8 doesn't do script onload.
+						if( js.attachEvent ) {
+							js.attachEvent( 'onreadystatechange', function() {
+								if( js.readyState === 'complete' ) {
+									deferred.resolve();
+								}
+							});
+						} else {
+							$( js ).bind( 'load', deferred.resolve );
+						}
+
+						doc.body.appendChild( js );
+					} else if( $content.is( 'iframe' ) ) {
+						deferred.resolve();
+					}
+				});
 			}
 
 			if( !isSmall ) {
+				var shareText = SocialCount.getShareText( $el );
+
 				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
-					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) + '&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction + '&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
+					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) +
+						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction +
+						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
 
 				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
-					'<a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>',
+					'<a href="https://twitter.com/share" class="twitter-share-button"' + 
+						' data-url="' + encodeURI( url ) + '"' +
+						( shareText ? ' data-text="' + shareText + '"': '' ) +
+						' data-count="none" data-dnt="true">Tweet</a>',
 					'//platform.twitter.com/widgets.js' );
 
 				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
