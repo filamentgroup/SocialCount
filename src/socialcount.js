@@ -250,7 +250,9 @@
 				var shareText = SocialCount.getShareText( $el );
 
 				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
-					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) + '&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction + '&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
+					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) +
+						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction +
+						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
 
 				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
 					'<a href="https://twitter.com/share" class="twitter-share-button"' + 
