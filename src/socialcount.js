@@ -193,53 +193,53 @@
 				});
 
 				$a.one( 'mouseover', function() {
-						var $self = $( this ),
-							$parent = $self.closest( 'li' ),
-							$loading = $loadingIndicator.clone(),
-							$content = $( html ),
-							$button = $( '<div class="button"/>' ).append( $content ),
-							js,
-							$iframe,
-							deferred = $.Deferred();
+					var $self = $( this ),
+						$parent = $self.closest( 'li' ),
+						$loading = $loadingIndicator.clone(),
+						$content = $( html ),
+						$button = $( '<div class="button"/>' ).append( $content ),
+						js,
+						$iframe,
+						deferred = $.Deferred();
 
-						deferred.promise().always(function() {
-							// Remove Loader
-							var $iframe = $parent.find('iframe');
+					deferred.promise().always(function() {
+						// Remove Loader
+						var $iframe = $parent.find('iframe');
 
-							if( $iframe.length ) {
-								$iframe.bind( 'load', function() {
-									$loading.remove();
-								});
-							} else {
+						if( $iframe.length ) {
+							$iframe.bind( 'load', function() {
 								$loading.remove();
-							}
-						});
-
-						$parent
-							.addClass( SocialCount.classes.active )
-							.append( $loading )
-							.append( $button );
-
-						if( jsUrl ) {
-							js = doc.createElement( 'script' );
-							js.src = jsUrl;
-
-							// IE8 doesn't do script onload.
-							if( js.attachEvent ) {
-								js.attachEvent( 'onreadystatechange', function() {
-									if( js.readyState === 'complete' ) {
-										deferred.resolve();
-									}
-								});
-							} else {
-								$( js ).bind( 'load', deferred.resolve );
-							}
-
-							doc.body.appendChild( js );
-						} else if( $content.is( 'iframe' ) ) {
-							deferred.resolve();
+							});
+						} else {
+							$loading.remove();
 						}
 					});
+
+					$parent
+						.addClass( SocialCount.classes.active )
+						.append( $loading )
+						.append( $button );
+
+					if( jsUrl ) {
+						js = doc.createElement( 'script' );
+						js.src = jsUrl;
+
+						// IE8 doesn't do script onload.
+						if( js.attachEvent ) {
+							js.attachEvent( 'onreadystatechange', function() {
+								if( js.readyState === 'complete' ) {
+									deferred.resolve();
+								}
+							});
+						} else {
+							$( js ).bind( 'load', deferred.resolve );
+						}
+
+						doc.body.appendChild( js );
+					} else if( $content.is( 'iframe' ) ) {
+						deferred.resolve();
+					}
+				});
 			}
 
 			if( !isSmall ) {
