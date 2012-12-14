@@ -231,7 +231,7 @@
 						// IE8 doesn't do script onload.
 						if( js.attachEvent ) {
 							js.attachEvent( 'onreadystatechange', function() {
-								if( js.readyState === 'complete' ) {
+								if( js.readyState === 'loaded' || js.readyState === 'complete' ) {
 									deferred.resolve();
 								}
 							});
