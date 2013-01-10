@@ -124,7 +124,7 @@ class SocialCount
 			throw new Exception('"url" required.');
 		}
 
-		$this->url = $url;
+		$this->url = htmlspecialchars($url);
 	}
 
 	public function addNetwork(SocialNetwork $network)
