@@ -1,3 +1,7 @@
+/*! SocialCount - v0.1.4 - 2012-12-11
+* https://github.com/filamentgroup/SocialCount
+* Copyright (c) 2012 zachleat; Licensed MIT */
+
 ;(function( win, doc, $ ) {
 
 	var $loadingIndicator,
@@ -60,7 +64,8 @@
 		selectors: {
 			facebook: '.facebook',
 			twitter: '.twitter',
-			googleplus: '.googleplus'
+			googleplus: '.googleplus',
+			linkedin:".linkedin"
 		},
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
@@ -231,7 +236,7 @@
 						// IE8 doesn't do script onload.
 						if( js.attachEvent ) {
 							js.attachEvent( 'onreadystatechange', function() {
-								if( js.readyState === 'loaded' || js.readyState === 'complete' ) {
+								if( js.readyState === 'complete' ) {
 									deferred.resolve();
 								}
 							});
@@ -264,6 +269,10 @@
 				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
 					'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
 					'//apis.google.com/js/plusone.js' );
+				
+				bind( $el.find( SocialCount.selectors.linkedin + ' a' ),
+					'<script type="IN/Share" data-url="'+encodeURI( url )+'">\x3c/script>',
+					"//platform.linkedin.com/in.js");
 			}
 
 			var bindPlugins = SocialCount.plugins.bind;

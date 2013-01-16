@@ -17,7 +17,7 @@
   zoom: 1;
 }
 
-.icon-sprite, .icon-facebook, .icon-googleplus, .icon-share, .icon-twitter {
+.icon-sprite, .icon-facebook, .icon-googleplus, .icon-share, .icon-twitter, .icon-linkedin {
   background: url('icon-s8df06ae4f6.png') no-repeat;
 }
 
@@ -43,6 +43,11 @@
   background-position: -69px 0;
   height: 15px;
   width: 17px;
+}
+.icon-linkedin{
+  background-position: -88px 0;
+  height: 18px;
+  width: 20px;  
 }
 
 /* HD icons */

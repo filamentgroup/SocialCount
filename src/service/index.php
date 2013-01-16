@@ -9,6 +9,7 @@ if( !SocialCount::REQUIRE_LOCAL_URL || SocialCount::isLocalUrl( $_GET['url'] ) )
 		$social->addNetwork(new Twitter());
 		$social->addNetwork(new Facebook());
 		$social->addNetwork(new GooglePlus());
+		$social->addNetwork(new LinkedIn());
 		// $social->addNetwork(new ShareThis());
 
 		echo $social->toJSON();

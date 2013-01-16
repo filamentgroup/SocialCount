@@ -104,6 +104,25 @@ class ShareThis implements SocialNetwork {
 	}
 }
 
+class LinkedIn implements SocialNetwork
+{
+	public function getKey()
+	{
+		return 'linkedin';
+	}
+
+	public function getShareCount($url)
+	{
+		$contents = file_get_contents('http://www.linkedin.com/countserv/count/share?format=json&url=' . $url);
+		if($contents) {
+			return json_decode($contents)->count;
+		} else {
+			return NULL;
+		}
+	}
+}
+
+
 /*
  * SocialCount
  * Returns share, like, and comment counts for various popular social networks in a single ajax request.

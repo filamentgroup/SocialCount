@@ -34,6 +34,13 @@ class SocialCount_Service_Test extends PHPUnit_Framework_TestCase
 		$this->assertNotNull($sharethis->getShareCount(self::TEST_URL));
 	}
 
+	public function testLinkedIn()
+	{
+		$sharethis = new LinkedIn();
+		$this->assertEquals('linkedin', $linkedin->getKey());
+		$this->assertNotNull($linkedin->getShareCount(self::TEST_URL));
+	}
+
 	public function testSocialCountNoNetworksValidJson()
 	{
 		$social = new SocialCount(self::TEST_URL);
@@ -50,6 +57,7 @@ class SocialCount_Service_Test extends PHPUnit_Framework_TestCase
 		$social->addNetwork(new Facebook());
 		$social->addNetwork(new GooglePlus());
 		$social->addNetwork(new ShareThis());
+		$social->addNetwork(new LinkedIn());
 
 		$json = $social->toJSON();
 		$this->assertNotNull($json);
