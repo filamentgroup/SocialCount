@@ -106,7 +106,7 @@
 		setup: function() {
 			var $fixture = $('#qunit-fixture');
 
-			$fixture.append( '<ul id="test" class="socialcount" data-url="http://www.google.com/"><li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Like</span></a></li><li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li><li class="googleplus"><a href="https://plus.google.com/share?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li></ul>' );
+			$fixture.append( '<ul id="test" class="socialcount" data-url="http://www.google.com/"><li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Like</span></a></li><li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li><li class="googleplus"><a href="https://plus.google.com/share?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li><li class="linkedin"><a href="https://www.linkedin.com/cws/share?url=http://www.google.com/" title="Share on LinkedIn"><span class="icon icon-linkdein"></span><span class="count">LinkedIn</span></a></li></ul>' );
 		}
 	});
 
@@ -121,7 +121,7 @@
 			strictEqual( $test.find( '.twitter .count' ).html(), '11M' );
 			strictEqual( $test.find( '.facebook .count' ).html(), '5M' );
 			strictEqual( $test.find( '.googleplus .count' ).html(), '1M' );
-
+			strictEqual( $test.find( '.linkedin .count' ).html(), '127K' );
 			start();
 		});
 
@@ -129,7 +129,8 @@
 			dfd.resolve({
 				'twitter': 11464062,
 				'facebook': 5189703,
-				'googleplus': 1570539
+				'googleplus': 1570539,
+				'linkedin': 1570539
 			});
 		}, 50 );
 	});
@@ -145,7 +146,7 @@
 			strictEqual( $test.find( '.twitter .count' ).html(), '11M' );
 			strictEqual( $test.find( '.facebook .count' ).html(), '5M' );
 			strictEqual( $test.find( '.googleplus .count' ).html(), gplusLabel );
-
+			strictEqual( $test.find( '.linkedin .count' ).html(), '127K' );
 			start();
 		});
 
@@ -153,7 +154,8 @@
 			dfd.resolve({
 				'twitter': 11464062,
 				'facebook': 5189703,
-				'googleplus': SocialCount.minCount - 1
+				'googleplus': SocialCount.minCount - 1,
+				'linkedin': 5189703,
 			});
 		}, 50 );
 	});
@@ -206,5 +208,5 @@
 		equal( SocialCount.isSmallSize( $('#test') ), true );
 	});
 
-		// $fixture.append( '<ul id="test" class="socialcount"><li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Like</span></a></li><li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li><li class="googleplus"><a href="https://plus.google.com/share?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li></ul>' );
+		// $fixture.append( '<ul id="test" class="socialcount"><li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=http://www.google.com/" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Like</span></a></li><li class="twitter"><a href="https://twitter.com/intent/tweet?text=http://www.google.com/" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li><li class="googleplus"><a href="https://plus.google.com/share?url=http://www.google.com/" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li><li class="linkedin"><a href="https://www.linkedin.com/cws/share?url=http://www.google.com/" title="Share on LinkedIn"><span class="icon icon-linkdein"></span><span class="count">LinkedIn</span></a></li></ul>' );
 }( jQuery ));

@@ -269,6 +269,7 @@
 				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
 					'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
 					'//apis.google.com/js/plusone.js' );
+				
 				bind( $el.find( SocialCount.selectors.linkedin + ' a' ),
 					'<script type="IN/Share" data-url="'+encodeURI( url )+'">\x3c/script>',
 					"//platform.linkedin.com/in.js");

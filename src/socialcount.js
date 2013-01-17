@@ -65,7 +65,7 @@
 			facebook: '.facebook',
 			twitter: '.twitter',
 			googleplus: '.googleplus',
-			linkedin:".linkedin"
+			linkedin: ".linkedin"
 		},
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
