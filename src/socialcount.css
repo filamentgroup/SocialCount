@@ -39,10 +39,9 @@
 	color: inherit;
 }
 .socialcount > li {
+	display: inline;
 	display: inline-block;
-	*display: inline;
 	zoom: 1;
-	
 	position: relative;
 	vertical-align: top;
 	min-width: 80px;
