@@ -1,28 +1,27 @@
 <!doctype html>
 <html>
-<body>
-	<div class="g-plusone" data-annotation="none"></div>
-	<div id="fb-root"></div>
-	<div class="fb-like" data-href="http://www.google.com" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"></div>
-	<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.google.com/" data-via="zachleat" data-count="none">Tweet</a>
-
-	<script>
-	(function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-
-	(function(d, s, id) {
-	  var js, fjs = d.getElementsByTagName(s)[0];
-	  if (d.getElementById(id)) return;
-	  js = d.createElement(s); js.id = id;
-	  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-	  fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-
-	!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-	</script>
-
-</body>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Social Count Default Buttons (Control Test)</title>
+		<style>
+			html {
+				font: 100% Helvetica, sans-serif;
+			}
+			* {
+				-webkit-box-sizing: border-box;
+				-moz-box-sizing: border-box;
+				box-sizing: border-box;
+			}
+		</style>
+	</head>
+	<body>
+		<h2><a href="index.html">Back to Examples</a></h2>
+		<h2>Default Buttons (Control Test)</h2>
+		<iframe src="//www.facebook.com/plugins/like.php?href=http://www.google.com/&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" style="width: 100px; height: 21px" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>
+		<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.google.com/" data-count="none" data-dnt="true">Tweet</a>
+		<div class="g-plusone" data-size="medium" data-annotation="none"></div>
+		<script src="//platform.twitter.com/widgets.js"></script>
+		<script src="//apis.google.com/js/plusone.js"></script>
+	</body>
 </html>
