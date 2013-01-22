@@ -1,6 +1,6 @@
-/*! SocialCount - v0.1.4 - 2012-12-11
+/*! SocialCount - v0.1.5 - 2013-01-22
 * https://github.com/filamentgroup/SocialCount
-* Copyright (c) 2012 zachleat; Licensed MIT */
+* Copyright (c) 2013 zachleat; Licensed MIT */
 
 ;(function( win, doc, $ ) {
 
@@ -53,19 +53,25 @@
 			gradeA: 'grade-a',
 			active: 'active',
 			touch: 'touch',
+			hover: 'hover',
 			noTransforms: 'no-transforms',
 			showCounts: 'counts',
 			countContent: 'count',
-			minCount: 'minimum'
+			minCount: 'minimum',
+			activateOnHover: 'activate-on-hover',
+			activateOnClick: 'activate-on-click'
 		},
 		thousandCharacter: 'K',
 		millionCharacter: 'M',
 		missingResultText: '-',
+		activateOnClick: false, // default is hover
 		selectors: {
 			facebook: '.facebook',
 			twitter: '.twitter',
 			googleplus: '.googleplus'
 		},
+		locale: doc.documentElement ? ( doc.documentElement.lang || '' ) : '',
+		googleplusTooltip: 'table.gc-bubbleDefault',
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
 			init: [],
@@ -160,6 +166,14 @@
 			if( countsEnabled ) {
 				classes.push( SocialCount.classes.showCounts );
 			}
+			if( SocialCount.activateOnClick ) {
+				classes.push( SocialCount.classes.activateOnClick );
+			} else {
+				classes.push( SocialCount.classes.activateOnHover );
+			}
+			if( SocialCount.locale ) {
+				classes.push( SocialCount.locale );
+			}
 			$el.addClass( classes.join(' ') );
 
 			for( var j = 0, k = initPlugins.length; j < k; j++ ) {
@@ -194,13 +208,41 @@
 		bindEvents: function( $el, url, facebookAction, isSmall ) {
 			function bind( $a, html, jsUrl ) {
 				// IE bug (tested up to version 9) with :hover rules and iframes.
-				$a.closest('li').bind('mouseenter', function() {
-					$( this ).closest( 'li' ).addClass( 'hover' );
-				}).bind('mouseleave', function() {
-					$( this ).closest( 'li' ).removeClass( 'hover' );
+				var isTooltipActive = false,
+					isHoverActive = false;
+
+				$a.closest( 'li' ).bind( 'mouseenter', function( event ) {
+					var $li = $( this ).closest( 'li' );
+
+					$li.addClass( SocialCount.classes.hover );
+
+					isHoverActive = true;
+
+					$( document ).on( 'mouseenter.socialcount mouseleave.socialcount', SocialCount.googleplusTooltip, function( event ) {
+						isTooltipActive = event.type === 'mouseenter';
+
+						if( !isTooltipActive && !isHoverActive ) {
+							$li.removeClass( SocialCount.classes.hover );
+						}
+					});
+				}).bind( 'mouseleave', function( event ) {
+					var self = this;
+					window.setTimeout(function() {
+						isHoverActive = false;
+
+						if( !isTooltipActive && !isHoverActive ) {
+							$( document ).off( '.socialcount' );
+							$( self ).closest( 'li' ).removeClass( SocialCount.classes.hover );
+						}
+					}, 0);
 				});
 
-				$a.one( 'mouseover', function() {
+				$a.one( SocialCount.activateOnClick ? 'click' : 'mouseover', function( event ) {
+					if( SocialCount.activateOnClick ) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+
 					var $self = $( this ),
 						$parent = $self.closest( 'li' ),
 						$loading = $loadingIndicator.clone(),
@@ -235,7 +277,7 @@
 						// IE8 doesn't do script onload.
 						if( js.attachEvent ) {
 							js.attachEvent( 'onreadystatechange', function() {
-								if( js.readyState === 'complete' ) {
+								if( js.readyState === 'loaded' || js.readyState === 'complete' ) {
 									deferred.resolve();
 								}
 							});
@@ -248,18 +290,19 @@
 						deferred.resolve();
 					}
 				});
-			}
+			} // end bind()
 
 			if( !isSmall ) {
 				var shareText = SocialCount.getShareText( $el );
 
 				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
 					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) +
+						( SocialCount.locale ? '&locale=' + SocialCount.locale : '' ) +
 						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction +
 						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
 
 				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
-					'<a href="https://twitter.com/share" class="twitter-share-button"' + 
+					'<a href="https://twitter.com/share" class="twitter-share-button"' +
 						' data-url="' + encodeURI( url ) + '"' +
 						( shareText ? ' data-text="' + shareText + '"': '' ) +
 						' data-count="none" data-dnt="true">Tweet</a>',
@@ -270,11 +313,12 @@
 					'//apis.google.com/js/plusone.js' );
 			}
 
+			// Bind events on other non-stock widgets, like sharethis
 			var bindPlugins = SocialCount.plugins.bind;
 			for( var j = 0, k = bindPlugins.length; j < k; j++ ) {
 				bindPlugins[ j ].call( $el, bind, url, isSmall );
 			}
-		}
+		} // end bindEvents()
 	};
 
 	$(function() {

@@ -31,10 +31,10 @@ class Facebook implements SocialNetwork {
 
 	public function getShareCount($url)
 	{
-		$contents = file_get_contents('http://graph.facebook.com/?id=' . $url);
+		$contents = file_get_contents("http://graph.facebook.com/fql?q=SELECT%20url,%20total_count%20FROM%20link_stat%20WHERE%20url='".$url."'");
 		if($contents) {
 			$json = json_decode($contents);
-			return isset($json->shares) ? $json->shares : 0;
+			return isset($json->data[0]->total_count) ? $json->data[0]->total_count : 0;
 		} else {
 			return NULL;
 		}
@@ -116,7 +116,8 @@ class SocialCount
 	private $url,
 		$services = array();
 
-	const EMPTY_RESULT = '""';
+	const EMPTY_RESULT = '""',
+		REQUIRE_LOCAL_URL = FALSE;
 
 	function __construct($url)
 	{
@@ -124,7 +125,12 @@ class SocialCount
 			throw new Exception('"url" required.');
 		}
 
-		$this->url = $url;
+		$this->url = htmlspecialchars($url);
+	}
+
+	static public function isLocalUrl( $url )
+	{
+		return preg_match('/^http(s?):\/\/' . $_SERVER['HTTP_HOST'] . '(:\d+)?\//', $url );
 	}
 
 	public function addNetwork(SocialNetwork $network)

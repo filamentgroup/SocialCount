@@ -88,6 +88,7 @@ To test the PHP code, navigate to the `service` directory and run `phpunit socia
 * `v0.1.2` Default AJAX request for counts to false, added zip download, better documentation for counts service.
 * `v0.1.3` Added code to normalize service url directory (easier configuration).
 * `v0.1.4` Fix for twitter widget share of non-current page URL. Added data-share-text.
+* `v0.1.5` Option for activate on click, instead of hover. i18n Code, adds de_DE support. Fix for Google+ issue with disappearing tooltip.
 
 ## License
 Copyright (c) 2012 Filament Group, developed by @zachleat. MIT licensed.
