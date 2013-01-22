@@ -1,3 +1,4 @@
+/*global jQuery */
 ;(function( win, doc, $ ) {
 
 	var $loadingIndicator,
