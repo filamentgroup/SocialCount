@@ -1,4 +1,4 @@
-/*global jQuery */
+/*global jQuery console */
 ;(function( win, doc, $ ) {
 
 	var $loadingIndicator,
@@ -67,6 +67,7 @@
 			twitter: '.twitter',
 			googleplus: '.googleplus'
 		},
+		googleplusTooltip: 'table.gc-bubbleDefault',
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
 			init: [],
@@ -200,8 +201,33 @@
 		bindEvents: function( $el, url, facebookAction, isSmall ) {
 			function bind( $a, html, jsUrl ) {
 				// IE bug (tested up to version 9) with :hover rules and iframes.
-				$a.closest( 'li' ).bind( 'mouseenter mouseleave', function( event ) {
-					$( this ).closest( 'li' )[ event.type === 'mouseenter' ? 'addClass' : 'removeClass' ]( SocialCount.classes.hover );
+				var isTooltipActive = false,
+					isHoverActive = false;
+
+				$a.closest( 'li' ).bind( 'mouseenter', function( event ) {
+					var $li = $( this ).closest( 'li' );
+
+					$li.addClass( SocialCount.classes.hover );
+
+					isHoverActive = true;
+
+					$( document ).on( 'mouseenter.socialcount mouseleave.socialcount', SocialCount.googleplusTooltip, function( event ) {
+						isTooltipActive = event.type === 'mouseenter';
+
+						if( !isTooltipActive && !isHoverActive ) {
+							$li.removeClass( SocialCount.classes.hover );
+						}
+					});
+				}).bind( 'mouseleave', function( event ) {
+					var self = this;
+					window.setTimeout(function() {
+						isHoverActive = false;
+
+						if( !isTooltipActive && !isHoverActive ) {
+							$( document ).off( '.socialcount' );
+							$( self ).closest( 'li' ).removeClass( SocialCount.classes.hover );
+						}
+					}, 0);
 				});
 
 				$a.one( SocialCount.activateOnClick ? 'click' : 'mouseover', function( event ) {
@@ -257,7 +283,7 @@
 						deferred.resolve();
 					}
 				});
-			}
+			} // end bind()
 
 			if( !isSmall ) {
 				var shareText = SocialCount.getShareText( $el );
@@ -279,11 +305,12 @@
 					'//apis.google.com/js/plusone.js' );
 			}
 
+			// Bind events on other non-stock widgets, like sharethis
 			var bindPlugins = SocialCount.plugins.bind;
 			for( var j = 0, k = bindPlugins.length; j < k; j++ ) {
 				bindPlugins[ j ].call( $el, bind, url, isSmall );
 			}
-		}
+		} // end bindEvents()
 	};
 
 	$(function() {
