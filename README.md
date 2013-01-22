@@ -11,7 +11,7 @@ The problems with social networking widgets are [well documented][zurb]. They're
 SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mobile friendly social networking widgets.
 
  * Currently supports Facebook, Twitter, and Google Plus.
- * **2.98KB** (without icons, after Min+GZip—compared to 309KB up front empty-cache pageload cost for Facebook, Twitter, and Google Plus widgets)
+ * **3.30KB** (without icons, after Min+GZip—compared to 309KB up front empty-cache pageload cost for Facebook, Twitter, and Google Plus widgets)
  * 1 JS request, 1 CSS request, 1 optional request for icons, 1 optional AJAX request for counts (compared to 25 total requests for Facebook, Twitter, and Google Plus widgets)
  * Easy to fit in with existing page design
  * Ability to share without JavaScript or before JavaScript has loaded.
@@ -88,7 +88,7 @@ To test the PHP code, navigate to the `service` directory and run `phpunit socia
 * `v0.1.2` Default AJAX request for counts to false, added zip download, better documentation for counts service.
 * `v0.1.3` Added code to normalize service url directory (easier configuration).
 * `v0.1.4` Fix for twitter widget share of non-current page URL. Added data-share-text.
-* `v0.1.5` Option for activate on click, instead of hover. i18n Code, adds de_DE support. Fix for Google+ issue with disappearing tooltip.
+* `v0.1.5` Option for activate on click, instead of hover. i18n Code, adds de_DE support. Fix for Google+ issue with disappearing tooltip. Local url filtering on counts service. More accurate Facebook counts.
 
 ## License
 Copyright (c) 2012 Filament Group, developed by @zachleat. MIT licensed.
