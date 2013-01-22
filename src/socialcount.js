@@ -50,14 +50,18 @@
 			gradeA: 'grade-a',
 			active: 'active',
 			touch: 'touch',
+			hover: 'hover',
 			noTransforms: 'no-transforms',
 			showCounts: 'counts',
 			countContent: 'count',
-			minCount: 'minimum'
+			minCount: 'minimum',
+			activateOnHover: 'activate-on-hover',
+			activateOnClick: 'activate-on-click'
 		},
 		thousandCharacter: 'K',
 		millionCharacter: 'M',
 		missingResultText: '-',
+		activateOnClick: false, // default is hover
 		selectors: {
 			facebook: '.facebook',
 			twitter: '.twitter',
@@ -157,6 +161,11 @@
 			if( countsEnabled ) {
 				classes.push( SocialCount.classes.showCounts );
 			}
+			if( SocialCount.activateOnClick ) {
+				classes.push( SocialCount.classes.activateOnClick );
+			} else {
+				classes.push( SocialCount.classes.activateOnHover );
+			}
 			$el.addClass( classes.join(' ') );
 
 			for( var j = 0, k = initPlugins.length; j < k; j++ ) {
@@ -191,13 +200,16 @@
 		bindEvents: function( $el, url, facebookAction, isSmall ) {
 			function bind( $a, html, jsUrl ) {
 				// IE bug (tested up to version 9) with :hover rules and iframes.
-				$a.closest('li').bind('mouseenter', function() {
-					$( this ).closest( 'li' ).addClass( 'hover' );
-				}).bind('mouseleave', function() {
-					$( this ).closest( 'li' ).removeClass( 'hover' );
+				$a.closest( 'li' ).bind( 'mouseenter mouseleave', function( event ) {
+					$( this ).closest( 'li' )[ event.type === 'mouseenter' ? 'addClass' : 'removeClass' ]( SocialCount.classes.hover );
 				});
 
-				$a.one( 'mouseover', function() {
+				$a.one( SocialCount.activateOnClick ? 'click' : 'mouseover', function( event ) {
+					if( SocialCount.activateOnClick ) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+
 					var $self = $( this ),
 						$parent = $self.closest( 'li' ),
 						$loading = $loadingIndicator.clone(),
@@ -256,7 +268,7 @@
 						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
 
 				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
-					'<a href="https://twitter.com/share" class="twitter-share-button"' + 
+					'<a href="https://twitter.com/share" class="twitter-share-button"' +
 						' data-url="' + encodeURI( url ) + '"' +
 						( shareText ? ' data-text="' + shareText + '"': '' ) +
 						' data-count="none" data-dnt="true">Tweet</a>',

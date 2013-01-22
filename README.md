@@ -31,7 +31,7 @@ SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mo
 
 The following archive contains both minified (`socialcount.min.js`+`socialcount.min.css`) and unminified (`socialcount.js`+`socialcount.css`) versions of the JS and CSS required to use SocialCount.
 
-SocialCount also has a version that packages the social networking icons as well. Use the regular `socialcount.js` with `socialcount-with-icons.css` or `socialcount-with-icons.min.css` and the included SD and HD image sprites.
+By default, the social networking icons are not included. However, SocialCount publishes a version that does include the social networking icons: Use the regular `socialcount.js` with `socialcount-with-icons.css` or `socialcount-with-icons.min.css` and the included SD and HD image sprites.
 
 The archive also contains the **optional** PHP service files for the AJAX request to retrieve the share counts (requires PHP 5 with curl). To enable this feature for your widget, use `<ul class="socialcount" data-counts="true">`.
 
@@ -91,3 +91,8 @@ To test the PHP code, navigate to the `service` directory and run `phpunit socia
 
 ## License
 Copyright (c) 2012 Filament Group, developed by @zachleat. MIT licensed.
+
+## Advanced Options
+
+* `SocialCount.activateOnClick = false;` Global option to switch from load triggering on hover to a manual click.
+* `SocialCount.thousandCharacter = 'K';` `SocialCount.millionCharacter = 'M';` i18n Strings.
