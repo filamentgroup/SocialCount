@@ -13,8 +13,8 @@ if( !SocialCount::REQUIRE_LOCAL_URL || SocialCount::isLocalUrl( $_GET['url'] ) )
 
 		echo $social->toJSON();
 	} catch(Exception $e) {
-					echo '{"error": "' . $e->getMessage() . '"}';
+		echo '{"error": "' . $e->getMessage() . '"}';
 	}
 } else {
-				echo '{"error": "URL not authorized (' . $_SERVER['HTTP_HOST'] . ')"}';
+	echo '{"error": "URL not authorized (' . $_SERVER['HTTP_HOST'] . ')"}';
 }
