@@ -67,6 +67,7 @@
 			twitter: '.twitter',
 			googleplus: '.googleplus'
 		},
+		locale: doc.documentElement ? ( doc.documentElement.lang || '' ) : '',
 		googleplusTooltip: 'table.gc-bubbleDefault',
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
@@ -166,6 +167,9 @@
 				classes.push( SocialCount.classes.activateOnClick );
 			} else {
 				classes.push( SocialCount.classes.activateOnHover );
+			}
+			if( SocialCount.locale ) {
+				classes.push( SocialCount.locale );
 			}
 			$el.addClass( classes.join(' ') );
 
@@ -290,6 +294,7 @@
 
 				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
 					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) +
+						( SocialCount.locale ? '&locale=' + SocialCount.locale : '' ) +
 						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction +
 						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
 
