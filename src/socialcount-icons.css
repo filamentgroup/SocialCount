@@ -4,12 +4,15 @@
   zoom: 1;
   vertical-align: middle;
   *margin-right: 5px;
+  margin-top: -2px;
+
+  -webkit-transition: opacity .1s linear;
 }
 
+.socialcount.grade-a > li a:focus .social-icon,
 .socialcount.grade-a > li:hover .social-icon {
-  display: none;
+  opacity: 0;
 }
-
 .socialcount-small.grade-a > li:hover .social-icon,
 .socialcount-large.grade-a > li:hover .social-icon {
   display: inline-block;
