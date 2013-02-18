@@ -152,7 +152,8 @@
 				isSmall = SocialCount.isSmallSize( $el ),
 				url = SocialCount.getUrl( $el ),
 				initPlugins = SocialCount.plugins.init,
-				countsEnabled = SocialCount.isCountsEnabled( $el );
+				countsEnabled = SocialCount.isCountsEnabled( $el ),
+				locale = $el.data('locale');
 
 			if( SocialCount.isGradeA ) {
 				classes.push( SocialCount.classes.gradeA );
@@ -168,8 +169,8 @@
 			} else {
 				classes.push( SocialCount.classes.activateOnHover );
 			}
-			if (locale = $el.data('locale')) {
-				SocialCount.locale = locale != "none" ? locale : '';
+			if (locale) {
+				SocialCount.locale = locale !== "none" ? locale : '';
 			}
 			if( SocialCount.locale ) {
 				classes.push( SocialCount.locale );
