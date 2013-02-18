@@ -168,8 +168,8 @@
 			} else {
 				classes.push( SocialCount.classes.activateOnHover );
 			}
-			if ($el.data('locale')) {
-				SocialCount.locale = $el.data('locale');
+			if (locale = $el.data('locale')) {
+				SocialCount.locale = locale != "none" ? locale : '';
 			}
 			if( SocialCount.locale ) {
 				classes.push( SocialCount.locale );
