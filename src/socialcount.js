@@ -67,7 +67,7 @@
 			twitter: '.twitter',
 			googleplus: '.googleplus'
 		},
-		locale: doc.documentElement ? ( doc.documentElement.lang || '' ) : '',
+		locale: doc.documentElement ? ( doc.documentElement.lang || '' ).replace('-', '_') : '',
 		googleplusTooltip: 'table.gc-bubbleDefault',
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
