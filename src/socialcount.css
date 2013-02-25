@@ -67,6 +67,15 @@
 .socialcount-large.recommend .facebook {
 	min-width: 105px;
 }
+.socialcount .vk {
+	min-width: 100px;
+}
+.socialcount.vk-mini .vk {
+	min-width: 90px;
+}
+.socialcount-small .vk {
+	min-width: 0;
+}
 .socialcount > li > a {
 	display: block;
 	padding: 0 5px;
@@ -112,6 +121,17 @@
 }
 .socialcount.like.de_DE .facebook iframe {
 	width: 75px; /* like */
+}
+.socialcount .vk .button > div {
+	display: inline-block;
+}
+.socialcount .vk .button > div,
+.socialcount .vk iframe {
+	width: 86px!important;
+}
+.socialcount.vk-mini .vk .button > div,
+.socialcount.vk-mini .vk iframe {
+	width: 73px!important;
 }
 
 .socialcount .button {

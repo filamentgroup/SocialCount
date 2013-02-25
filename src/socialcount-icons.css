@@ -20,8 +20,8 @@
   zoom: 1;
 }
 
-.icon-sprite, .icon-facebook, .icon-googleplus, .icon-share, .icon-twitter {
-  background: url('icon-s8df06ae4f6.png') no-repeat;
+.icon-sprite, .icon-facebook, .icon-googleplus, .icon-share, .icon-twitter, .icon-vk {
+  background: url('icons.png') no-repeat;
 }
 
 .icon-facebook {
@@ -47,6 +47,11 @@
   height: 15px;
   width: 17px;
 }
+.icon-vk {
+  background-position: -90px 0;
+  height: 17px;
+  width: 17px;
+}
 
 /* HD icons */
 @media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
@@ -55,6 +60,6 @@
     -moz-background-size: auto 17px;
     -o-background-size: auto 17px;
     background-size: auto 17px;
-    background-image: url('icon-hd-s9293bc9986.png');
+    background-image: url('icons-hd.png');
   }
 }

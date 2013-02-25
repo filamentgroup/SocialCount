@@ -10,7 +10,7 @@ The problems with social networking widgets are [well documented][zurb]. They're
 
 SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mobile friendly social networking widgets.
 
- * Currently supports Facebook, Twitter, and Google Plus.
+ * Currently supports Facebook, Twitter, VK.com and Google Plus.
  * **2.98KB** (without icons, after Min+GZip—compared to 309KB up front empty-cache pageload cost for Facebook, Twitter, and Google Plus widgets)
  * 1 JS request, 1 CSS request, 1 optional request for icons, 1 optional AJAX request for counts (compared to 25 total requests for Facebook, Twitter, and Google Plus widgets)
  * Easy to fit in with existing page design
@@ -35,6 +35,8 @@ By default, the social networking icons are not included. However, SocialCount p
 
 The archive also contains the **optional** PHP service files for the AJAX request to retrieve the share counts (requires PHP 5 with curl). To enable this feature for your widget, use `<ul class="socialcount" data-counts="true">`.
 
+Vk.com examples work only on localhost.com because it depends on the domain. (you can create this alias for localhost in your hosts file). You'll need to add `data-vp-api="YOUR_SITE_API_ID"` to ul for vk.com likes to work.
+
 ### Download [socialcount.zip][zipfile]
 
 [zipfile]: https://raw.github.com/filamentgroup/SocialCount/master/dist/socialcount.zip
@@ -54,6 +56,8 @@ Customize the sample markup below or use the provided  [markup generator][genera
 	<li class="twitter"><a href="https://twitter.com/intent/tweet?text=YOUR_CUSTOM_URL" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li>
 
 	<li class="googleplus"><a href="https://plus.google.com/share?url=YOUR_CUSTOM_URL" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li>
+
+	<li class="vk"><a href="https://vk.com/share.php?url=http://www.google.com/" title="Share on vk.com"><span class="social-icon icon-vk"></span><span class="count">Like</span></a></li>
 
 	</ul>
 

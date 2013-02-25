@@ -56,7 +56,8 @@
 			countContent: 'count',
 			minCount: 'minimum',
 			activateOnHover: 'activate-on-hover',
-			activateOnClick: 'activate-on-click'
+			activateOnClick: 'activate-on-click',
+			vkMini: ''
 		},
 		thousandCharacter: 'K',
 		millionCharacter: 'M',
@@ -65,10 +66,13 @@
 		selectors: {
 			facebook: '.facebook',
 			twitter: '.twitter',
-			googleplus: '.googleplus'
+			googleplus: '.googleplus',
+			vk: '.vk'
 		},
 		locale: doc.documentElement ? ( doc.documentElement.lang || '' ) : '',
 		googleplusTooltip: 'table.gc-bubbleDefault',
+		vkElementID: 'vk_like',
+		vkType: "button", 
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
 			init: [],
@@ -102,6 +106,13 @@
 		},
 		isSmallSize: function( $el ) {
 			return $el.is( '.socialcount-small' );
+		},
+		getVKOptions: function($el) {
+			return {
+				vkElementID: $el.attr('data-vk-id') || SocialCount.vkElementID,
+				vkApiID: $el.attr('data-vk-api'),
+				vkType: $el.attr('data-vk-type') || SocialCount.vkType
+			};
 		},
 		getCounts: function( $el, url ) {
 			var map = SocialCount.selectors,
@@ -147,8 +158,10 @@
 			return cache[ url ];
 		},
 		init: function( $el ) {
-			var facebookAction = SocialCount.getFacebookAction( $el ),
-				classes = [ facebookAction ],
+			var options = {
+					facebookAction: SocialCount.getFacebookAction( $el ),
+				},
+				classes = [ options.facebookAction ],
 				isSmall = SocialCount.isSmallSize( $el ),
 				url = SocialCount.getUrl( $el ),
 				initPlugins = SocialCount.plugins.init,
@@ -171,6 +184,11 @@
 			if( SocialCount.locale ) {
 				classes.push( SocialCount.locale );
 			}
+			if ( $el.children('.vk').length > 0 ) {
+				options.vk = SocialCount.getVKOptions( $el );
+				classes.push( 'vk-' + options.vk.vkType );
+			}
+			
 			$el.addClass( classes.join(' ') );
 
 			for( var j = 0, k = initPlugins.length; j < k; j++ ) {
@@ -178,7 +196,7 @@
 			}
 
 			if( SocialCount.isGradeA ) {
-				SocialCount.bindEvents( $el, url, facebookAction, isSmall );
+				SocialCount.bindEvents( $el, url, options, isSmall );
 			}
 
 			if( countsEnabled && !isSmall ) {
@@ -202,8 +220,8 @@
 			}
 			return count;
 		},
-		bindEvents: function( $el, url, facebookAction, isSmall ) {
-			function bind( $a, html, jsUrl ) {
+		bindEvents: function( $el, url, options, isSmall ) {
+			function bind( $a, html, jsUrl, jsInline ) {
 				// IE bug (tested up to version 9) with :hover rules and iframes.
 				var isTooltipActive = false,
 					isHoverActive = false;
@@ -250,6 +268,10 @@
 						deferred = $.Deferred();
 
 					deferred.promise().always(function() {
+						//Execute optional init js
+						if ( jsInline && typeof jsInline === 'function' )
+								jsInline();
+
 						// Remove Loader
 						var $iframe = $parent.find('iframe');
 
@@ -295,7 +317,7 @@
 				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
 					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) +
 						( SocialCount.locale ? '&locale=' + SocialCount.locale : '' ) +
-						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction +
+						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + options.facebookAction +
 						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
 
 				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
@@ -307,7 +329,18 @@
 
 				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
 					'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
-					'//apis.google.com/js/plusone.js' );
+					'//apis.google.com/js/plusone.js' );		
+
+				if ( options.vk ) {
+					bind( $el.find( SocialCount.selectors.vk + ' a' ),
+						'<div id="' + options.vk.vkElementID + '"></div>',
+						'//vk.com/js/api/openapi.js',
+						function(){
+							if (!VK._apiId) //Init only the first time
+								VK.init({apiId: options.vk.vkApiID, onlyWidgets: true});
+							VK.Widgets.Like(options.vk.vkElementID, {type: options.vk.vkType});
+						});
+				}
 			}
 
 			// Bind events on other non-stock widgets, like sharethis
