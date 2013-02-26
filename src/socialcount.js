@@ -67,7 +67,8 @@
 			facebook: '.facebook',
 			twitter: '.twitter',
 			googleplus: '.googleplus',
-			vk: '.vk'
+			vk: '.vk',
+			odnoklassniki: '.odnoklassniki'
 		},
 		locale: doc.documentElement ? ( doc.documentElement.lang || '' ) : '',
 		googleplusTooltip: 'table.gc-bubbleDefault',
@@ -330,6 +331,10 @@
 				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
 					'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
 					'//apis.google.com/js/plusone.js' );		
+
+				bind( $el.find( SocialCount.selectors.odnoklassniki + ' a' ),
+					'<a target="_blank" class="mrc__plugin_uber_like_button" href="http://connect.mail.ru/share" data-mrc-config="{\'cm\' : \'1\', \'ck\' : \'1\', \'sz\' : \'20\', \'st\' : \'2\', \'tp\' : \'ok\', \'width\' : \'80%\'}">Нравится</a>',
+					'//cdn.connect.mail.ru/js/loader.js' );		
 
 				if ( options.vk ) {
 					bind( $el.find( SocialCount.selectors.vk + ' a' ),

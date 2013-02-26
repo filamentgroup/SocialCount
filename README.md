@@ -10,7 +10,7 @@ The problems with social networking widgets are [well documented][zurb]. They're
 
 SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mobile friendly social networking widgets.
 
- * Currently supports Facebook, Twitter, VK.com and Google Plus.
+ * Currently supports Facebook, Twitter, Google Plus, VK.com and odnoklassniki.ru.
  * **2.98KB** (without icons, after Min+GZip—compared to 309KB up front empty-cache pageload cost for Facebook, Twitter, and Google Plus widgets)
  * 1 JS request, 1 CSS request, 1 optional request for icons, 1 optional AJAX request for counts (compared to 25 total requests for Facebook, Twitter, and Google Plus widgets)
  * Easy to fit in with existing page design
@@ -58,6 +58,8 @@ Customize the sample markup below or use the provided  [markup generator][genera
 	<li class="googleplus"><a href="https://plus.google.com/share?url=YOUR_CUSTOM_URL" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li>
 
 	<li class="vk"><a href="https://vk.com/share.php?url=http://www.google.com/" title="Share on vk.com"><span class="social-icon icon-vk"></span><span class="count">Like</span></a></li>
+
+	<li class="odnoklassniki"><a href="http://connect.mail.ru/share" target="_blank" title="Share on odnoklassniki.ru"><span class="social-icon icon-odnoklassniki"></span><span class="count"></span></a></li>
 
 	</ul>
 

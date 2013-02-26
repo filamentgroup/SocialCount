@@ -20,7 +20,7 @@
   zoom: 1;
 }
 
-.icon-sprite, .icon-facebook, .icon-googleplus, .icon-share, .icon-twitter, .icon-vk {
+.icon-sprite, .icon-facebook, .icon-googleplus, .icon-share, .icon-twitter, .icon-vk, .icon-odnoklassniki {
   background: url('icons.png') no-repeat;
 }
 
@@ -51,6 +51,11 @@
   background-position: -90px 0;
   height: 17px;
   width: 17px;
+}
+.icon-odnoklassniki {
+  background-position: -108px 0;
+  height: 17px;
+  width: 15px;
 }
 
 /* HD icons */

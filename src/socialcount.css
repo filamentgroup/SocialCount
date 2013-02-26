@@ -60,9 +60,6 @@
 .socialcount.recommend .facebook {
 	min-width: 120px;
 }
-.socialcount-small.recommend .facebook {
-	min-width: 0;
-}
 .socialcount-large > li,
 .socialcount-large.recommend .facebook {
 	min-width: 105px;
@@ -73,7 +70,12 @@
 .socialcount.vk-mini .vk {
 	min-width: 90px;
 }
-.socialcount-small .vk {
+.socialcount .odnoklassniki {
+	min-width: 120px;
+}
+.socialcount-small.recommend .facebook,
+.socialcount-small .vk,
+.socialcount-small .odnoklassniki {
 	min-width: 0;
 }
 .socialcount > li > a {
