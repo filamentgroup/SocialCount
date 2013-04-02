@@ -104,6 +104,26 @@ class ShareThis implements SocialNetwork {
 	}
 }
 
+class Pinterest implements SocialNetwork {
+	public function getKey()
+	{
+		return 'pinterest';
+	}
+
+	public function getShareCount($url)
+	{
+		$contents = file_get_contents('http://api.pinterest.com/v1/urls/count.json?callback=&url=' . $url);
+		if($contents) {
+			$contents = preg_replace('/.+?({.+}).+/','$1', $contents);
+
+			$json = json_decode($contents);
+			return $json->count !== '-' ? $json->count : NULL;
+		} else {
+			return NULL;
+		}
+	}
+}
+
 /*
  * SocialCount
  * Returns share, like, and comment counts for various popular social networks in a single ajax request.
