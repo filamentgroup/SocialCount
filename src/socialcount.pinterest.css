@@ -1,0 +1,19 @@
+.socialcount .pinterest .button {
+	bottom: 0;
+  pointer-events: auto;
+}
+.socialcount-large .pinterest .button {
+	bottom: 10px;
+}
+.socialcount > .pinterest:hover {
+	cursor: pointer;
+}
+.socialcount-small .pinterest .count {
+	text-indent: -999px;
+}
+.icon-pinterest {
+  background: image-url('socialcount-icons-sd-dark.png') no-repeat;
+  background-position: -90px 0;
+  height: 17px;
+  width: 14px;
+}
