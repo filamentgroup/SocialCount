@@ -1,8 +1,6 @@
-# SocialCount
+# SocialCount (simplified)
 
-Related: [Filament Group Lab Post][blogpost]
-
-[blogpost]: http://filamentgroup.com/lab/socialcount/
+Original plugin: [Filamentgroup's SocialCount](https://github.com/filamentgroup/SocialCount/)
 
 The problems with social networking widgets are [well documented][zurb]. They're heavy and slow to load especially on high-latency mobile connections.
 
@@ -11,19 +9,19 @@ The problems with social networking widgets are [well documented][zurb]. They're
 SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mobile friendly social networking widgets.
 
  * Currently supports Facebook, Twitter, Google Plus, VK.com and odnoklassniki.ru.
- * **2.98KB** (without icons, after Min+GZip—compared to 309KB up front empty-cache pageload cost for Facebook, Twitter, and Google Plus widgets)
- * 1 JS request, 1 CSS request, 1 optional request for icons, 1 optional AJAX request for counts (compared to 25 total requests for Facebook, Twitter, and Google Plus widgets)
+ * 1 JS request, 1 CSS request, 1 request for font (compared to 25 total requests for Facebook, Twitter, and Google Plus widgets)
  * Easy to fit in with existing page design
- * Ability to share without JavaScript or before JavaScript has loaded.
- * Works with mouse, touchscreen, or keyboard.
+  * Works with mouse, touchscreen, or keyboard.
 	 * Mouse: On hover, loads a social network's native widget so that the user can Like/Recommend/+1 without leaving the current page.
 	 * Touch screen: simple redirects to dedicated network share pages.
 	 * Keyboard: Concise tab order.
- * Option to conditionally display count if it's above a minimum threshold. Avoid goose egg ghost-town.
  * Intelligent client-side caching so that two or more widgets with the same share URL only make one AJAX request.
  * Requires jQuery 1.6+
 
-## [SocialCount Demo][demourl]
+
+## Original description
+
+### [SocialCount Demo][demourl]
 
 [demourl]: http://fgte.st/SocialCount/examples/index.html
 
@@ -85,7 +83,6 @@ Touchscreens (Links Only)
 ## Contributing
 Add unit tests for any new or changed functionality. Lint and test your JavaScript code using [grunt](https://github.com/cowboy/grunt) and the `grunt qunit` command.
 
-To test the PHP code, navigate to the `service` directory and run `phpunit socialcount_service_test.php`
 
 
 ## Release History
