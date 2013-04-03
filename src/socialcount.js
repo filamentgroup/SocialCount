@@ -227,7 +227,8 @@
 				var isTooltipActive = false,
 					isHoverActive = false;
 
-				$a.closest( 'li' ).bind( 'mouseenter', function( event ) {
+				$li = $a.closest( 'li' );
+				$li.on( 'mouseenter', function( event ) {
 					var $li = $( this ).closest( 'li' );
 
 					$li.addClass( SocialCount.classes.hover );
@@ -241,7 +242,7 @@
 							$li.removeClass( SocialCount.classes.hover );
 						}
 					});
-				}).bind( 'mouseleave', function( event ) {
+				}).on( 'mouseleave', function( event ) {
 					var self = this;
 					window.setTimeout(function() {
 						isHoverActive = false;
@@ -253,14 +254,13 @@
 					}, 0);
 				});
 
-				$a.one( SocialCount.activateOnClick ? 'click' : 'mouseover', function( event ) {
+				$li.one( SocialCount.activateOnClick ? 'click' : 'mouseover', function( event ) {
 					if( SocialCount.activateOnClick ) {
 						event.preventDefault();
 						event.stopPropagation();
 					}
 
 					var $self = $( this ),
-						$parent = $self.closest( 'li' ),
 						$loading = $loadingIndicator.clone(),
 						$content = $( html ),
 						$button = $( '<div class="button"/>' ).append( $content ),
@@ -274,10 +274,10 @@
 								jsInline();
 
 						// Remove Loader
-						var $iframe = $parent.find('iframe');
+						var $iframe = $self.find('iframe');
 
 						if( $iframe.length ) {
-							$iframe.bind( 'load', function() {
+							$iframe.on( 'load', function() {
 								$loading.remove();
 							});
 						} else {
@@ -285,7 +285,7 @@
 						}
 					});
 
-					$parent
+					$self
 						.addClass( SocialCount.classes.active )
 						.append( $loading )
 						.append( $button );
@@ -302,7 +302,7 @@
 								}
 							});
 						} else {
-							$( js ).bind( 'load', deferred.resolve );
+							$( js ).on( 'load', deferred.resolve );
 						}
 
 						doc.body.appendChild( js );
@@ -333,7 +333,7 @@
 					'//apis.google.com/js/plusone.js' );		
 
 				bind( $el.find( SocialCount.selectors.odnoklassniki + ' a' ),
-					'<a target="_blank" class="mrc__plugin_uber_like_button" href="http://connect.mail.ru/share" data-mrc-config="{\'cm\' : \'1\', \'ck\' : \'1\', \'sz\' : \'20\', \'st\' : \'2\', \'tp\' : \'ok\', \'width\' : \'80%\'}">Нравится</a>',
+					'<a target="_blank" class="mrc__plugin_uber_like_button" href="http://connect.mail.ru/share" data-mrc-config="{\'cm\' : \'1\', \'ck\' : \'1\', \'sz\' : \'20\', \'st\' : \'2\', \'tp\' : \'ok\', \'width\' : \'91%\'}">Нравится</a>',
 					'//cdn.connect.mail.ru/js/loader.js' );		
 
 				if ( options.vk ) {
