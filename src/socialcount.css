@@ -27,6 +27,7 @@
 	}
 	.socialcount > li {
 		position: relative;
+		overflow: hidden;
 		display: inline-block;
 		margin-right: 15px;
 		padding: 0 10px 0 0;
@@ -52,8 +53,8 @@
 	.socialcount > li > a:focus,
 	.socialcount > li:hover,
 	.socialcount > li.hover /* fix for IE and iframes */ {
-		border-color: #fff;
-		background: #fff;
+		border-color: transparent;
+		background: transparent;
 		box-shadow: none;
 	}
 
