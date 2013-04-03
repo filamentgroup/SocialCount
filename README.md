@@ -18,12 +18,11 @@ SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mo
  * Intelligent client-side caching so that two or more widgets with the same share URL only make one AJAX request.
  * Requires jQuery 1.6+
 
-
-## Original description
-
 ### [SocialCount Demo][demourl]
 
-[demourl]: http://fgte.st/SocialCount/examples/index.html
+[demourl]: http://scarfacedeb.github.com/SocialCount/
+
+## Original description
 
 ## Getting Started
 
