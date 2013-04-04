@@ -25,7 +25,7 @@
 			// }
 
 			// required API ID for vk.com
-			if ( $.inArray( 'vk', this.options.socialSites ) )
+			if ( $.inArray( 'vk', this.options.socialSites ) >= 0 )
 				this.options.vkApiID = this.$el.data('vk-api');
 
 			// create markup and append it to the element
@@ -194,28 +194,34 @@
 				});
 			}
 
-			bind.call(this, this.socialButtons['facebook'] );
+			if ( 'facebook' in this.socialButtons ) 
+				bind.call(this, this.socialButtons['facebook'] );
 			
-			bind.call(this, this.socialButtons['twitter'],
+			if ( 'twitter' in this.socialButtons ) 
+				bind.call(this, this.socialButtons['twitter'],
 				  '//platform.twitter.com/widgets.js' );
 			
-			bind.call(this, this.socialButtons['googleplus'],
+			if ( 'googleplus' in this.socialButtons ) 
+				bind.call(this, this.socialButtons['googleplus'],
 				  '//apis.google.com/js/plusone.js' );
 			
-			bind.call(this, this.socialButtons['odnoklassniki'],
+			if ( 'odnoklassniki' in this.socialButtons ) 
+				bind.call(this, this.socialButtons['odnoklassniki'],
 				  '//cdn.connect.mail.ru/js/loader.js' );
 
-			bind.call(this, this.socialButtons['vk'],
-				'//vk.com/js/api/openapi.js',
-				$.proxy( function( url, shareText ){
-					if (!VK._apiId) //Init only the first time
-						VK.init( { 
-							apiId: this.options.vkApiID, 
-							onlyWidgets: true
-						});
-					VK.Widgets.Like( this.options.vkElementID, { type: 'button', pageUrl: url, pageTitle: shareText } );
-				}, this )
-			);
+			if ( 'vk' in this.socialButtons ) {
+				bind.call(this, this.socialButtons['vk'],
+					'//vk.com/js/api/openapi.js',
+					$.proxy( function( url, shareText ){
+						if (!VK._apiId) //Init only the first time
+							VK.init( { 
+								apiId: this.options.vkApiID, 
+								onlyWidgets: true
+							});
+						VK.Widgets.Like( this.options.vkElementID, { type: 'button', pageUrl: url, pageTitle: shareText } );
+					}, this )
+				);
+			}
 
 		},
 
