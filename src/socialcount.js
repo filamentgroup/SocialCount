@@ -108,7 +108,7 @@
 					var $li = $(this),
 						$el = $li.closest('ul'),
 						url = encodeURI( $el.data('url') || location.href ),
-						shareText = $el.data('share-text' ) || '';
+						shareText = $el.data('share-text' ) || document.title;
 
 					// url and shareText didn't change -> no need to reload the buttons
 					if ( $li.data('cached') && 
