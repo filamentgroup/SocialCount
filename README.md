@@ -16,73 +16,87 @@ SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mo
 	 * Touch screen: simple redirects to dedicated network share pages.
 	 * Keyboard: Concise tab order.
  * Intelligent client-side caching so that two or more widgets with the same share URL only make one AJAX request.
- * Requires jQuery 1.6+
+ * Requires jQuery and Modernizr
 
 ### [SocialCount Demo][demourl]
 
 [demourl]: http://scarfacedeb.github.com/SocialCount/
 
-## Original description
+Style's inspired by: [Social sign in buttons by Ilya Gorenburg][style]     
+Font for symbols: [Grands][grands] (I added odnoklassniki.ru symbol to it)     
+
+[style]: http://faveup.com/free-psd-files/social-sign-in-buttons/88872
+[grands]: http://grawl.github.com/Grands/
+        
 
 ## Getting Started
 
-The following archive contains both minified (`socialcount.min.js`+`socialcount.min.css`) and unminified (`socialcount.js`+`socialcount.css`) versions of the JS and CSS required to use SocialCount.
+Add this scripts/stylesheet to your head:
+	
+	<link rel="stylesheet" href="../src/socialcount.css">
+	<script src="../src/vendor/modernizr.custom.04153.js"></script>
+	<script src="../src/socialcount.js"></script>
 
-By default, the social networking icons are not included. However, SocialCount publishes a version that does include the social networking icons: Use the regular `socialcount.js` with `socialcount-with-icons.css` or `socialcount-with-icons.min.css` and the included SD and HD image sprites.
 
-The archive also contains the **optional** PHP service files for the AJAX request to retrieve the share counts (requires PHP 5 with curl). To enable this feature for your widget, use `<ul class="socialcount" data-counts="true">`.
+And this markup to the page:
 
-Vk.com examples work only on localhost.com because it depends on the domain. (you can create this alias for localhost in your hosts file). You'll need to add `data-vp-api="YOUR_SITE_API_ID"` to ul for vk.com likes to work.
+	<ul class="socialcount" id="socialcount" data-url="http://www.google.com/" data-share-text="My Custom Share Text" data-vk-api="3542794"></ul>
+
+
+Basic initializing code:
+	
+	$('#socialcount').socialCount();
+
+
+### Default options:
+
+	// css classes that would be added on specific actions
+	classes: {
+		active: 'active',
+		touch: 'touch',
+		hover: 'hover',
+		activateOnHover: 'activate-on-hover',
+		activateOnClick: 'activate-on-click',
+	},
+	activateOnClick: false, // false - active on hover
+	// list of social sites, which buttons would be added to the page
+	socialSites: [ 'facebook', 'twitter', 'googleplus', 'vk', 'odnoklassniki' ],
+	// config for social sites
+	sitesConfig: {
+		facebook: {
+			label: 'Like', // label on the button
+			url: 'https://www.facebook.com/sharer/sharer.php' // fallback link
+		},
+		twitter: {
+			label: 'Tweet',
+			url: 'https://twitter.com/intent/tweet'
+		},
+		googleplus: {
+			label: '+1',
+			url: 'https://plus.google.com/share'
+		},
+		vk: {
+			label: 'Like',
+			url: 'https://vk.com/share.php'
+		},
+		odnoklassniki: {
+			label: 'Класс',
+			url: 'http://connect.mail.ru/share'
+		}
+	},
+	googleplusTooltip: 'table.gc-bubbleDefault', // selector for g+ popup
+	vkElementID: 'vk_like' // ID of vk.com element
+
+
+You can choose what sites you want to show by changing *socialSites* option. (it's a list, see default options)
+
+
+### Note
+Vk.com examples work only on localhost.com because it's API ID is linked to this domain. (you can create this alias for localhost in your hosts file). You'll need to add `data-vp-api="YOUR_SITE_API_ID"` to ul for vk.com likes to work.
 
 ### Download [socialcount.zip][zipfile]
 
-[zipfile]: https://raw.github.com/filamentgroup/SocialCount/master/dist/socialcount.zip
-
-### Markup with icons:
-
-Customize the sample markup below or use the provided  [markup generator][generator].
-
-[generator]: http://fgte.st/SocialCount/examples/index.html#generator
-
-    <!-- Replace YOUR_CUSTOM_URL with the URL you're sharing -->
-
-	<ul class="socialcount" data-url="YOUR_CUSTOM_URL">
-
-	<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=YOUR_CUSTOM_URL" title="Share on Facebook"><span class="icon icon-facebook"></span><span class="count">Like</span></a></li>
-
-	<li class="twitter"><a href="https://twitter.com/intent/tweet?text=YOUR_CUSTOM_URL" title="Share on Twitter"><span class="icon icon-twitter"></span><span class="count">Tweet</span></a></li>
-
-	<li class="googleplus"><a href="https://plus.google.com/share?url=YOUR_CUSTOM_URL" title="Share on Google Plus"><span class="icon icon-googleplus"></span><span class="count">+1</span></a></li>
-
-	<li class="vk"><a href="https://vk.com/share.php?url=http://www.google.com/" title="Share on vk.com"><span class="social-icon icon-vk"></span><span class="count">Like</span></a></li>
-
-	<li class="odnoklassniki"><a href="http://connect.mail.ru/share" target="_blank" title="Share on odnoklassniki.ru"><span class="social-icon icon-odnoklassniki"></span><span class="count"></span></a></li>
-
-	</ul>
-
-## Tested with
-* Chrome Desktop 23
-* Firefox 16
-* Opera 12
-* Safari 6
-* Internet Explorer 7 (Links Only)
-* Internet Explorer 8
-* Internet Explorer 9
-
-Touchscreens (Links Only)
-
-* BlackBerry 5
-* BlackBerry 6.1
-* BlackBerry 7
-* iOS 6
-* Chrome for iOS 21
-* Android 2.3
-* Windows Phone 7.5
-
-## Contributing
-Add unit tests for any new or changed functionality. Lint and test your JavaScript code using [grunt](https://github.com/cowboy/grunt) and the `grunt qunit` command.
-
-
+[zipfile]: https://github.com/scarfaceDeb/SocialCount/zipball/master
 
 ## Release History
 * `v0.1.0` Initial release
@@ -92,10 +106,17 @@ Add unit tests for any new or changed functionality. Lint and test your JavaScri
 * `v0.1.4` Fix for twitter widget share of non-current page URL. Added data-share-text.
 * `v0.1.5` Option for activate on click, instead of hover. i18n Code, adds de_DE support. Fix for Google+ issue with disappearing tooltip.
 
+
+## TODO
+- Testing
+- More testing
+- Vk.com pageTitle, odnoklassniki title
+- Is _isGradeA function needed?
+- Better fallback
+- Locale support
+- Replace ul > li with div > a?
+
+
 ## License
-Copyright (c) 2012 Filament Group, developed by @zachleat. MIT licensed.
-
-## Advanced Options
-
-* `SocialCount.activateOnClick = false;` Global option to switch from load triggering on hover to a manual click.
-* `SocialCount.thousandCharacter = 'K';` `SocialCount.millionCharacter = 'M';` i18n Strings.
+Copyright (c) 2012 Filament Group, developed by @zachleat. MIT licensed.     
+Refactored by @scarfacedeb, 2013. MIT licensed.

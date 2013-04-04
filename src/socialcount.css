@@ -56,6 +56,8 @@
 		border-color: transparent;
 		background: transparent;
 		box-shadow: none;
+		text-shadow: none;
+		color: transparent;
 	}
 
 		.socialcount > li:before {
@@ -77,17 +79,6 @@
 		.socialcount > li:hover:before,
 		.socialcount > li.hover:before { display: none; }
 
-
-			.socialcount .count {
-				position: relative;
-				display: inline-block;
-				margin-left: 6px;
-				text-align: center;
-				color: inherit;
-				zoom: 1;
-				*display: inline;
-			}
-
 		.socialcount .button {
 			position: absolute;
 			top: 5px;
@@ -100,6 +91,11 @@
 			.socialcount .button iframe {
 				pointer-events: auto;
 			}
+		.socialcount li a:focus .button,
+		.socialcount li:hover .button,
+		.socialcount li.hover .button {
+			display: block;
+		}
 
 		.socialcount.grade-a.activate-on-hover > li.hover .count,
 		.socialcount.grade-a.activate-on-click > li.hover.active .count {
