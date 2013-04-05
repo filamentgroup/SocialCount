@@ -170,9 +170,9 @@
 						'cached-url': url,
 						'cached-share-text': shareText
 					});
-					$li.data( 'cached', true )
+					$li.data( 'cached', true );
 
-					if( jsUrl ) {
+					if( jsUrl && !$li.data('cached-script') ) {
 						js = doc.createElement( 'script' );
 						js.src = jsUrl;
 
@@ -188,7 +188,9 @@
 						}
 
 						doc.body.appendChild( js );
-					} else if( $content.is( 'iframe' ) ) {
+						$li.data( 'cached-script', true );
+
+					} else {
 						deferred.resolve();
 					}
 				});
@@ -218,6 +220,7 @@
 								apiId: this.options.vkApiID, 
 								onlyWidgets: true
 							});
+						$("iframe[id*='vkwidget']").remove(); //remove old iframes
 						VK.Widgets.Like( this.options.vkElementID, { type: 'button', pageUrl: url, pageTitle: shareText } );
 					}, this )
 				);
