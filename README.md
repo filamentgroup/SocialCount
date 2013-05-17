@@ -1,8 +1,8 @@
 # SocialCount
 
-Related: [Filament Group Lab Post][blogpost]
+*Copyright (c) 2012 Filament Group, developed by [@zachleat](https://github.com/zachleat). MIT licensed.*
 
-[blogpost]: http://filamentgroup.com/lab/socialcount/
+Related: [Filament Group Lab Post](http://filamentgroup.com/lab/socialcount/)
 
 The problems with social networking widgets are [well documented][zurb]. They're heavy and slow to load especially on high-latency mobile connections.
 
@@ -89,9 +89,7 @@ To test the PHP code, navigate to the `service` directory and run `phpunit socia
 * `v0.1.3` Added code to normalize service url directory (easier configuration).
 * `v0.1.4` Fix for twitter widget share of non-current page URL. Added data-share-text.
 * `v0.1.5` Option for activate on click, instead of hover. i18n Code, adds de_DE support. Fix for Google+ issue with disappearing tooltip. Local url filtering on counts service. More accurate Facebook counts.
-
-## License
-Copyright (c) 2012 Filament Group, developed by @zachleat. MIT licensed.
+* `v0.1.6` Added Pinterest button. Thanks @dustMason!
 
 ## Advanced Options
 
