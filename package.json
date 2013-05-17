@@ -2,7 +2,7 @@
   "name": "socialcount",
   "title": "SocialCount",
   "description": "Progressively enhanced, lazy loaded, mobile friendly Social Networking widgets.",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "homepage": "https://github.com/filamentgroup/SocialCount",
   "author": {
     "name": "zachleat",
@@ -22,8 +22,14 @@
       "url": "https://github.com/filamentgroup/SocialCount/blob/master/LICENSE-MIT"
     }
   ],
+  "devDependencies": {
+    "grunt": "0.3.17"
+  },
   "dependencies": {
-    "jquery": "1.6"
+    "grunt-contrib-clean": "0.3.1",
+    "grunt-contrib-compress": "0.3.2",
+    "grunt-contrib-copy": "0.3.2",
+    "grunt-css": "0.3.2"
   },
   "keywords": []
 }
