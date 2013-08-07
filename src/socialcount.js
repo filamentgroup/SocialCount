@@ -42,7 +42,10 @@
 
 	var SocialCount = {
 		// For A-grade experience, require querySelector (IE8+) and not BlackBerry or touchscreen
-		isGradeA: 'querySelectorAll' in doc && !win.blackberry && !('ontouchstart' in window) && !('onmsgesturechange' in window),
+		isGradeA: 'querySelectorAll' in doc && !win.blackberry && !('ontouchstart' in window) &&
+			// Note that this feature test does not account for the Windows Phone version that includes IE9
+			// IE 10 desktop (non-touch) returns 0 for msMaxTouchPoints
+			( typeof window.navigator.msMaxTouchPoints === 'undefined' || window.navigator.msMaxTouchPoints === 0 ),
 		minCount: 1,
 		serviceUrl: 'service/index.php',
 		initSelector: '.socialcount',
