@@ -20,8 +20,8 @@
   zoom: 1;
 }
 
-.icon-sprite, .icon-facebook, .icon-googleplus, .icon-share, .icon-twitter {
-  background: url('icon-s8df06ae4f6.png') no-repeat;
+.icon-sprite, .icon-facebook, .icon-googleplus, .icon-pinterest, .icon-share, .icon-twitter {
+  background: url('icon-sd6cd4d0ec7.png') no-repeat;
 }
 
 .icon-facebook {
@@ -36,14 +36,20 @@
   width: 20px;
 }
 
-.icon-share {
+.icon-pinterest {
   background-position: -45px 0;
+  height: 15px;
+  width: 11px;
+}
+
+.icon-share {
+  background-position: -60px 0;
   height: 16px;
   width: 20px;
 }
 
 .icon-twitter {
-  background-position: -69px 0;
+  background-position: -84px 0;
   height: 15px;
   width: 17px;
 }
@@ -55,6 +61,6 @@
     -moz-background-size: auto 17px;
     -o-background-size: auto 17px;
     background-size: auto 17px;
-    background-image: url('icon-hd-s9293bc9986.png');
+    background-image: url('icon-hd-s816aa7a6b3.png');
   }
 }

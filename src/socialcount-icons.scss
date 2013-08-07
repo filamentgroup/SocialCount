@@ -1,9 +1,3 @@
-@import "compass/utilities/sprites";
-
-$icon-layout: horizontal;
-$icon-spacing: 4px;
-$icon-sprite-dimensions: true;
-
 .social-icon {
 	display: inline-block;
 	*display: inline;
@@ -24,10 +18,7 @@ $icon-sprite-dimensions: true;
 	zoom: 1;
 }
 
-@import "icon/*.png";
-@include all-icon-sprites;
-
-$icon-hd: sprite-map("icon-hd/*.png", $spacing: 8px, $layout: horizontal);
+@import "compass-sprite.scss";
 
 /* HD icons */
 @media (min--moz-device-pixel-ratio: 1.5),

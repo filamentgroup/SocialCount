@@ -1,0 +1,10 @@
+@import "compass/utilities/sprites";
+
+$icon-layout: horizontal;
+$icon-spacing: 4px;
+$icon-sprite-dimensions: true;
+
+@import "icon/*.png";
+@include all-icon-sprites;
+
+$icon-hd: sprite-map("icon-hd/*.png", $spacing: 8px, $layout: horizontal);
