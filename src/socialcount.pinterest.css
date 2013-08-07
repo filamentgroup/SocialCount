@@ -1,6 +1,14 @@
+.socialcount .pinterest {
+	display: none;
+}
+.socialcount.js .pinterest {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+}
 .socialcount .pinterest .button {
 	bottom: 0;
-  pointer-events: auto;
+	pointer-events: auto;
 }
 .socialcount-large .pinterest .button {
 	bottom: 10px;

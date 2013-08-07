@@ -50,6 +50,7 @@
 		serviceUrl: 'service/index.php',
 		initSelector: '.socialcount',
 		classes: {
+			js: 'js',
 			gradeA: 'grade-a',
 			active: 'active',
 			touch: 'touch',
@@ -156,6 +157,8 @@
 				url = SocialCount.getUrl( $el ),
 				initPlugins = SocialCount.plugins.init,
 				countsEnabled = SocialCount.isCountsEnabled( $el );
+
+			classes.push( SocialCount.classes.js );
 
 			if( SocialCount.isGradeA ) {
 				classes.push( SocialCount.classes.gradeA );
