@@ -71,7 +71,11 @@
 			twitter: '.twitter',
 			googleplus: '.googleplus'
 		},
-		locale: doc.documentElement ? ( doc.documentElement.lang || '' ) : '',
+		locale: (function() {
+			var locale = doc.documentElement ? ( doc.documentElement.lang || '' ) : '';
+			locale = locale.replace(/\-/, '_');
+			return locale.match(/\w{2}_\w{2}/) ? locale : '';
+		})(),
 		googleplusTooltip: 'table.gc-bubbleDefault',
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
