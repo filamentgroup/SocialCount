@@ -65,6 +65,8 @@ Customize the sample markup below or use the provided  [markup generator][genera
 * Internet Explorer 7 (Links Only)
 * Internet Explorer 8
 * Internet Explorer 9
+* Internet Explorer 10
+* Windows Phone 7.5
 
 Touchscreens (Links Only)
 
@@ -74,7 +76,6 @@ Touchscreens (Links Only)
 * iOS 6
 * Chrome for iOS 21
 * Android 2.3
-* Windows Phone 7.5
 
 ## Contributing
 Add unit tests for any new or changed functionality. Lint and test your JavaScript code using [grunt](https://github.com/cowboy/grunt) and the `grunt qunit` command.
