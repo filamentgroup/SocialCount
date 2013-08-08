@@ -1,4 +1,4 @@
-/*! SocialCount - v0.1.5 - 2013-01-22
+/*! SocialCount - v0.1.6 - 2013-08-07
 * https://github.com/filamentgroup/SocialCount
 * Copyright (c) 2013 zachleat; Licensed MIT */
 
@@ -45,11 +45,15 @@
 
 	var SocialCount = {
 		// For A-grade experience, require querySelector (IE8+) and not BlackBerry or touchscreen
-		isGradeA: 'querySelectorAll' in doc && !win.blackberry && !('ontouchstart' in window) && !('onmsgesturechange' in window),
+		isGradeA: 'querySelectorAll' in doc && !win.blackberry && !('ontouchstart' in window) &&
+			// Note that this feature test does not account for the Windows Phone version that includes IE9
+			// IE 10 desktop (non-touch) returns 0 for msMaxTouchPoints
+			( typeof window.navigator.msMaxTouchPoints === 'undefined' || window.navigator.msMaxTouchPoints === 0 ),
 		minCount: 1,
 		serviceUrl: 'service/index.php',
 		initSelector: '.socialcount',
 		classes: {
+			js: 'js',
 			gradeA: 'grade-a',
 			active: 'active',
 			touch: 'touch',
@@ -156,6 +160,8 @@
 				url = SocialCount.getUrl( $el ),
 				initPlugins = SocialCount.plugins.init,
 				countsEnabled = SocialCount.isCountsEnabled( $el );
+
+			classes.push( SocialCount.classes.js );
 
 			if( SocialCount.isGradeA ) {
 				classes.push( SocialCount.classes.gradeA );

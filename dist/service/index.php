@@ -10,6 +10,7 @@ if( !SocialCount::REQUIRE_LOCAL_URL || SocialCount::isLocalUrl( $_GET['url'] ) )
 		$social->addNetwork(new Facebook());
 		$social->addNetwork(new GooglePlus());
 		// $social->addNetwork(new ShareThis());
+		$social->addNetwork(new Pinterest());
 
 		echo $social->toJSON();
 	} catch(Exception $e) {
