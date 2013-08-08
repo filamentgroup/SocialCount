@@ -1,4 +1,4 @@
-/*! SocialCount - v0.1.6 - 2013-08-07
+/*! SocialCount - v0.1.6 - 2013-08-08
 * https://github.com/filamentgroup/SocialCount
 * Copyright (c) 2013 zachleat; Licensed MIT */
 
@@ -51,6 +51,9 @@
 	text-align: center;
 	white-space: nowrap;
 	*margin-right: 4px;
+}
+.socialcount.like.de_DE > .facebook {
+	min-width: 90px; /* like */
 }
 .socialcount-small > li {
 	min-width: 0;
@@ -107,13 +110,13 @@
 	width: 90px; /* recommend */
 }
 .socialcount.de_DE .facebook iframe {
-	width: 78px; /* recommend */
+	width: 83px; /* recommend */
 }
 .socialcount.like .facebook iframe {
 	width: 48px; /* like */
 }
 .socialcount.like.de_DE .facebook iframe {
-	width: 75px; /* like */
+	width: 83px; /* like */
 }
 
 .socialcount .button {

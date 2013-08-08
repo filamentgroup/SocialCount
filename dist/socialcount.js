@@ -1,4 +1,4 @@
-/*! SocialCount - v0.1.6 - 2013-08-07
+/*! SocialCount - v0.1.6 - 2013-08-08
 * https://github.com/filamentgroup/SocialCount
 * Copyright (c) 2013 zachleat; Licensed MIT */
 
@@ -74,7 +74,11 @@
 			twitter: '.twitter',
 			googleplus: '.googleplus'
 		},
-		locale: doc.documentElement ? ( doc.documentElement.lang || '' ) : '',
+		locale: (function() {
+			var locale = doc.documentElement ? ( doc.documentElement.lang || '' ) : '';
+			locale = locale.replace(/\-/, '_');
+			return locale.match(/\w{2}_\w{2}/) ? locale : '';
+		})(),
 		googleplusTooltip: 'table.gc-bubbleDefault',
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
@@ -302,14 +306,14 @@
 				var shareText = SocialCount.getShareText( $el );
 
 				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
-					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURI( url ) +
+					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURIComponent( url ) +
 						( SocialCount.locale ? '&locale=' + SocialCount.locale : '' ) +
 						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction +
 						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
 
 				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
 					'<a href="https://twitter.com/share" class="twitter-share-button"' +
-						' data-url="' + encodeURI( url ) + '"' +
+						' data-url="' + encodeURIComponent( url ) + '"' +
 						( shareText ? ' data-text="' + shareText + '"': '' ) +
 						' data-count="none" data-dnt="true">Tweet</a>',
 					'//platform.twitter.com/widgets.js' );
