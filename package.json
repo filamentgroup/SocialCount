@@ -22,6 +22,9 @@
       "url": "https://github.com/filamentgroup/SocialCount/blob/master/LICENSE-MIT"
     }
   ],
+  "scripts": {
+    "test": "grunt --verbose"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-concat": "~0.3.0",
@@ -35,7 +38,8 @@
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-compress": "~0.5.2",
     "grunt-contrib-qunit": "~0.2.2",
-    "grunt-banner": "~0.1.4"
+    "grunt-banner": "~0.1.4",
+    "grunt-cli": "~0.1.0"
   },
   "dependencies": {},
   "keywords": []
