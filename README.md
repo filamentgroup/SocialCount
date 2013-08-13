@@ -1,5 +1,7 @@
 # SocialCount
 
+[![Build Status](https://travis-ci.org/filamentgroup/SocialCount.png?branch=master)](https://travis-ci.org/filamentgroup/SocialCount)
+
 *Copyright (c) 2012 Filament Group, developed by [@zachleat](https://github.com/zachleat). MIT licensed.*
 
 Related: [Filament Group Lab Post](http://filamentgroup.com/lab/socialcount/)
