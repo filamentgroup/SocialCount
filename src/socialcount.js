@@ -310,7 +310,7 @@
 
 				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
 					'<a href="https://twitter.com/share" class="twitter-share-button"' +
-						' data-url="' + encodeURIComponent( url ) + '"' +
+						' data-url="' + url + '"' +
 						( shareText ? ' data-text="' + shareText + '"': '' ) +
 						' data-count="none" data-dnt="true">Tweet</a>',
 					'//platform.twitter.com/widgets.js' );
