@@ -61,6 +61,23 @@
 				height: 200px;
 				tab-size: 2;
 			}
+			/* Logo */
+			.header {
+				background: #247201 url(http://filamentgroup.com/images/headerbg-new.jpg) no-repeat bottom left;
+			}
+			#fg-logo {
+				text-indent: -9999px;
+				margin: 0 auto;
+				width: 287px;
+				height: 52px;
+				background-image: url(http://filamentgroup.com/images/fg-logo-icon.png);
+			}
+			@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5){
+				#fg-logo {
+					background-size: 287px 52px;
+					background-image: url(http://filamentgroup.com/images/fg-logo-icon-lrg.png);
+				}
+			}
 		</style>
 		<script>
 		$(function() {
@@ -118,7 +135,10 @@
 		</script>
 	</head>
 	<body>
-		<h1>SocialCount Examples</h1>
+		<div class="header">
+			<a href="http://filamentgroup.com/"><h1 id="fg-logo">Filament Group</h1></a>
+		</div>
+		<h2>SocialCount Examples</h2>
 		Did you follow a direct link to this example? You may want to return to <a href="http://github.com/filamentgroup/SocialCount/">SocialCount's GitHub page</a>.
 		<ul>
 			<li><a href="#default">Medium (Default)</a></li>
