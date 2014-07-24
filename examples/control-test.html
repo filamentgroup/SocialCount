@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
 		<title>Social Count Default Buttons (Control Test)</title>
+		<link href="http://filamentgroup.github.io/demo-head/demohead.css" rel="stylesheet">
 		<style>
 			html {
 				font: 100% Helvetica, sans-serif;
@@ -13,34 +14,42 @@
 				-moz-box-sizing: border-box;
 				box-sizing: border-box;
 			}
-			/* Logo */
-			.header {
-				background: #247201 url(/examples/headerbg-new.jpg) no-repeat bottom left;
-			}
-			#fg-logo {
-				text-indent: -9999px;
-				margin: 0 auto;
-				width: 287px;
-				height: 52px;
-				background-image: url(/examples/fg-logo-icon.png);
-			}
-			@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5){
-				#fg-logo {
-					background-size: 287px 52px;
-					background-image: url(/examples/fg-logo-icon-lrg.png);
-				}
-			}
 		</style>
+		<script src="http://filamentgroup.github.io/demo-head/loadfont.js"></script>
 	</head>
 	<body>
-		<div class="header">
-			<a href="http://filamentgroup.com/"><h1 id="fg-logo">Filament Group</h1></a>
+		<div class="demo-header">
+			<div class="company">
+				<img src="http://filamentgroup.com/images/fg-logo-positive-sm-crop.png">
+			</div>
+			<div class="details">
+				<h1 class="description-container">Demo of <span class="repo-name">SocialCount</span>
+					<span class="description">Simple barebones project to show share counts from various social networks.</span>
+				</h1>
+				<ul class="outbound-links">
+					<li><a href="https://github.com/filamentgroup/SocialCount">Code</a></li>
+					<li><a href="http://filamentgroup.com/lab/socialcount.html">Article</a></li>
+					<li><a href="https://github.com/filamentgroup/SocialCount/issues">Issues</a></li>
+				</ul>
+			</div>
 		</div>
-		<h2><a href="index.html">Back to Examples</a></h2>
-		<h2>Default Buttons (Control Test)</h2>
-		<iframe src="//www.facebook.com/plugins/like.php?href=http://www.google.com/&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" style="width: 100px; height: 21px" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>
-		<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.google.com/" data-count="none" data-dnt="true">Tweet</a>
-		<div class="g-plusone" data-size="medium" data-annotation="none"></div>
+		<div class="nav-container">
+			<div class="docs-globalnav">
+				<nav class="docs-nav">
+					<a href="index.html">Medium (Default)</a>
+					<a href="small.html">Small</a>
+					<a href="large.html">Large</a>
+					<a href="markup-generator.html">Markup Generator</a>
+					<a href="control-test.html" class="current">Default Buttons (Control Test for comparison)</a>
+				</nav>
+			</div>
+		</div>
+		<div class="docs-main">
+			<h2>Default Buttons (Control Test)</h2>
+			<iframe src="//www.facebook.com/plugins/like.php?href=http://www.google.com/&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=like&amp;colorscheme=light&amp;font=arial&amp;height=21" style="width: 100px; height: 21px" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>
+			<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.google.com/" data-count="none" data-dnt="true">Tweet</a>
+			<div class="g-plusone" data-size="medium" data-annotation="none"></div>
+		</div>
 		<script src="//platform.twitter.com/widgets.js"></script>
 		<script src="//apis.google.com/js/plusone.js"></script>
 	</body>
