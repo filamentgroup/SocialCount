@@ -7,6 +7,7 @@
 		<link rel="stylesheet" href="../src/socialcount.css">
 		<link rel="stylesheet" href="../src/socialcount-icons.css">
 		<link rel="stylesheet" href="../src/socialcount.pinterest.css">
+		<link rel="stylesheet" href="http://filamentgroup.github.io/demo-head/demohead.css">
 		<!-- scripts would be better placed below near the </body> -->
 		<script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 		<script src="../src/socialcount.js"></script>
@@ -60,23 +61,6 @@
 			textarea {
 				height: 200px;
 				tab-size: 2;
-			}
-			/* Logo */
-			.header {
-				background: #247201 url(/examples/headerbg-new.jpg) no-repeat bottom left;
-			}
-			#fg-logo {
-				text-indent: -9999px;
-				margin: 0 auto;
-				width: 287px;
-				height: 52px;
-				background-image: url(/examples/fg-logo-icon.png);
-			}
-			@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5){
-				#fg-logo {
-					background-size: 287px 52px;
-					background-image: url(/examples/fg-logo-icon-lrg.png);
-				}
 			}
 		</style>
 		<script>
@@ -133,10 +117,23 @@
 			});
 		});
 		</script>
+		<script src="http://filamentgroup.github.io/demo-head/loadfont.js"></script>
 	</head>
 	<body>
-		<div class="header">
-			<a href="http://filamentgroup.com/"><h1 id="fg-logo">Filament Group</h1></a>
+		<div class="demo-header">
+			<div class="company">
+				<img src="http://filamentgroup.com/images/fg-logo-positive-sm-crop.png">
+			</div>
+			<div class="details">
+				<h1 class="description-container">Demo of <span class="repo-name">SocialCount</span>
+					<span class="description">Simple barebones project to show share counts from various social networks.</span>
+				</h1>
+				<ul class="outbound-links">
+					<li><a href="https://github.com/filamentgroup/SocialCount">Code</a></li>
+					<li><a href="http://filamentgroup.com/lab/socialcount.html">Article</a></li>
+					<li><a href="https://github.com/filamentgroup/SocialCount/issues">Issues</a></li>
+				</ul>
+			</div>
 		</div>
 		<h2>SocialCount Examples</h2>
 		Did you follow a direct link to this example? You may want to return to <a href="http://github.com/filamentgroup/SocialCount/">SocialCount's GitHub page</a>.
