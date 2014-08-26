@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 				dest: 'dist/<%= pkg.name %>.css'
 			},
 			distcsswithicons: {
-				src: ['src/<%= pkg.name %>.css', 'src/<%= pkg.name %>-icons.css>'],
+				src: ['src/<%= pkg.name %>.css', 'src/<%= pkg.name %>-icons.css'],
 				dest: 'dist/<%= pkg.name %>-with-icons.css'
 			}
 		},
