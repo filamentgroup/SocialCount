@@ -1,6 +1,6 @@
-/*! SocialCount - v0.1.6 - 2013-08-08
+/*! SocialCount - v0.1.7 - 2014-08-26
 * https://github.com/filamentgroup/SocialCount
-* Copyright (c) 2013 zachleat; Licensed MIT */
+* Copyright (c) 2014 zachleat; Licensed MIT */
 
 .socialcount {
 	color: #fff;
@@ -223,4 +223,70 @@
 	0% { opacity: 0; }
 	50% { opacity: 0.8; }
 	100% { opacity: 0; }
+}
+.social-icon {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+  vertical-align: middle;
+  *margin-right: 5px;
+}
+
+.socialcount.grade-a.activate-on-hover > li.hover .social-icon,
+.socialcount.grade-a.activate-on-click > li.hover.active .social-icon {
+  display: none;
+}
+
+.socialcount-small.grade-a.activate-on-hover > li.hover .social-icon,
+.socialcount-small.grade-a.activate-on-click > li.hover.active .social-icon,
+.socialcount-large.grade-a.activate-on-hover > li.hover .social-icon,
+.socialcount-large.grade-a.activate-on-click > li.hover.active .social-icon {
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+}
+
+.icon-sprite, .icon-facebook, .icon-googleplus, .icon-pinterest, .icon-share, .icon-twitter {
+  background: url('icon-sd6cd4d0ec7.png') no-repeat;
+}
+
+.icon-facebook {
+  background-position: 0 0;
+  height: 15px;
+  width: 17px;
+}
+
+.icon-googleplus {
+  background-position: -21px 0;
+  height: 17px;
+  width: 20px;
+}
+
+.icon-pinterest {
+  background-position: -45px 0;
+  height: 15px;
+  width: 11px;
+}
+
+.icon-share {
+  background-position: -60px 0;
+  height: 16px;
+  width: 20px;
+}
+
+.icon-twitter {
+  background-position: -84px 0;
+  height: 15px;
+  width: 17px;
+}
+
+/* HD icons */
+@media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+  .social-icon {
+    -webkit-background-size: auto 17px;
+    -moz-background-size: auto 17px;
+    -o-background-size: auto 17px;
+    background-size: auto 17px;
+    background-image: url('icon-hd-s816aa7a6b3.png');
+  }
 }
