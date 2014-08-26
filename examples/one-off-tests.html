@@ -19,10 +19,30 @@
 				-moz-box-sizing: border-box;
 				box-sizing: border-box;
 			}
+			/* Logo */
+			.header {
+				background: #247201 url(/examples/headerbg-new.jpg) no-repeat bottom left;
+			}
+			#fg-logo {
+				text-indent: -9999px;
+				margin: 0 auto;
+				width: 287px;
+				height: 52px;
+				background-image: url(/examples/fg-logo-icon.png);
+			}
+			@media (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5){
+				#fg-logo {
+					background-size: 287px 52px;
+					background-image: url(/examples/fg-logo-icon-lrg.png);
+				}
+			}
 		</style>
 	</head>
 	<body>
-		<h1>Rendering Tests</h1>
+		<div class="header">
+			<a href="http://filamentgroup.com/"><h1 id="fg-logo">Filament Group</h1></a>
+		</div>
+		<h2>Rendering Tests</h2>
 
 		<h4>font-size: 11px (Issue #15)</h4>
 		<div style="font-size: 11px;">

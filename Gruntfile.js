@@ -120,5 +120,6 @@ module.exports = function(grunt) {
 
 	// Default task.
 	grunt.registerTask( 'default', [ 'jshint', 'qunit' ] );
+	grunt.registerTask( 'stage', [ 'default' ]);
 	grunt.registerTask( 'release', [ 'clean', 'jshint', 'qunit', 'concat', 'uglify', 'cssmin', 'usebanner', 'copy', 'compress' ] );
 };

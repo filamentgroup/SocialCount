@@ -1,6 +1,6 @@
-# SocialCount
+# SocialCount [![Build Status](https://travis-ci.org/filamentgroup/SocialCount.png?branch=master)](https://travis-ci.org/filamentgroup/SocialCount)
 
-[![Build Status](https://travis-ci.org/filamentgroup/SocialCount.png?branch=master)](https://travis-ci.org/filamentgroup/SocialCount)
+[![Filament Group](http://filamentgroup.com/images/fg-logo-positive-sm-crop.png) ](http://www.filamentgroup.com/)
 
 *Copyright (c) 2012 Filament Group, developed by [@zachleat](https://github.com/zachleat). MIT licensed.*
 
@@ -27,7 +27,7 @@ SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mo
 
 ## [SocialCount Demo][demourl]
 
-[demourl]: http://fgte.st/SocialCount/examples/index.html
+[demourl]: http://master.origin.socialcount.fgtest.com/examples/
 
 ## Getting Started
 
@@ -45,7 +45,7 @@ The archive also contains the **optional** PHP service files for the AJAX reques
 
 Customize the sample markup below or use the provided  [markup generator][generator].
 
-[generator]: http://fgte.st/SocialCount/examples/index.html#generator
+[generator]: http://master.origin.socialcount.fgtest.com/examples/index.html#generator
 
     <!-- Replace YOUR_CUSTOM_URL with the URL you're sharing -->
 
