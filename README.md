@@ -94,6 +94,7 @@ To test the PHP code, navigate to the `service` directory and run `phpunit socia
 * `v0.1.5` Option for activate on click, instead of hover. i18n Code, adds de_DE support. Fix for Google+ issue with disappearing tooltip. Local url filtering on counts service. More accurate Facebook counts.
 * `v0.1.6` Added Pinterest button. Thanks @dustMason! Fix for IE10 support (wasn’t passing A-Grade test). Facebook button requires long form locale. Tweaks to German button sizes.
 * `v0.1.7` Bug fix: #42
+* `v0.1.8` Bug fix: #45
 
 ## Advanced Options
 

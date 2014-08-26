@@ -1,4 +1,4 @@
-/*! SocialCount - v0.1.7 - 2014-08-26
+/*! SocialCount - v0.1.8 - 2014-08-26
 * https://github.com/filamentgroup/SocialCount
 * Copyright (c) 2014 zachleat; Licensed MIT */
 
@@ -313,7 +313,7 @@
 
 				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
 					'<a href="https://twitter.com/share" class="twitter-share-button"' +
-						' data-url="' + encodeURIComponent( url ) + '"' +
+						' data-url="' + url + '"' +
 						( shareText ? ' data-text="' + shareText + '"': '' ) +
 						' data-count="none" data-dnt="true">Tweet</a>',
 					'//platform.twitter.com/widgets.js' );
