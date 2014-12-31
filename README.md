@@ -31,7 +31,13 @@ SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mo
 
 ## Getting Started
 
-The following archive contains both minified (`socialcount.min.js`+`socialcount.min.css`) and unminified (`socialcount.js`+`socialcount.css`) versions of the JS and CSS required to use SocialCount.
+Install via Bower:
+
+```
+bower install --save socialcount
+```
+
+Alternatively, the following archive contains both minified (`socialcount.min.js`+`socialcount.min.css`) and unminified (`socialcount.js`+`socialcount.css`) versions of the JS and CSS required to use SocialCount.
 
 By default, the social networking icons are not included. However, SocialCount publishes a version that does include the social networking icons: Use the regular `socialcount.js` with `socialcount-with-icons.css` or `socialcount-with-icons.min.css` and the included SD and HD image sprites.
 
