@@ -1,0 +1,34 @@
+{
+  "name": "socialcount",
+  "description": "Progressively enhanced, lazy loaded, mobile friendly Social Networking widgets",
+  "version": "0.1.8",
+  "keywords": [
+    "social",
+    "share",
+    "like",
+    "follow",
+    "facebook",
+    "twitter",
+    "google"
+  ],
+  "authors": [
+    {
+      "name": "zachleat",
+      "email": "zach@filamentgroup.com",
+      "homepage": "http://www.filamentgroup.com/"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/filamentgroup/SocialCount.git"
+  },
+  "main": [
+    "dist/socialcount.js",
+    "dist/socialcount.css"
+  ],
+  "ignore": [
+    "node_modules",
+    ".sass-cache"
+  ],
+  "dependencies": {}
+}
