@@ -95,6 +95,7 @@ To test the PHP code, navigate to the `service` directory and run `phpunit socia
 * `v0.1.6` Added Pinterest button. Thanks @dustMason! Fix for IE10 support (wasn’t passing A-Grade test). Facebook button requires long form locale. Tweaks to German button sizes.
 * `v0.1.7` Bug fix: #42
 * `v0.1.8` Bug fix: #45
+* [`v0.1.9`](https://github.com/filamentgroup/SocialCount/releases/tag/v0.1.9)
 
 ## Advanced Options
 
