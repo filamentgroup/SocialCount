@@ -11,6 +11,7 @@
 	text-transform: uppercase;
 	font-size: .75em;
 	text-align: center;
+	border-radius: 5px;
 }
 .socialcount-large .loading {
 	padding-top: 30%;

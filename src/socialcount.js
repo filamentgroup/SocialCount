@@ -51,7 +51,7 @@
 		classes: {
 			js: 'js',
 			gradeA: 'grade-a',
-			active: 'active',
+			loaded: 'loaded',
 			hover: 'hover',
 			noTransforms: 'no-transforms',
 			showCounts: 'counts',
@@ -63,7 +63,8 @@
 		thousandCharacter: 'K',
 		millionCharacter: 'M',
 		missingResultText: '-',
-		activateOnClick: false, // default is hover
+		activateOnClick: true, // default is hover
+		hoverDelay: 200, // in milliseconds
 		selectors: {},
 		locale: (function() {
 			var locale = doc.documentElement ? ( doc.documentElement.lang || '' ) : '';
@@ -212,13 +213,17 @@
 			function bind( $a, html, jsUrl, subsequentInitCallback ) {
 				// IE bug (tested up to version 9) with :hover rules and iframes.
 				var isTooltipActive = false,
-					isHoverActive = false;
+					isHoverActive = false,
+					delayHoverTimer;
 
 				$a.closest( 'li' ).bind( 'mouseenter', function() {
 					var $li = $( this ).closest( 'li' );
 
 					$li.addClass( SocialCount.classes.hover );
 
+					if( SocialCount.activateOnClick ) {
+						return;
+					}
 					isHoverActive = true;
 
 					$( document ).on( 'mouseenter.socialcount mouseleave.socialcount', SocialCount.extraHoverTargets, function( event ) {
@@ -230,6 +235,12 @@
 					});
 				}).bind( 'mouseleave', function() {
 					var self = this;
+					window.clearTimeout( delayHoverTimer );
+
+					if( SocialCount.activateOnClick ) {
+						return;
+					}
+
 					window.setTimeout(function() {
 						isHoverActive = false;
 
@@ -240,14 +251,10 @@
 					}, 0);
 				});
 
-				$a.one( SocialCount.activateOnClick ? 'click' : 'mouseover', function( event ) {
-					if( SocialCount.activateOnClick ) {
-						event.preventDefault();
-						event.stopPropagation();
-					}
+				function loadInitialJavaScript( $self ) {
+					$a.unbind( ".socialcount" );
 
-					var $self = $( this ),
-						$parent = $self.closest( 'li' ),
+					var $parent = $self.closest( 'li' ),
 						$loading = $loadingIndicator.clone(),
 						$content = $( html ),
 						$button = $( '<div class="button"/>' ).append( $content ),
@@ -259,7 +266,7 @@
 					});
 
 					$parent
-						.addClass( SocialCount.classes.active )
+						.addClass( SocialCount.classes.loaded ) // only for click to activate
 						.append( $loading )
 						.append( $button );
 
@@ -284,11 +291,27 @@
 
 						doc.body.appendChild( js );
 					}
+				}
+
+				$a.bind( SocialCount.activateOnClick ? 'click.socialcount' : 'mouseover.socialcount', function( event ) {
+					var $self = $( this ),
+						jsAlreadyLoaded = jsUrl && addedScripts[ jsUrl ] && subsequentInitCallback;
+					window.clearTimeout( delayHoverTimer );
+					if( !jsAlreadyLoaded && event.type === "mouseover" ) {
+						delayHoverTimer = window.setTimeout(function() {
+							loadInitialJavaScript( $self );
+						}, SocialCount.hoverDelay );
+					} else {
+						if( event.type === "click" ) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						loadInitialJavaScript( $self );
+					}
 				});
 			} // end bind()
 
 			if( !isSmall ) {
-				// Bind events on other non-stock widgets, like sharethis
 				var bindPlugins = SocialCount.plugins.bind;
 				for( var j = 0, k = bindPlugins.length; j < k; j++ ) {
 					bindPlugins[ j ].call( $el, bind, url, isSmall );

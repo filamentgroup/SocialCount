@@ -5,14 +5,14 @@
 	vertical-align: middle;
 	*margin-right: 5px;
 }
-.socialcount.grade-a.activate-on-hover > li.hover .social-icon,
-.socialcount.grade-a.activate-on-click > li.hover.active .social-icon {
+.socialcount.grade-a.activate-on-hover > li.hover.loaded .social-icon,
+.socialcount.grade-a.activate-on-click > li.hover.loaded .social-icon {
 	display: none;
 }
-.socialcount-small.grade-a.activate-on-hover > li.hover .social-icon,
-.socialcount-small.grade-a.activate-on-click > li.hover.active .social-icon,
-.socialcount-large.grade-a.activate-on-hover > li.hover .social-icon,
-.socialcount-large.grade-a.activate-on-click > li.hover.active .social-icon {
+.socialcount-small.grade-a.activate-on-hover > li.hover.loaded .social-icon,
+.socialcount-small.grade-a.activate-on-click > li.hover.loaded .social-icon,
+.socialcount-large.grade-a.activate-on-hover > li.hover.loaded .social-icon,
+.socialcount-large.grade-a.activate-on-click > li.hover.loaded .social-icon {
 	display: inline-block;
 	*display: inline;
 	zoom: 1;
