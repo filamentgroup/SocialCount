@@ -42,6 +42,16 @@ module.exports = function(grunt) {
 				dest: 'dist/socialcount-with-icons.css'
 			}
 		},
+		sass: {
+			icons: {
+				options: {
+					compass: true
+				},
+				files: {
+					'src/socialcount-icons.css': 'src/socialcount-icons.scss'
+				}
+			}
+		},
 		copy: {
 			images: {
 				cwd: 'src/',
@@ -62,7 +72,7 @@ module.exports = function(grunt) {
 			all: ['test/**/*.html']
 		},
 		watch: {
-			files: ['<%= jshint.src %>'],
+			files: ['<%= concat.distjs.src %>', '<%= concat.distcsswithicons.src %>'],
 			tasks: 'default'
 		},
 		jshint: {
@@ -103,7 +113,7 @@ module.exports = function(grunt) {
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
 	// Default task.
-	grunt.registerTask( 'default', [ 'jshint', 'concat', 'usebanner', 'copy', 'qunit' ] );
+	grunt.registerTask( 'default', [ 'jshint', 'sass', 'concat', 'usebanner', 'copy', 'qunit' ] );
 	grunt.registerTask( 'stage', [ 'default' ]);
 	grunt.registerTask( 'release', [ 'clean', 'default', 'compress' ] );
 };
