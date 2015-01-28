@@ -114,7 +114,7 @@ module.exports = function(grunt) {
 
 	// Default task.
 	grunt.registerTask( 'build-icons', [ 'sass', 'default' ] );
-	grunt.registerTask( 'default', [ 'jshint', 'sass', 'concat', 'usebanner', 'copy', 'qunit' ] );
+	grunt.registerTask( 'default', [ 'jshint', 'concat', 'usebanner', 'copy', 'qunit' ] );
 	grunt.registerTask( 'stage', [ 'default' ]);
 	grunt.registerTask( 'release', [ 'clean', 'build-icons', 'compress' ] );
 };
