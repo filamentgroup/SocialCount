@@ -64,7 +64,7 @@ module.exports = function(grunt) {
 			all: ['test/**/*.html']
 		},
 		watch: {
-			files: '<%= jslint.all %>',
+			files: '<%= jshint.all %>',
 			tasks: 'jshint qunit'
 		},
 		jshint: {
