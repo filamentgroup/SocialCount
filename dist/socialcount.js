@@ -1,11 +1,12 @@
-/*! SocialCount - v0.1.8 - 2014-08-26
+/*! SocialCount - v0.1.8 - 2015-01-28
 * https://github.com/filamentgroup/SocialCount
-* Copyright (c) 2014 zachleat; Licensed MIT */
+* Copyright (c) 2015 zachleat; Licensed MIT */
 
 ;(function( win, doc, $ ) {
 
 	var $loadingIndicator,
-		$count;
+		$count,
+		addedScripts = {};
 
 	function featureTest( prop, unprefixedProp ) {
 		var style = doc.createElement('social').style,
@@ -32,8 +33,7 @@
 		var baseUrl;
 
 		$( 'script' ).each(function() {
-			var src = this.src || '',
-				dir;
+			var src = this.src || '';
 			if( src.match( SocialCount.scriptSrcRegex ) ) {
 				baseUrl = removeFileName( src );
 				return false;
@@ -55,8 +55,7 @@
 		classes: {
 			js: 'js',
 			gradeA: 'grade-a',
-			active: 'active',
-			touch: 'touch',
+			loaded: 'loaded',
 			hover: 'hover',
 			noTransforms: 'no-transforms',
 			showCounts: 'counts',
@@ -68,18 +67,15 @@
 		thousandCharacter: 'K',
 		millionCharacter: 'M',
 		missingResultText: '-',
-		activateOnClick: false, // default is hover
-		selectors: {
-			facebook: '.facebook',
-			twitter: '.twitter',
-			googleplus: '.googleplus'
-		},
+		activateOnClick: true, // default is hover
+		hoverDelay: 200, // in milliseconds
+		selectors: {},
 		locale: (function() {
 			var locale = doc.documentElement ? ( doc.documentElement.lang || '' ) : '';
 			locale = locale.replace(/\-/, '_');
 			return locale.match(/\w{2}_\w{2}/) ? locale : '';
 		})(),
-		googleplusTooltip: 'table.gc-bubbleDefault',
+		extraHoverTargets: 'table.gc-bubbleDefault', // google plus share bubble
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
 			init: [],
@@ -104,9 +100,6 @@
 		// Currently only available on Twitter
 		getShareText: function( $el ) {
 			return $el.attr('data-share-text' ) || '';
-		},
-		getFacebookAction: function( $el ) {
-			return ( $el.attr('data-facebook-action' ) || 'like' ).toLowerCase();
 		},
 		isCountsEnabled: function( $el ) {
 			return $el.attr('data-counts') === 'true';
@@ -157,9 +150,14 @@
 
 			return cache[ url ];
 		},
+		load: function( $el ) {
+			$el.find( "a" )
+				.filter( ".socialcount li a" )
+				.trigger( SocialCount.activateOnClick ? 'click' : 'mouseover' )
+				.trigger( "mouseleave" );
+		},
 		init: function( $el ) {
-			var facebookAction = SocialCount.getFacebookAction( $el ),
-				classes = [ facebookAction ],
+			var classes = [],
 				isSmall = SocialCount.isSmallSize( $el ),
 				url = SocialCount.getUrl( $el ),
 				initPlugins = SocialCount.plugins.init,
@@ -191,7 +189,7 @@
 			}
 
 			if( SocialCount.isGradeA ) {
-				SocialCount.bindEvents( $el, url, facebookAction, isSmall );
+				SocialCount.bindEvents( $el, url, isSmall );
 			}
 
 			if( countsEnabled && !isSmall ) {
@@ -202,41 +200,51 @@
 			if( !count && count !== 0 ) {
 				return SocialCount.missingResultText;
 			}
+			function getRounded( num ) {
+				return ( num ).toFixed( 1 ).replace( /\.0/, '' );
+			}
 			// > 1M
 			if( count >= 1000000 ) {
-				return Math.floor( count / 1000000 ) + SocialCount.millionCharacter;
-			}
-			// > 100K
-			if( count >= 100000 ) {
+				return getRounded( count / 1000000 ) + SocialCount.millionCharacter;
+			} else if( count >= 100000 ) { // > 100K
 				return Math.floor( count / 1000 ) + SocialCount.thousandCharacter;
-			}
-			if( count > 1000 ) {
-				return ( count / 1000 ).toFixed( 1 ).replace( /\.0/, '' ) + SocialCount.thousandCharacter;
+			} else if( count > 1000 ) {
+				return getRounded( count / 1000 ) + SocialCount.thousandCharacter;
 			}
 			return count;
 		},
-		bindEvents: function( $el, url, facebookAction, isSmall ) {
-			function bind( $a, html, jsUrl ) {
+		bindEvents: function( $el, url, isSmall ) {
+			function bind( $a, html, jsUrl, subsequentInitCallback ) {
 				// IE bug (tested up to version 9) with :hover rules and iframes.
 				var isTooltipActive = false,
-					isHoverActive = false;
+					isHoverActive = false,
+					delayHoverTimer;
 
-				$a.closest( 'li' ).bind( 'mouseenter', function( event ) {
+				$a.closest( 'li' ).bind( 'mouseenter', function() {
 					var $li = $( this ).closest( 'li' );
 
 					$li.addClass( SocialCount.classes.hover );
 
+					if( SocialCount.activateOnClick ) {
+						return;
+					}
 					isHoverActive = true;
 
-					$( document ).on( 'mouseenter.socialcount mouseleave.socialcount', SocialCount.googleplusTooltip, function( event ) {
+					$( document ).on( 'mouseenter.socialcount mouseleave.socialcount', SocialCount.extraHoverTargets, function( event ) {
 						isTooltipActive = event.type === 'mouseenter';
 
 						if( !isTooltipActive && !isHoverActive ) {
 							$li.removeClass( SocialCount.classes.hover );
 						}
 					});
-				}).bind( 'mouseleave', function( event ) {
+				}).bind( 'mouseleave', function() {
 					var self = this;
+					window.clearTimeout( delayHoverTimer );
+
+					if( SocialCount.activateOnClick ) {
+						return;
+					}
+
 					window.setTimeout(function() {
 						isHoverActive = false;
 
@@ -247,40 +255,30 @@
 					}, 0);
 				});
 
-				$a.one( SocialCount.activateOnClick ? 'click' : 'mouseover', function( event ) {
-					if( SocialCount.activateOnClick ) {
-						event.preventDefault();
-						event.stopPropagation();
-					}
+				function loadInitialJavaScript( $self ) {
+					$a.unbind( ".socialcount" );
 
-					var $self = $( this ),
-						$parent = $self.closest( 'li' ),
+					var $parent = $self.closest( 'li' ),
 						$loading = $loadingIndicator.clone(),
 						$content = $( html ),
 						$button = $( '<div class="button"/>' ).append( $content ),
 						js,
-						$iframe,
 						deferred = $.Deferred();
 
 					deferred.promise().always(function() {
-						// Remove Loader
-						var $iframe = $parent.find('iframe');
-
-						if( $iframe.length ) {
-							$iframe.bind( 'load', function() {
-								$loading.remove();
-							});
-						} else {
-							$loading.remove();
-						}
+						$loading.remove();
 					});
 
 					$parent
-						.addClass( SocialCount.classes.active )
+						.addClass( SocialCount.classes.loaded ) // only for click to activate
 						.append( $loading )
 						.append( $button );
 
-					if( jsUrl ) {
+					if( jsUrl && addedScripts[ jsUrl ] && subsequentInitCallback ) {
+						subsequentInitCallback( $button[ 0 ] );
+						deferred.resolve();
+					} else if( jsUrl ) {
+						addedScripts[ jsUrl ] = true;
 						js = doc.createElement( 'script' );
 						js.src = jsUrl;
 
@@ -296,37 +294,32 @@
 						}
 
 						doc.body.appendChild( js );
-					} else if( $content.is( 'iframe' ) ) {
-						deferred.resolve();
+					}
+				}
+
+				$a.bind( SocialCount.activateOnClick ? 'click.socialcount' : 'mouseover.socialcount', function( event ) {
+					var $self = $( this ),
+						jsAlreadyLoaded = jsUrl && addedScripts[ jsUrl ] && subsequentInitCallback;
+					window.clearTimeout( delayHoverTimer );
+					if( !jsAlreadyLoaded && event.type === "mouseover" ) {
+						delayHoverTimer = window.setTimeout(function() {
+							loadInitialJavaScript( $self );
+						}, SocialCount.hoverDelay );
+					} else {
+						if( event.type === "click" ) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						loadInitialJavaScript( $self );
 					}
 				});
 			} // end bind()
 
 			if( !isSmall ) {
-				var shareText = SocialCount.getShareText( $el );
-
-				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
-					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURIComponent( url ) +
-						( SocialCount.locale ? '&locale=' + SocialCount.locale : '' ) +
-						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction +
-						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
-
-				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
-					'<a href="https://twitter.com/share" class="twitter-share-button"' +
-						' data-url="' + url + '"' +
-						( shareText ? ' data-text="' + shareText + '"': '' ) +
-						' data-count="none" data-dnt="true">Tweet</a>',
-					'//platform.twitter.com/widgets.js' );
-
-				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
-					'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
-					'//apis.google.com/js/plusone.js' );
-			}
-
-			// Bind events on other non-stock widgets, like sharethis
-			var bindPlugins = SocialCount.plugins.bind;
-			for( var j = 0, k = bindPlugins.length; j < k; j++ ) {
-				bindPlugins[ j ].call( $el, bind, url, isSmall );
+				var bindPlugins = SocialCount.plugins.bind;
+				for( var j = 0, k = bindPlugins.length; j < k; j++ ) {
+					bindPlugins[ j ].call( $el, bind, url, isSmall );
+				}
 			}
 		} // end bindEvents()
 	};
@@ -350,3 +343,105 @@
 	window.SocialCount = SocialCount;
 
 }( window, window.document, jQuery ));
+
+(function( $, SocialCount ) {
+
+  SocialCount.selectors.facebook = '.facebook';
+
+  SocialCount.getFacebookAction = function( $el ) {
+    return ( $el.attr('data-facebook-action' ) || 'like' ).toLowerCase();
+  };
+
+  SocialCount.plugins.init.push(function() {
+    var $el = this;
+    $el.addClass( SocialCount.getFacebookAction( $el ) );
+  });
+
+  SocialCount.plugins.bind.push(function(bind, url) {
+    var $el = this,
+      facebookAction = SocialCount.getFacebookAction( $el );
+
+    bind( $el.find( SocialCount.selectors.facebook + ' a' ),
+      '<div class="fb-like" data-href="' + url + '" data-layout="button"' + 
+        ' data-action="' + facebookAction + '" data-show-faces="false"' + 
+        ' data-share="false"></div>',
+      '//connect.facebook.net/' + ( SocialCount.locale || 'en_US' ) + '/sdk.js#xfbml=1&version=v2.0',
+      function( el ) {
+        FB.XFBML.parse( el );
+      });
+  });
+
+})( jQuery, window.SocialCount );
+
+
+
+(function( $, SocialCount ) {
+
+  SocialCount.selectors.twitter = '.twitter';
+
+  SocialCount.plugins.bind.push(function(bind, url) {
+    var $el = this,
+      shareText = SocialCount.getShareText( $el );
+
+    bind( $el.find( SocialCount.selectors.twitter + ' a' ),
+      '<a href="https://twitter.com/share" class="twitter-share-button"' +
+        ' data-url="' + url + '"' +
+        ( shareText ? ' data-text="' + shareText + '"': '' ) +
+        ' data-count="none" data-dnt="true">Tweet</a>',
+      '//platform.twitter.com/widgets.js',
+      function( el ) {
+        twttr.widgets.load( el );
+      });
+  });
+
+})( jQuery, window.SocialCount );
+
+
+
+(function( $, SocialCount ) {
+
+  SocialCount.selectors.googleplus = '.googleplus';
+
+  SocialCount.plugins.bind.push(function(bind, url) {
+    var $el = this;
+
+    bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
+      '<div class="g-plusone" data-size="medium" data-annotation="none" data-href="' + url + '"></div>',
+      '//apis.google.com/js/plusone.js',
+      function( el ) {
+        gapi.plusone.go( el );
+      });
+  });
+
+})( jQuery, window.SocialCount );
+
+
+
+(function( $, SocialCount ) {
+
+  SocialCount.selectors.pinterest = '.pinterest';
+
+  SocialCount.plugins.bind.push(function(bind, url) {
+    var $el = this;
+
+    var desc = $el.data('description');
+    var media = $el.data('media');
+
+    bind( $el.find( SocialCount.selectors.pinterest ),
+      '<a href="http://pinterest.com/pin/create/button/?url=' + url + '&media=' + media + '&description=' + desc + '" class="pin-it-button" count-layout="none"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>',
+      '//assets.pinterest.com/js/pinit.js',
+      function( el ) {
+        // Thanks http://sourcey.com/dynamically-rendering-ajax-pinterest-buttons/
+        // See also https://github.com/pinterest/widgets/blob/master/pinit_main.js
+        for( var i in window ) {
+          if( i.indexOf( 'PIN_' ) === 0 && typeof window[i] === 'object' ) {
+            window[ i ].f.render.buttonPin( $( el ).find( "a" )[ 0 ] );
+            return;
+          }
+        }
+      });
+  });
+
+})( jQuery, window.SocialCount );
+
+

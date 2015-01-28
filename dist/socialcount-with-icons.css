@@ -1,6 +1,6 @@
-/*! SocialCount - v0.1.8 - 2014-08-26
+/*! SocialCount - v0.1.8 - 2015-01-28
 * https://github.com/filamentgroup/SocialCount
-* Copyright (c) 2014 zachleat; Licensed MIT */
+* Copyright (c) 2015 zachleat; Licensed MIT */
 
 .socialcount {
 	color: #fff;
@@ -11,13 +11,11 @@
 	background-color: #999;
 }
 .socialcount > li,
-.socialcount > li > a:focus,
-.socialcount .loading {
+.socialcount > li > a:focus {
 	border-radius: 5px;
 }
 .socialcount > li > a:focus,
-.socialcount > li:hover,
-.socialcount > li.hover /* fix for IE and iframes */ {
+.socialcount > li.hover.loaded {
 	background-color: #464646;
 }
 /* Special class added to count when it's >= the minimum */
@@ -52,26 +50,15 @@
 	white-space: nowrap;
 	*margin-right: 4px;
 }
-.socialcount.like.de_DE > .facebook {
-	min-width: 90px; /* like */
-}
 .socialcount-small > li {
 	min-width: 0;
 }
 .socialcount-large > li {
 	float: left;
 	margin: 0 .6em .6em 0;
-}
-.socialcount.recommend .facebook {
-	min-width: 120px;
-}
-.socialcount-small.recommend .facebook {
-	min-width: 0;
-}
-.socialcount-large > li,
-.socialcount-large.recommend .facebook {
 	min-width: 105px;
 }
+
 .socialcount > li > a {
 	display: block;
 	padding: 0 5px;
@@ -105,20 +92,6 @@
 	margin-left: 0;
 }
 
-.socialcount .facebook iframe {
-	height: 21px;
-	width: 90px; /* recommend */
-}
-.socialcount.de_DE .facebook iframe {
-	width: 83px; /* recommend */
-}
-.socialcount.like .facebook iframe {
-	width: 48px; /* like */
-}
-.socialcount.like.de_DE .facebook iframe {
-	width: 83px; /* like */
-}
-
 .socialcount .button {
 	display: none;
 	width: 100%;
@@ -127,6 +100,7 @@
 	top: 5px;
 	text-align: center;
 	pointer-events: none;
+	line-height: 100%;
 }
 .socialcount .button iframe {
 	pointer-events: auto;
@@ -136,27 +110,82 @@
 	bottom: 2px;
 }
 
-.socialcount.grade-a.activate-on-hover > li.hover .count,
-.socialcount.grade-a.activate-on-click > li.hover.active .count {
+.socialcount.grade-a.activate-on-hover > li.hover.loaded .count,
+.socialcount.grade-a.activate-on-click > li.hover.loaded .count {
 	text-indent: -999px;
 }
 
-.socialcount.grade-a.activate-on-hover > li.hover .button,
-.socialcount.grade-a.activate-on-click > li.hover.active .button {
+.socialcount.grade-a.activate-on-hover > li.hover.loaded .button,
+.socialcount.grade-a.activate-on-click > li.hover.loaded .button {
 	display: block;
 }
-.socialcount.grade-a.activate-on-hover > li.hover > a,
-.socialcount.grade-a.activate-on-click > li.hover.active > a {
+.socialcount.grade-a.activate-on-hover > li.hover.loaded > a,
+.socialcount.grade-a.activate-on-click > li.hover.loaded > a {
 	cursor: default;
 }
-.socialcount-small.grade-a.activate-on-hover > li.hover > a,
-.socialcount-small.grade-a.activate-on-click > li.hover.active > a,
-.socialcount.grade-a.activate-on-hover > li.hover .button iframe,
-.socialcount.grade-a.activate-on-click > li.hover.active .button iframe {
+.socialcount-small.grade-a.activate-on-hover > li.hover.loaded > a,
+.socialcount-small.grade-a.activate-on-click > li.hover.loaded > a,
+.socialcount.grade-a.activate-on-hover > li.hover.loaded .button iframe,
+.socialcount.grade-a.activate-on-click > li.hover.loaded .button iframe {
 	cursor: pointer;
 }
 
-/* Inline loading */
+.socialcount.like.de_DE > .facebook {
+	min-width: 90px; /* like */
+}
+.socialcount.recommend .facebook {
+	min-width: 120px;
+}
+.socialcount-small.recommend .facebook {
+	min-width: 0;
+}
+
+.socialcount-large.recommend .facebook {
+	min-width: 105px;
+}
+
+.socialcount .facebook iframe {
+	height: 21px;
+	width: 90px; /* recommend */
+}
+.socialcount.de_DE .facebook iframe {
+	width: 83px; /* recommend */
+}
+.socialcount.fr_FR .facebook iframe {
+	width: 98px; /* recommend */
+}
+.socialcount.like .facebook iframe {
+	width: 48px; /* like */
+}
+.socialcount.like.de_DE .facebook iframe {
+	width: 83px; /* like */
+}
+.socialcount.like.fr_FR .facebook iframe {
+	width: 57px; /* like */
+}
+.socialcount .pinterest {
+	display: none;
+}
+.socialcount.js .pinterest {
+	display: inline-block;
+	*display: inline;
+	zoom: 1;
+}
+.socialcount .pinterest .button {
+	bottom: 0;
+	pointer-events: auto;
+}
+.socialcount-large .pinterest .button {
+	bottom: 10px;
+}
+.socialcount > .pinterest:hover {
+	cursor: pointer;
+}
+.socialcount-small .pinterest .count {
+	text-indent: -999px;
+}
+
+
 .socialcount .loading {
 	position: absolute;
 	left: 0;
@@ -170,6 +199,7 @@
 	text-transform: uppercase;
 	font-size: .75em;
 	text-align: center;
+	border-radius: 5px;
 }
 .socialcount-large .loading {
 	padding-top: 30%;
@@ -229,64 +259,56 @@
   *display: inline;
   zoom: 1;
   vertical-align: middle;
-  *margin-right: 5px;
-}
+  *margin-right: 5px; }
 
-.socialcount.grade-a.activate-on-hover > li.hover .social-icon,
-.socialcount.grade-a.activate-on-click > li.hover.active .social-icon {
-  display: none;
-}
+.socialcount.grade-a.activate-on-hover > li.hover.loaded .social-icon,
+.socialcount.grade-a.activate-on-click > li.hover.loaded .social-icon {
+  display: none; }
 
-.socialcount-small.grade-a.activate-on-hover > li.hover .social-icon,
-.socialcount-small.grade-a.activate-on-click > li.hover.active .social-icon,
-.socialcount-large.grade-a.activate-on-hover > li.hover .social-icon,
-.socialcount-large.grade-a.activate-on-click > li.hover.active .social-icon {
+.socialcount-small.grade-a.activate-on-hover > li.hover.loaded .social-icon,
+.socialcount-small.grade-a.activate-on-click > li.hover.loaded .social-icon,
+.socialcount-large.grade-a.activate-on-hover > li.hover.loaded .social-icon,
+.socialcount-large.grade-a.activate-on-click > li.hover.loaded .social-icon {
   display: inline-block;
   *display: inline;
-  zoom: 1;
-}
+  zoom: 1; }
 
 .icon-sprite, .icon-facebook, .icon-googleplus, .icon-pinterest, .icon-share, .icon-twitter {
-  background: url('icon-sd6cd4d0ec7.png') no-repeat;
-}
+  background-image: url('icon-sd6cd4d0ec7.png');
+  background-repeat: no-repeat; }
 
 .icon-facebook {
   background-position: 0 0;
   height: 15px;
-  width: 17px;
-}
+  width: 17px; }
 
 .icon-googleplus {
   background-position: -21px 0;
   height: 17px;
-  width: 20px;
-}
+  width: 20px; }
 
 .icon-pinterest {
   background-position: -45px 0;
   height: 15px;
-  width: 11px;
-}
+  width: 11px; }
 
 .icon-share {
   background-position: -60px 0;
   height: 16px;
-  width: 20px;
-}
+  width: 20px; }
 
 .icon-twitter {
   background-position: -84px 0;
   height: 15px;
-  width: 17px;
-}
+  width: 17px; }
 
 /* HD icons */
-@media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3/2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
+@media (min--moz-device-pixel-ratio: 1.5), (-o-min-device-pixel-ratio: 3 / 2), (-webkit-min-device-pixel-ratio: 1.5), (min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {
   .social-icon {
     -webkit-background-size: auto 17px;
     -moz-background-size: auto 17px;
     -o-background-size: auto 17px;
     background-size: auto 17px;
-    background-image: url('icon-hd-s816aa7a6b3.png');
-  }
-}
+    background-image: url('icon-hd-s816aa7a6b3.png'); } }
+
+/*# sourceMappingURL=socialcount-icons.css.map */
