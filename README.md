@@ -4,7 +4,7 @@
 
 *Copyright (c) 2012 Filament Group, developed by [@zachleat](https://github.com/zachleat). MIT licensed.*
 
-Related: [Filament Group Lab Post](http://filamentgroup.com/lab/socialcount/)
+Related: [Filament Group Lab Post](http://filamentgroup.com/lab/socialcount/), [NPM Package `fg-socialcount`](https://www.npmjs.com/package/fg-socialcount)
 
 The problems with social networking widgets are [well documented][zurb]. They're heavy and slow to load especially on high-latency mobile connections.
 
