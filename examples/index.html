@@ -64,60 +64,6 @@
 				margin-bottom: .66em;
 			}
 		</style>
-		<script>
-		$(function() {
-			document.documentElement.className = 'js';
-
-			var $markup = $( '#markup' );
-			$( 'form' ).bind( 'submit', function() {
-				var markup = [ '<ul class="' ],
-					url = $( '#url' ).val(),
-					isRecommend = $( '#fb-recommend:checked' ).length,
-					shareText = $('#sharetext').val();
-
-				markup.push( 'socialcount' );
-				if( $( '#size-small:checked' ).length ) {
-					markup.push( ' socialcount-small' );
-				} else if( $( '#size-large:checked' ).length ) {
-					markup.push( ' socialcount-large' );
-				}
-				markup.push( '"' );
-				markup.push( ' data-url="' + url + '"' );
-				if( isRecommend ) {
-					markup.push( ' data-facebook-action="recommend"' );
-				}
-				if( $( '#counts-show:checked' ).length ) {
-					markup.push( ' data-counts="true"' );
-				}
-				if( shareText ) {
-					markup.push( ' data-share-text="' + shareText + '"' );
-				}
-				markup.push( '>\n' );
-
-				markup.push( '\t<li class="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=' + url + '" title="Share on Facebook">' );
-				if( $( '#icons:checked' ).length ) {
-					markup.push( '<span class="social-icon icon-facebook"></span>' );
-				}
-				markup.push( '<span class="count">' + ( isRecommend ? 'Recommend' : 'Like' ) + '</span></a></li>\n' );
-
-				markup.push( '\t<li class="twitter"><a href="https://twitter.com/intent/tweet?text=' + url + '" title="Share on Twitter">' );
-				if( $( '#icons:checked' ).length ) {
-					markup.push( '<span class="social-icon icon-twitter"></span>' );
-				}
-				markup.push( '<span class="count">Tweet</span></a></li>\n' );
-
-				markup.push( '\t<li class="googleplus"><a href="https://plus.google.com/share?url=' + url + '" title="Share on Google Plus">' );
-				if( $( '#icons:checked' ).length ) {
-					markup.push( '<span class="social-icon icon-googleplus"></span>' );
-				}
-				markup.push( '<span class="count">+1</span></a></li>\n' );
-
-				markup.push( '</ul>' );
-				$markup.val( markup.join( '' ) );
-				return false;
-			});
-		});
-		</script>
 		<script src="http://filamentgroup.github.io/demo-head/loadfont.js"></script>
 	</head>
 	<body>
@@ -143,7 +89,6 @@
 					<a href="small.html">Small</a>
 					<a href="large.html">Large</a>
 					<a href="markup-generator.html">Markup Generator</a>
-					<a href="control-test.html">Default Buttons (Control Test for comparison)</a>
 				</nav>
 			</div>
 		</div>
