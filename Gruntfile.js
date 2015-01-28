@@ -113,7 +113,8 @@ module.exports = function(grunt) {
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
 	// Default task.
+	grunt.registerTask( 'build-icons', [ 'sass', 'default' ] );
 	grunt.registerTask( 'default', [ 'jshint', 'sass', 'concat', 'usebanner', 'copy', 'qunit' ] );
 	grunt.registerTask( 'stage', [ 'default' ]);
-	grunt.registerTask( 'release', [ 'clean', 'default', 'compress' ] );
+	grunt.registerTask( 'release', [ 'clean', 'build-icons', 'compress' ] );
 };
