@@ -100,3 +100,4 @@ To test the PHP code, navigate to the `service` directory and run `phpunit socia
 
 * `SocialCount.activateOnClick = false;` Global option to switch from load triggering on hover to a manual click.
 * `SocialCount.thousandCharacter = 'K';` `SocialCount.millionCharacter = 'M';` i18n Strings.
+* Use `SocialCount.load( $element )` to programmatically load all of the SocialCount buttons in the `$element` object. You can pass a container with multiple types of buttons or a single button.

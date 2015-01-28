@@ -145,6 +145,12 @@
 
 			return cache[ url ];
 		},
+		load: function( $el ) {
+			$el.find( "a" )
+				.filter( ".socialcount li a" )
+				.trigger( SocialCount.activateOnClick ? 'click' : 'mouseover' )
+				.trigger( "mouseleave" );
+		},
 		init: function( $el ) {
 			var classes = [],
 				isSmall = SocialCount.isSmallSize( $el ),
