@@ -131,6 +131,7 @@
 	top: 5px;
 	text-align: center;
 	pointer-events: none;
+	line-height: 100%;
 }
 .socialcount .button iframe {
 	pointer-events: auto;

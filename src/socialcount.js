@@ -1,8 +1,8 @@
-/*global jQuery console */
 ;(function( win, doc, $ ) {
 
 	var $loadingIndicator,
-		$count;
+		$count,
+		addedScripts = {};
 
 	function featureTest( prop, unprefixedProp ) {
 		var style = doc.createElement('social').style,
@@ -29,8 +29,7 @@
 		var baseUrl;
 
 		$( 'script' ).each(function() {
-			var src = this.src || '',
-				dir;
+			var src = this.src || '';
 			if( src.match( SocialCount.scriptSrcRegex ) ) {
 				baseUrl = removeFileName( src );
 				return false;
@@ -213,12 +212,12 @@
 			return count;
 		},
 		bindEvents: function( $el, url, facebookAction, isSmall ) {
-			function bind( $a, html, jsUrl ) {
+			function bind( $a, html, jsUrl, subsequentInitCallback ) {
 				// IE bug (tested up to version 9) with :hover rules and iframes.
 				var isTooltipActive = false,
 					isHoverActive = false;
 
-				$a.closest( 'li' ).bind( 'mouseenter', function( event ) {
+				$a.closest( 'li' ).bind( 'mouseenter', function() {
 					var $li = $( this ).closest( 'li' );
 
 					$li.addClass( SocialCount.classes.hover );
@@ -232,7 +231,7 @@
 							$li.removeClass( SocialCount.classes.hover );
 						}
 					});
-				}).bind( 'mouseleave', function( event ) {
+				}).bind( 'mouseleave', function() {
 					var self = this;
 					window.setTimeout(function() {
 						isHoverActive = false;
@@ -256,20 +255,10 @@
 						$content = $( html ),
 						$button = $( '<div class="button"/>' ).append( $content ),
 						js,
-						$iframe,
 						deferred = $.Deferred();
 
 					deferred.promise().always(function() {
-						// Remove Loader
-						var $iframe = $parent.find('iframe');
-
-						if( $iframe.length ) {
-							$iframe.bind( 'load', function() {
-								$loading.remove();
-							});
-						} else {
-							$loading.remove();
-						}
+						$loading.remove();
 					});
 
 					$parent
@@ -277,7 +266,11 @@
 						.append( $loading )
 						.append( $button );
 
-					if( jsUrl ) {
+					if( jsUrl && addedScripts[ jsUrl ] && subsequentInitCallback ) {
+						subsequentInitCallback( $button[ 0 ] );
+						deferred.resolve();
+					} else if( jsUrl ) {
+						addedScripts[ jsUrl ] = true;
 						js = doc.createElement( 'script' );
 						js.src = jsUrl;
 
@@ -293,8 +286,6 @@
 						}
 
 						doc.body.appendChild( js );
-					} else if( $content.is( 'iframe' ) ) {
-						deferred.resolve();
 					}
 				});
 			} // end bind()
@@ -303,21 +294,30 @@
 				var shareText = SocialCount.getShareText( $el );
 
 				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
-					'<iframe src="//www.facebook.com/plugins/like.php?href=' + encodeURIComponent( url ) +
-						( SocialCount.locale ? '&locale=' + SocialCount.locale : '' ) +
-						'&amp;send=false&amp;layout=button_count&amp;width=100&amp;show_faces=true&amp;action=' + facebookAction +
-						'&amp;colorscheme=light&amp;font=arial&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden;" allowTransparency="true"></iframe>' );
+					'<div class="fb-like" data-href="' + url + '" data-layout="button"' + 
+						' data-action="' + facebookAction + '" data-show-faces="false"' + 
+						' data-share="false"></div>',
+					'//connect.facebook.net/' + ( SocialCount.locale || 'en_US' ) + '/sdk.js#xfbml=1&version=v2.0',
+					function( el ) {
+						FB.XFBML.parse( el );
+					});
 
 				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
 					'<a href="https://twitter.com/share" class="twitter-share-button"' +
 						' data-url="' + url + '"' +
 						( shareText ? ' data-text="' + shareText + '"': '' ) +
 						' data-count="none" data-dnt="true">Tweet</a>',
-					'//platform.twitter.com/widgets.js' );
+					'//platform.twitter.com/widgets.js',
+					function( el ) {
+						twttr.widgets.load( el );
+					});
 
 				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
 					'<div class="g-plusone" data-size="medium" data-annotation="none"></div>',
-					'//apis.google.com/js/plusone.js' );
+					'//apis.google.com/js/plusone.js',
+					function( el ) {
+						gapi.plusone.go( el );
+					});
 			}
 
 			// Bind events on other non-stock widgets, like sharethis
