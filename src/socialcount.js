@@ -52,7 +52,6 @@
 			js: 'js',
 			gradeA: 'grade-a',
 			active: 'active',
-			touch: 'touch',
 			hover: 'hover',
 			noTransforms: 'no-transforms',
 			showCounts: 'counts',
@@ -190,16 +189,16 @@
 			if( !count && count !== 0 ) {
 				return SocialCount.missingResultText;
 			}
+			function getRounded( num ) {
+				return ( num ).toFixed( 1 ).replace( /\.0/, '' );
+			}
 			// > 1M
 			if( count >= 1000000 ) {
-				return Math.floor( count / 1000000 ) + SocialCount.millionCharacter;
-			}
-			// > 100K
-			if( count >= 100000 ) {
+				return getRounded( count / 1000000 ) + SocialCount.millionCharacter;
+			} else if( count >= 100000 ) { // > 100K
 				return Math.floor( count / 1000 ) + SocialCount.thousandCharacter;
-			}
-			if( count > 1000 ) {
-				return ( count / 1000 ).toFixed( 1 ).replace( /\.0/, '' ) + SocialCount.thousandCharacter;
+			} else if( count > 1000 ) {
+				return getRounded( count / 1000 ) + SocialCount.thousandCharacter;
 			}
 			return count;
 		},

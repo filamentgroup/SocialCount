@@ -115,9 +115,9 @@
 		SocialCount.cache['http://www.google.com/'] = dfd.promise();
 
 		SocialCount.getCounts( $test, 'http://www.google.com/' ).done(function() {
-			strictEqual( $test.find( '.twitter .count' ).html(), '11M' );
-			strictEqual( $test.find( '.facebook .count' ).html(), '5M' );
-			strictEqual( $test.find( '.googleplus .count' ).html(), '1M' );
+			strictEqual( $test.find( '.twitter .count' ).html(), '11.5M' );
+			strictEqual( $test.find( '.facebook .count' ).html(), '5.2M' );
+			strictEqual( $test.find( '.googleplus .count' ).html(), '1.6M' );
 
 			start();
 		});
@@ -139,8 +139,8 @@
 		SocialCount.cache['http://www.google.com/'] = dfd.promise();
 
 		SocialCount.getCounts( $test, 'http://www.google.com/' ).done(function() {
-			strictEqual( $test.find( '.twitter .count' ).html(), '11M' );
-			strictEqual( $test.find( '.facebook .count' ).html(), '5M' );
+			strictEqual( $test.find( '.twitter .count' ).html(), '11.5M' );
+			strictEqual( $test.find( '.facebook .count' ).html(), '5.2M' );
 			strictEqual( $test.find( '.googleplus .count' ).html(), gplusLabel );
 
 			start();
