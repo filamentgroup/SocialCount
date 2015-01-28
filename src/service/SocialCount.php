@@ -14,7 +14,7 @@ class Twitter implements SocialNetwork
 
 	public function getShareCount($url)
 	{
-		$contents = file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url=' . $url);
+		$contents = @file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url=' . $url);
 		if($contents) {
 			return json_decode($contents)->count;
 		} else {
@@ -31,7 +31,7 @@ class Facebook implements SocialNetwork {
 
 	public function getShareCount($url)
 	{
-		$contents = file_get_contents("http://graph.facebook.com/fql?q=SELECT%20url,%20total_count%20FROM%20link_stat%20WHERE%20url='".$url."'");
+		$contents = @file_get_contents("http://graph.facebook.com/fql?q=SELECT%20url,%20total_count%20FROM%20link_stat%20WHERE%20url='".$url."'");
 		if($contents) {
 			$json = json_decode($contents);
 			return isset($json->data[0]->total_count) ? $json->data[0]->total_count : 0;
@@ -94,7 +94,7 @@ class ShareThis implements SocialNetwork {
 
 	public function getShareCount($url)
 	{
-		$contents = file_get_contents('http://rest.sharethis.com/reach/getUrlInfo.php?url=' . $url . '&pub_key=' . self::PUB_KEY . '&access_key=' . self::ACCESS_KEY);
+		$contents = @file_get_contents('http://rest.sharethis.com/reach/getUrlInfo.php?url=' . $url . '&pub_key=' . self::PUB_KEY . '&access_key=' . self::ACCESS_KEY);
 		if($contents) {
 			$json = json_decode($contents);
 			return $json->total->inbound;
@@ -112,7 +112,7 @@ class Pinterest implements SocialNetwork {
 
 	public function getShareCount($url)
 	{
-		$contents = file_get_contents('http://api.pinterest.com/v1/urls/count.json?callback=&url=' . $url);
+		$contents = @file_get_contents('http://api.pinterest.com/v1/urls/count.json?callback=&url=' . $url);
 		if($contents) {
 			$contents = preg_replace('/.+?({.+}).+/','$1', $contents);
 
