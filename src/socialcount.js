@@ -65,17 +65,13 @@
 		millionCharacter: 'M',
 		missingResultText: '-',
 		activateOnClick: false, // default is hover
-		selectors: {
-			facebook: '.facebook',
-			twitter: '.twitter',
-			googleplus: '.googleplus'
-		},
+		selectors: {},
 		locale: (function() {
 			var locale = doc.documentElement ? ( doc.documentElement.lang || '' ) : '';
 			locale = locale.replace(/\-/, '_');
 			return locale.match(/\w{2}_\w{2}/) ? locale : '';
 		})(),
-		googleplusTooltip: 'table.gc-bubbleDefault',
+		extraHoverTargets: 'table.gc-bubbleDefault', // google plus share bubble
 		scriptSrcRegex: /socialcount[\w.]*.js/i,
 		plugins: {
 			init: [],
@@ -100,9 +96,6 @@
 		// Currently only available on Twitter
 		getShareText: function( $el ) {
 			return $el.attr('data-share-text' ) || '';
-		},
-		getFacebookAction: function( $el ) {
-			return ( $el.attr('data-facebook-action' ) || 'like' ).toLowerCase();
 		},
 		isCountsEnabled: function( $el ) {
 			return $el.attr('data-counts') === 'true';
@@ -154,8 +147,7 @@
 			return cache[ url ];
 		},
 		init: function( $el ) {
-			var facebookAction = SocialCount.getFacebookAction( $el ),
-				classes = [ facebookAction ],
+			var classes = [],
 				isSmall = SocialCount.isSmallSize( $el ),
 				url = SocialCount.getUrl( $el ),
 				initPlugins = SocialCount.plugins.init,
@@ -187,7 +179,7 @@
 			}
 
 			if( SocialCount.isGradeA ) {
-				SocialCount.bindEvents( $el, url, facebookAction, isSmall );
+				SocialCount.bindEvents( $el, url, isSmall );
 			}
 
 			if( countsEnabled && !isSmall ) {
@@ -211,7 +203,7 @@
 			}
 			return count;
 		},
-		bindEvents: function( $el, url, facebookAction, isSmall ) {
+		bindEvents: function( $el, url, isSmall ) {
 			function bind( $a, html, jsUrl, subsequentInitCallback ) {
 				// IE bug (tested up to version 9) with :hover rules and iframes.
 				var isTooltipActive = false,
@@ -224,7 +216,7 @@
 
 					isHoverActive = true;
 
-					$( document ).on( 'mouseenter.socialcount mouseleave.socialcount', SocialCount.googleplusTooltip, function( event ) {
+					$( document ).on( 'mouseenter.socialcount mouseleave.socialcount', SocialCount.extraHoverTargets, function( event ) {
 						isTooltipActive = event.type === 'mouseenter';
 
 						if( !isTooltipActive && !isHoverActive ) {
@@ -291,39 +283,11 @@
 			} // end bind()
 
 			if( !isSmall ) {
-				var shareText = SocialCount.getShareText( $el );
-
-				bind( $el.find( SocialCount.selectors.facebook + ' a' ),
-					'<div class="fb-like" data-href="' + url + '" data-layout="button"' + 
-						' data-action="' + facebookAction + '" data-show-faces="false"' + 
-						' data-share="false"></div>',
-					'//connect.facebook.net/' + ( SocialCount.locale || 'en_US' ) + '/sdk.js#xfbml=1&version=v2.0',
-					function( el ) {
-						FB.XFBML.parse( el );
-					});
-
-				bind( $el.find( SocialCount.selectors.twitter + ' a' ),
-					'<a href="https://twitter.com/share" class="twitter-share-button"' +
-						' data-url="' + url + '"' +
-						( shareText ? ' data-text="' + shareText + '"': '' ) +
-						' data-count="none" data-dnt="true">Tweet</a>',
-					'//platform.twitter.com/widgets.js',
-					function( el ) {
-						twttr.widgets.load( el );
-					});
-
-				bind( $el.find( SocialCount.selectors.googleplus + ' a' ),
-					'<div class="g-plusone" data-size="medium" data-annotation="none" data-href="' + url + '"></div>',
-					'//apis.google.com/js/plusone.js',
-					function( el ) {
-						gapi.plusone.go( el );
-					});
-			}
-
-			// Bind events on other non-stock widgets, like sharethis
-			var bindPlugins = SocialCount.plugins.bind;
-			for( var j = 0, k = bindPlugins.length; j < k; j++ ) {
-				bindPlugins[ j ].call( $el, bind, url, isSmall );
+				// Bind events on other non-stock widgets, like sharethis
+				var bindPlugins = SocialCount.plugins.bind;
+				for( var j = 0, k = bindPlugins.length; j < k; j++ ) {
+					bindPlugins[ j ].call( $el, bind, url, isSmall );
+				}
 			}
 		} // end bindEvents()
 	};

@@ -14,34 +14,32 @@ module.exports = function(grunt) {
 				stripBanners: true
 			},
 			distjs: {
-				src: ['src/<%= pkg.name %>.js'],
-				dest: 'dist/<%= pkg.name %>.js'
+				src: [
+					'src/socialcount.js',
+					'src/networks/facebook.js',
+					'src/networks/twitter.js',
+					'src/networks/googleplus.js',
+					'src/networks/pinterest.js',
+					// 'src/networks/sharethis.js',
+				],
+				dest: 'dist/socialcount.js'
 			},
 			distcss: {
-				src: ['src/<%= pkg.name %>.css'],
-				dest: 'dist/<%= pkg.name %>.css'
+				src: [
+					'src/socialcount.css',
+					'src/networks/facebook.css',
+					'src/networks/pinterest.css',
+					// 'src/networks/sharethis.css',
+					'src/loading.css'
+				],
+				dest: 'dist/socialcount.css'
 			},
 			distcsswithicons: {
-				src: ['src/<%= pkg.name %>.css', 'src/<%= pkg.name %>-icons.css'],
-				dest: 'dist/<%= pkg.name %>-with-icons.css'
-			}
-		},
-		uglify: {
-			distjs: {
-				src: '<%= concat.distjs.dest %>',
-				dest: 'dist/<%= pkg.name %>.min.js'
-			}
-		},
-		cssmin: {
-			distcss: {
-				files: {
-					'dist/<%= pkg.name %>.min.css': ['<%= concat.distcss.dest %>']
-				}
-			},
-			distcsswithicons: {
-				files: {
-					'dist/<%= pkg.name %>-with-icons.min.css': ['<%= concat.distcsswithicons.dest %>']
-				}
+				src: [
+					'<%= concat.distcss.dest %>',
+					'src/socialcount-icons.css'
+				],
+				dest: 'dist/socialcount-with-icons.css'
 			}
 		},
 		copy: {
@@ -105,7 +103,7 @@ module.exports = function(grunt) {
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
 	// Default task.
-	grunt.registerTask( 'default', [ 'jshint', 'qunit' ] );
+	grunt.registerTask( 'default', [ 'jshint', 'concat', 'usebanner', 'copy', 'qunit' ] );
 	grunt.registerTask( 'stage', [ 'default' ]);
-	grunt.registerTask( 'release', [ 'clean', 'jshint', 'qunit', 'concat', 'uglify', 'cssmin', 'usebanner', 'copy', 'compress' ] );
+	grunt.registerTask( 'release', [ 'clean', 'default', 'compress' ] );
 };

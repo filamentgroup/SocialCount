@@ -1,0 +1,33 @@
+.socialcount.like.de_DE > .facebook {
+	min-width: 90px; /* like */
+}
+.socialcount.recommend .facebook {
+	min-width: 120px;
+}
+.socialcount-small.recommend .facebook {
+	min-width: 0;
+}
+
+.socialcount-large.recommend .facebook {
+	min-width: 105px;
+}
+
+.socialcount .facebook iframe {
+	height: 21px;
+	width: 90px; /* recommend */
+}
+.socialcount.de_DE .facebook iframe {
+	width: 83px; /* recommend */
+}
+.socialcount.fr_FR .facebook iframe {
+	width: 98px; /* recommend */
+}
+.socialcount.like .facebook iframe {
+	width: 48px; /* like */
+}
+.socialcount.like.de_DE .facebook iframe {
+	width: 83px; /* like */
+}
+.socialcount.like.fr_FR .facebook iframe {
+	width: 57px; /* like */
+}

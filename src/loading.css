@@ -1,0 +1,67 @@
+.socialcount .loading {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 3;
+	background-color: #aaa;
+	background-color: rgba(170, 170, 170, 0.7);
+	color: #000;
+	text-transform: uppercase;
+	font-size: .75em;
+	text-align: center;
+}
+.socialcount-large .loading {
+	padding-top: 30%;
+}
+.socialcount .loading .dot {
+	display: inline-block;
+	/* no ie7 compat needed here, just shows the text links */
+	width: 6px;
+	height: 6px;
+	margin: 0 3px;
+	background: #fff;
+	opacity: 0;
+	border-radius: 50%;
+
+	-webkit-animation: socialCountLoadingFade .6s infinite;
+	-moz-animation: socialCountLoadingFade .6s infinite;
+	animation: socialCountLoadingFade .6s infinite;
+}
+
+.socialcount .loading .dot:nth-child(1) {
+	-webkit-animation-delay: 0s;
+	-moz-animation-delay: 0s;
+	animation-delay: 0s;
+}
+
+.socialcount .loading .dot:nth-child(2) {
+	-webkit-animation-delay: .05s;
+	-moz-animation-delay: .05s;
+	animation-delay: .05s;
+}
+
+.socialcount .loading .dot:nth-child(3) {
+	-webkit-animation-delay: .1s;
+	-moz-animation-delay: .1s;
+	animation-delay: .1s;
+}
+
+@-webkit-keyframes socialCountLoadingFade {
+	0% { opacity: 0; }
+	50% { opacity: 0.8; }
+	100% { opacity: 0; }
+}
+
+@-moz-keyframes socialCountLoadingFade {
+	0% { opacity: 0;  }
+	50% { opacity: 0.8; }
+	100% { opacity: 0; }
+}
+
+@keyframes socialCountLoadingFade {
+	0% { opacity: 0; }
+	50% { opacity: 0.8; }
+	100% { opacity: 0; }
+}

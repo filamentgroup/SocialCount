@@ -50,26 +50,15 @@
 	white-space: nowrap;
 	*margin-right: 4px;
 }
-.socialcount.like.de_DE > .facebook {
-	min-width: 90px; /* like */
-}
 .socialcount-small > li {
 	min-width: 0;
 }
 .socialcount-large > li {
 	float: left;
 	margin: 0 .6em .6em 0;
-}
-.socialcount.recommend .facebook {
-	min-width: 120px;
-}
-.socialcount-small.recommend .facebook {
-	min-width: 0;
-}
-.socialcount-large > li,
-.socialcount-large.recommend .facebook {
 	min-width: 105px;
 }
+
 .socialcount > li > a {
 	display: block;
 	padding: 0 5px;
@@ -101,26 +90,6 @@
 }
 .socialcount-small .count {
 	margin-left: 0;
-}
-
-.socialcount .facebook iframe {
-	height: 21px;
-	width: 90px; /* recommend */
-}
-.socialcount.de_DE .facebook iframe {
-	width: 83px; /* recommend */
-}
-.socialcount.fr_FR .facebook iframe {
-	width: 98px; /* recommend */
-}
-.socialcount.like .facebook iframe {
-	width: 48px; /* like */
-}
-.socialcount.like.de_DE .facebook iframe {
-	width: 83px; /* like */
-}
-.socialcount.like.fr_FR .facebook iframe {
-	width: 57px; /* like */
 }
 
 .socialcount .button {
@@ -159,73 +128,4 @@
 .socialcount.grade-a.activate-on-hover > li.hover .button iframe,
 .socialcount.grade-a.activate-on-click > li.hover.active .button iframe {
 	cursor: pointer;
-}
-
-/* Inline loading */
-.socialcount .loading {
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 3;
-	background-color: #aaa;
-	background-color: rgba(170, 170, 170, 0.7);
-	color: #000;
-	text-transform: uppercase;
-	font-size: .75em;
-	text-align: center;
-}
-.socialcount-large .loading {
-	padding-top: 30%;
-}
-.socialcount .loading .dot {
-	display: inline-block;
-	/* no ie7 compat needed here, just shows the text links */
-	width: 6px;
-	height: 6px;
-	margin: 0 3px;
-	background: #fff;
-	opacity: 0;
-	border-radius: 50%;
-
-	-webkit-animation: socialCountLoadingFade .6s infinite;
-	-moz-animation: socialCountLoadingFade .6s infinite;
-	animation: socialCountLoadingFade .6s infinite;
-}
-
-.socialcount .loading .dot:nth-child(1) {
-	-webkit-animation-delay: 0s;
-	-moz-animation-delay: 0s;
-	animation-delay: 0s;
-}
-
-.socialcount .loading .dot:nth-child(2) {
-	-webkit-animation-delay: .05s;
-	-moz-animation-delay: .05s;
-	animation-delay: .05s;
-}
-
-.socialcount .loading .dot:nth-child(3) {
-	-webkit-animation-delay: .1s;
-	-moz-animation-delay: .1s;
-	animation-delay: .1s;
-}
-
-@-webkit-keyframes socialCountLoadingFade {
-	0% { opacity: 0; }
-	50% { opacity: 0.8; }
-	100% { opacity: 0; }
-}
-
-@-moz-keyframes socialCountLoadingFade {
-	0% { opacity: 0;  }
-	50% { opacity: 0.8; }
-	100% { opacity: 0; }
-}
-
-@keyframes socialCountLoadingFade {
-	0% { opacity: 0; }
-	50% { opacity: 0.8; }
-	100% { opacity: 0; }
 }
