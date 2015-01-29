@@ -77,6 +77,10 @@
 		}
 	});
 
+	test( 'Default activate on hover', function() {
+		equal( SocialCount.activateOnClick, false );
+	});
+
 	test( 'Retrieve URL', function() {
 		equal( SocialCount.getUrl( $('#test') ), 'http://www.google.com/' );
 	});

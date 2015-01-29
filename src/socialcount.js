@@ -63,7 +63,7 @@
 		thousandCharacter: 'K',
 		millionCharacter: 'M',
 		missingResultText: '-',
-		activateOnClick: true, // default is hover
+		activateOnClick: false, // default is hover
 		hoverDelay: 200, // in milliseconds
 		selectors: {},
 		locale: (function() {
