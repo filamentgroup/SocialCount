@@ -4,7 +4,7 @@
 
 *Copyright (c) 2012 Filament Group, developed by [@zachleat](https://github.com/zachleat). MIT licensed.*
 
-Related: [Filament Group Lab Post](http://filamentgroup.com/lab/socialcount/), [NPM Package `fg-socialcount`](https://www.npmjs.com/package/fg-socialcount)
+Related: [Filament Group Lab Post](http://filamentgroup.com/lab/socialcount/)
 
 The problems with social networking widgets are [well documented][zurb]. They're heavy and slow to load especially on high-latency mobile connections.
 
@@ -31,11 +31,7 @@ SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mo
 
 ## Getting Started
 
-Install via Bower:
-
-```
-bower install --save socialcount
-```
+Install via Bower (`bower install --save socialcount`) or via [NPM](https://www.npmjs.com/package/fg-socialcount) (`npm install --save fg-socialcount`).
 
 Alternatively, the following archive contains both minified (`socialcount.min.js`+`socialcount.min.css`) and unminified (`socialcount.js`+`socialcount.css`) versions of the JS and CSS required to use SocialCount.
 
