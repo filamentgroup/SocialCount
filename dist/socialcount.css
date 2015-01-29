@@ -1,4 +1,4 @@
-/*! SocialCount - v0.1.9 - 2015-01-28
+/*! SocialCount - v0.1.10 - 2015-01-29
 * https://github.com/filamentgroup/SocialCount
 * Copyright (c) 2015 zachleat; Licensed MIT */
 
