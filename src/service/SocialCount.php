@@ -14,7 +14,7 @@ class Twitter implements SocialNetwork
 
 	public function getShareCount($url)
 	{
-		$contents = @file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url=' . $url);
+		$contents = @file_get_contents('https://cdn.syndication.twitter.com/widgets/tweetbutton/count.json?url=' . $url);
 		if($contents) {
 			return json_decode($contents)->count;
 		} else {
