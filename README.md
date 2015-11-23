@@ -98,6 +98,7 @@ To test the PHP code, navigate to the `service` directory and run `phpunit socia
 * `v0.1.7` Bug fix: #42
 * `v0.1.8` Bug fix: #45
 * [`v0.1.9`](https://github.com/filamentgroup/SocialCount/releases/tag/v0.1.9)
+* [`v0.2.0`](https://github.com/filamentgroup/SocialCount/releases/tag/v0.2.0) Removes Twitter from service, per Twitter’s API retirement.
 
 ## Advanced Options
 
