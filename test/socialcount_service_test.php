@@ -6,13 +6,6 @@ class SocialCount_Service_Test extends PHPUnit_Framework_TestCase
 {
 	const TEST_URL = 'http://www.google.com/';
 
-	public function testTwitter()
-	{
-		$twitter = new Twitter();
-		$this->assertEquals('twitter', $twitter->getKey());
-		$this->assertNotNull($twitter->getShareCount(self::TEST_URL));
-	}
-
 	public function testFacebook()
 	{
 		$facebook = new Facebook();
@@ -46,7 +39,6 @@ class SocialCount_Service_Test extends PHPUnit_Framework_TestCase
 	public function testSocialCountValidJson()
 	{
 		$social = new SocialCount(self::TEST_URL);
-		$social->addNetwork(new Twitter());
 		$social->addNetwork(new Facebook());
 		$social->addNetwork(new GooglePlus());
 		$social->addNetwork(new ShareThis());

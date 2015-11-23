@@ -5,24 +5,6 @@ interface SocialNetwork
 	public function getShareCount($url);
 }
 
-class Twitter implements SocialNetwork
-{
-	public function getKey()
-	{
-		return 'twitter';
-	}
-
-	public function getShareCount($url)
-	{
-		$contents = @file_get_contents('http://urls.api.twitter.com/1/urls/count.json?url=' . $url);
-		if($contents) {
-			return json_decode($contents)->count;
-		} else {
-			return NULL;
-		}
-	}
-}
-
 class Facebook implements SocialNetwork {
 	public function getKey()
 	{

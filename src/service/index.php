@@ -6,7 +6,6 @@ if( !SocialCount::REQUIRE_LOCAL_URL || SocialCount::isLocalUrl( $_GET['url'] ) )
 	try {
 		$social = new SocialCount($_GET['url']);
 
-		$social->addNetwork(new Twitter());
 		$social->addNetwork(new Facebook());
 		$social->addNetwork(new GooglePlus());
 		// $social->addNetwork(new ShareThis());
