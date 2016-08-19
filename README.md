@@ -24,6 +24,8 @@ SocialCount is a small jQuery plugin for progressively enhanced, lazy loaded, mo
  * Intelligent client-side caching so that two or more widgets with the same share URL only make one AJAX request.
  * Requires jQuery 1.6+
 
+_Note that while this project is named *SocialCount*, the server side code to fetch the share counts was removed. Both Twitter and Facebook have or will remove their public share count APIs. This functionality is going bye bye._
+
 ## [SocialCount Demo][demourl]
 
 [demourl]: http://master.origin.socialcount.fgtest.com/examples/
@@ -93,7 +95,6 @@ Add unit tests for any new or changed functionality. Lint and test your JavaScri
 * `v0.1.8` Bug fix: #45
 * [`v0.1.9`](https://github.com/filamentgroup/SocialCount/releases/tag/v0.1.9)
 * [`v0.2.0`](https://github.com/filamentgroup/SocialCount/releases/tag/v0.2.0) Removes Twitter from service, per Twitter’s API retirement.
-* [`v1.0.0`](https://github.com/filamentgroup/SocialCount/releases/tag/v1.0.0) Removes counts from SocialCount.
 
 ## Advanced Options
 
