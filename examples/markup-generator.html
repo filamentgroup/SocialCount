@@ -82,9 +82,6 @@
 				if( isRecommend ) {
 					markup.push( ' data-facebook-action="recommend"' );
 				}
-				if( $( '#counts-show:checked' ).length ) {
-					markup.push( ' data-counts="true"' );
-				}
 				if( shareText ) {
 					markup.push( ' data-share-text="' + shareText + '"' );
 				}
@@ -161,9 +158,6 @@
 				</fieldset>
 				<fieldset>
 					<label>Twitter Share Text <input type="text" id="sharetext" value="Google is a search engine"></label>
-				</fieldset>
-				<fieldset>
-					<label><input type="checkbox" name="size" id="counts-show"> Fetch Share Counts</label>
 				</fieldset>
 				<fieldset>
 					<label><input type="checkbox" name="size" id="icons"> Include Icons</label>
