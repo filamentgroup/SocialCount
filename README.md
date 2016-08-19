@@ -28,7 +28,7 @@ _Note that while this project is named *SocialCount*, the server side code to fe
 
 ## [SocialCount Demo][demourl]
 
-[demourl]: http://master.origin.socialcount.fgtest.com/examples/
+[demourl]: http://filamentgroup.github.io/SocialCount/examples/
 
 ## Getting Started
 
@@ -46,7 +46,7 @@ By default, the social networking icons are not included. However, SocialCount p
 
 Customize the sample markup below or use the provided  [markup generator][generator].
 
-[generator]: http://master.origin.socialcount.fgtest.com/examples/index.html#generator
+[generator]: http://filamentgroup.github.io/SocialCount/examples/markup-generator.html
 
     <!-- Replace YOUR_CUSTOM_URL with the URL you're sharing -->
 
