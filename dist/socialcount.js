@@ -1,11 +1,10 @@
-/*! SocialCount - v0.2.0 - 2015-11-23
+/*! SocialCount - v1.0.0 - 2016-08-19
 * https://github.com/filamentgroup/SocialCount
-* Copyright (c) 2015 zachleat; Licensed  */
+* Copyright (c) 2016 zachleat; Licensed  */
 
 ;(function( win, doc, $ ) {
 
 	var $loadingIndicator,
-		$count,
 		addedScripts = {};
 
 	function featureTest( prop, unprefixedProp ) {
@@ -23,34 +22,12 @@
 		return false;
 	}
 
-	function removeFileName( src ) {
-		var split = src.split( '/' );
-		split.pop();
-		return split.join( '/' ) + '/';
-	}
-
-	function resolveServiceDir() {
-		var baseUrl;
-
-		$( 'script' ).each(function() {
-			var src = this.src || '';
-			if( src.match( SocialCount.scriptSrcRegex ) ) {
-				baseUrl = removeFileName( src );
-				return false;
-			}
-		});
-
-		return baseUrl;
-	}
-
 	var SocialCount = {
 		// For A-grade experience, require querySelector (IE8+) and not BlackBerry or touchscreen
 		isGradeA: 'querySelectorAll' in doc && !win.blackberry && !('ontouchstart' in window) &&
 			// Note that this feature test does not account for the Windows Phone version that includes IE9
 			// IE 10 desktop (non-touch) returns 0 for msMaxTouchPoints
 			( typeof window.navigator.msMaxTouchPoints === 'undefined' || window.navigator.msMaxTouchPoints === 0 ),
-		minCount: 1,
-		serviceUrl: 'service/index.php',
 		initSelector: '.socialcount',
 		classes: {
 			js: 'js',
@@ -58,9 +35,6 @@
 			loaded: 'loaded',
 			hover: 'hover',
 			noTransforms: 'no-transforms',
-			showCounts: 'counts',
-			countContent: 'count',
-			minCount: 'minimum',
 			activateOnHover: 'activate-on-hover',
 			activateOnClick: 'activate-on-click'
 		},
@@ -85,9 +59,6 @@
 		// private, but for testing
 		cache: {},
 
-		removeFileName: removeFileName,
-		resolveServiceDir: resolveServiceDir,
-
 		isCssAnimations: function() {
 			return featureTest( 'AnimationName', 'animationName' );
 		},
@@ -101,54 +72,8 @@
 		getShareText: function( $el ) {
 			return $el.attr('data-share-text' ) || '';
 		},
-		isCountsEnabled: function( $el ) {
-			return $el.attr('data-counts') === 'true';
-		},
 		isSmallSize: function( $el ) {
 			return $el.is( '.socialcount-small' );
-		},
-		getCounts: function( $el, url ) {
-			var map = SocialCount.selectors,
-				cache = SocialCount.cache,
-				counts = {},
-				$networkNode,
-				$countNode,
-				j;
-
-			for( j in map ) {
-				$networkNode = $el.find( map[ j ] );
-				$countNode = $networkNode.find( '.' + SocialCount.classes.countContent );
-
-				if( $countNode.length ) {
-					counts[ j ] = $countNode;
-				} else {
-					counts[ j ] = $count.clone();
-					$networkNode.append( counts[ j ] );
-				}
-			}
-
-			if( !cache[ url ] ) {
-				cache[ url ] = $.ajax({
-					url: resolveServiceDir() + SocialCount.serviceUrl,
-					data: {
-						url: url
-					},
-					dataType: 'json'
-				});
-			}
-
-			cache[ url ].done( function complete( data ) {
-				for( var j in data ) {
-					if( data.hasOwnProperty( j ) ) {
-						if( counts[ j ] && data[ j ] > SocialCount.minCount ) {
-							counts[ j ].addClass( SocialCount.classes.minCount )
-								.html( SocialCount.normalizeCount( data[ j ] ) );
-						}
-					}
-				}
-			});
-
-			return cache[ url ];
 		},
 		load: function( $el ) {
 			$el.find( "a" )
@@ -160,8 +85,7 @@
 			var classes = [],
 				isSmall = SocialCount.isSmallSize( $el ),
 				url = SocialCount.getUrl( $el ),
-				initPlugins = SocialCount.plugins.init,
-				countsEnabled = SocialCount.isCountsEnabled( $el );
+				initPlugins = SocialCount.plugins.init;
 
 			classes.push( SocialCount.classes.js );
 
@@ -170,9 +94,6 @@
 			}
 			if( !SocialCount.isCssTransforms() ) {
 				classes.push( SocialCount.classes.noTransforms );
-			}
-			if( countsEnabled ) {
-				classes.push( SocialCount.classes.showCounts );
 			}
 			if( SocialCount.activateOnClick ) {
 				classes.push( SocialCount.classes.activateOnClick );
@@ -191,27 +112,6 @@
 			if( SocialCount.isGradeA ) {
 				SocialCount.bindEvents( $el, url, isSmall );
 			}
-
-			if( countsEnabled && !isSmall ) {
-				SocialCount.getCounts( $el, url );
-			}
-		},
-		normalizeCount: function( count ) {
-			if( !count && count !== 0 ) {
-				return SocialCount.missingResultText;
-			}
-			function getRounded( num ) {
-				return ( num ).toFixed( 1 ).replace( /\.0/, '' );
-			}
-			// > 1M
-			if( count >= 1000000 ) {
-				return getRounded( count / 1000000 ) + SocialCount.millionCharacter;
-			} else if( count >= 100000 ) { // > 100K
-				return Math.floor( count / 1000 ) + SocialCount.thousandCharacter;
-			} else if( count > 1000 ) {
-				return getRounded( count / 1000 ) + SocialCount.thousandCharacter;
-			}
-			return count;
 		},
 		bindEvents: function( $el, url, isSmall ) {
 			function bind( $a, html, jsUrl, subsequentInitCallback ) {
@@ -329,10 +229,6 @@
 		$loadingIndicator = $('<div>')
 			.addClass('loading')
 			.html( SocialCount.isCssAnimations() ? new Array(4).join('<div class="dot"></div>') : 'Loading' );
-
-		$count = $('<span>')
-			.addClass( SocialCount.classes.countContent )
-			.html('&#160;');
 
 		$( SocialCount.initSelector ).each(function() {
 			var $el = $(this);
