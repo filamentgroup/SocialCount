@@ -21,7 +21,7 @@
     "test": "grunt --verbose"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
+    "grunt": "~1.0.1",
     "grunt-banner": "~0.6.0",
     "grunt-cli": "~0.1.0",
     "grunt-contrib-clean": "~0.6.0",
