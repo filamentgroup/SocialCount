@@ -95,6 +95,7 @@ Add unit tests for any new or changed functionality. Lint and test your JavaScri
 * `v0.1.8` Bug fix: #45
 * [`v0.1.9`](https://github.com/filamentgroup/SocialCount/releases/tag/v0.1.9)
 * [`v0.2.0`](https://github.com/filamentgroup/SocialCount/releases/tag/v0.2.0) Removes Twitter from service, per Twitter’s API retirement.
+* [`v1.0.0`](https://github.com/filamentgroup/SocialCount/milestone/3?closed=1)
 
 ## Advanced Options
 
