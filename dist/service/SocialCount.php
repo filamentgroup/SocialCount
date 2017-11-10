@@ -13,7 +13,7 @@ class Facebook implements SocialNetwork {
 
 	public function getShareCount($url)
 	{
-		$contents = @file_get_contents("http://graph.facebook.com/fql?q=SELECT%20url,%20total_count%20FROM%20link_stat%20WHERE%20url='".$url."'");
+		$contents = @file_get_contents("http://graph.facebook.com/v2.11/fql?q=SELECT%20url,%20total_count%20FROM%20link_stat%20WHERE%20url='".$url."'");
 		if($contents) {
 			$json = json_decode($contents);
 			return isset($json->data[0]->total_count) ? $json->data[0]->total_count : 0;
