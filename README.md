@@ -1,6 +1,6 @@
 # ⚠️ Unmaintained: SocialCount
 
-Per [our unmaintained repository status documentation](https://github.com/filamentgroup/standards-and-conventions/blob/master/repository-maintenance.md#unmaintained) this repository is in an as-is state and is no longer accepting issue reports or pull requests.
+Per [our unmaintained repository status documentation](https://github.com/filamentgroup/standards-and-conventions/) this repository is in an as-is state and is no longer accepting issue reports or pull requests.
 
 [![Filament Group](http://filamentgroup.com/images/fg-logo-positive-sm-crop.png) ](http://www.filamentgroup.com/)
 
